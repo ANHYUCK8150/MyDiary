@@ -6,4 +6,6 @@ import com.diary.member.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
+	boolean existsByName(String name);
+
 }

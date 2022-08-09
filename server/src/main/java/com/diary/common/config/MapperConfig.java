@@ -2,11 +2,13 @@ package com.diary.common.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+@Configuration
 public class MapperConfig {
 	@Bean
 	public ObjectMapper objectMapper() {
@@ -20,7 +22,6 @@ public class MapperConfig {
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
-
 		return modelMapper;
 	}
 }
