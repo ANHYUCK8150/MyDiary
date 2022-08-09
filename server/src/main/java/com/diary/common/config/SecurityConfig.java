@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -23,10 +23,9 @@ import lombok.RequiredArgsConstructor;
 	securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PERMIT_URL_ARRAY = {
-		/* auth*/
-		"/auth/**", "/oauth2/**",
 		/* api */
-		"/api/**",
+		"/api/v1/users",
+		"/api/v1/users/*",
 		/* swagger v2 */
 		"/v2/api-docs",
 		"/swagger-resources",
@@ -42,8 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		"/ws-stomp/**",
 		"/sub/**",
 		"/pub/**",
-		/* 모든 url 인증 없이 접근 가능 추후 삭제해야함 */
-		"/**"
 	};
 
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -56,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	// 암호화에 필요한 PasswordEncoder Bean 등록
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+		return new BCryptPasswordEncoder();
 	}
 
 	@Override

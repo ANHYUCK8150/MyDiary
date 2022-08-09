@@ -9,7 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.diary.common.entity.BaseTimeEntity;
+import com.diary.member.dto.MemberDto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -28,7 +30,7 @@ public class Member extends BaseTimeEntity implements Serializable {
 	@Column(length = 10)
 	private String name;
 
-	@Column(length = 20)
+	@Column
 	private String password;
 
 	@Column
@@ -36,4 +38,24 @@ public class Member extends BaseTimeEntity implements Serializable {
 
 	@Column(columnDefinition = "TEXT")
 	private String introduction;
+
+	@Builder
+	public Member(BaseTimeEntityBuilder<?, ?> b, Long id, String name, String password, String imageUrl,
+		String introduction) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.imageUrl = imageUrl;
+		this.introduction = introduction;
+	}
+
+	public static Member from(MemberDto memberDto) {
+		return Member.builder()
+			.id(memberDto.getId())
+			.name(memberDto.getName())
+			.imageUrl(memberDto.getImageUrl())
+			.password(memberDto.getPassword())
+			.introduction(memberDto.getIntroduction())
+			.build();
+	}
 }
