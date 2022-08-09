@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.diary.common.entity.CurrentUser;
+import com.diary.common.entity.UserPrincipal;
 import com.diary.member.dto.LoginRequest;
 import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
@@ -21,6 +23,7 @@ import com.diary.member.service.MemberService;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -54,5 +57,14 @@ public class MemberController {
 		@PathVariable
 		Long memberId) {
 		return ResponseEntity.ok(memberService.findById(memberId));
+	}
+
+	@ApiOperation(value = "로그인 중인 유저정보 확인")
+	@GetMapping("/login/checked")
+	public ResponseEntity<MemberResponse> checkedLogin(
+		@ApiIgnore
+		@CurrentUser
+		UserPrincipal userPrincipal) {
+		return ResponseEntity.ok(memberService.findById(userPrincipal.getId()));
 	}
 }
