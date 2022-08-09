@@ -3,6 +3,8 @@ package com.diary.member.controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.diary.member.dto.LoginRequest;
 import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
+import com.diary.member.dto.MemberResponse;
 import com.diary.member.dto.SignUpRequest;
 import com.diary.member.dto.SignUpResponse;
 import com.diary.member.service.MemberService;
@@ -40,8 +43,16 @@ public class MemberController {
 
 	@ApiOperation(value = "로그인")
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponse> getMember(
+	public ResponseEntity<LoginResponse> getLogin(
 		LoginRequest loginRequest) {
 		return ResponseEntity.ok(memberService.login(loginRequest));
+	}
+
+	@ApiOperation(value = "유저 정보 조회")
+	@GetMapping("/{memberId}")
+	public ResponseEntity<MemberResponse> getMember(
+		@PathVariable
+		Long memberId) {
+		return ResponseEntity.ok(memberService.findById(memberId));
 	}
 }

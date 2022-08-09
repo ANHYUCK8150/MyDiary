@@ -89,4 +89,13 @@ public class MemberServiceImpl implements MemberService {
 		return new LoginResponse(token, MemberResponse.from(member));
 	}
 
+	/*
+	 * 회원 정보 조회
+	 */
+	@Override
+	public MemberResponse findById(Long memberId) {
+		return memberRepository.findById(memberId).map(MemberResponse::from)
+			.orElseThrow(() -> new IllegalArgumentException());
+	}
+
 }
