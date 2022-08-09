@@ -4,11 +4,10 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.diary.common.config.AppProperties;
-import com.diary.common.entity.UserPrincipal;
+import com.diary.member.entity.Member;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -30,14 +29,13 @@ public class TokenProvider {
 		this.appProperties = appProperties;
 	}
 
-	public String createToken(Authentication authentication) {
-		UserPrincipal userPrincipal = (UserPrincipal)authentication.getPrincipal();
+	public String createToken(Member member) {
 
 		Date now = new Date();
 		Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
 		return Jwts.builder()
-			.setSubject(Long.toString(userPrincipal.getId()))
+			.setSubject(Long.toString(member.getId()))
 			.setIssuedAt(new Date())
 			.setExpiration(expiryDate)
 			.signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())

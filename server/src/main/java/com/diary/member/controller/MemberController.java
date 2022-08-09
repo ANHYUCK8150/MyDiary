@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.diary.member.dto.LoginRequest;
+import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
 import com.diary.member.dto.SignUpRequest;
 import com.diary.member.dto.SignUpResponse;
@@ -34,5 +36,12 @@ public class MemberController {
 		MemberDto memberDto = mapper.map(signUpRequest, MemberDto.class);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(memberService.setMember(memberDto, imageFile));
+	}
+
+	@ApiOperation(value = "로그인")
+	@PostMapping("/login")
+	public ResponseEntity<LoginResponse> getMember(
+		LoginRequest loginRequest) {
+		return ResponseEntity.ok(memberService.login(loginRequest));
 	}
 }

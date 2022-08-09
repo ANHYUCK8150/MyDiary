@@ -12,7 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.diary.common.StorageUploader;
 import com.diary.common.dto.FileUploadResponse;
 import com.diary.common.entity.UserPrincipal;
+import com.diary.common.token.TokenProvider;
+import com.diary.member.dto.LoginRequest;
+import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
+import com.diary.member.dto.MemberResponse;
 import com.diary.member.dto.SignUpResponse;
 import com.diary.member.entity.Member;
 import com.diary.member.repository.MemberRepository;
@@ -28,6 +32,8 @@ public class MemberServiceImpl implements MemberService {
 	private final PasswordEncoder pwdEncoder;
 	private final StorageUploader storageUploader;
 
+	private final TokenProvider tokenProvider;
+
 	@Override
 	public UserDetails loadUserById(Long userId) {
 		Member member = memberRepository.findById(userId).orElseThrow(
@@ -36,6 +42,9 @@ public class MemberServiceImpl implements MemberService {
 		return UserPrincipal.create(member);
 	}
 
+	/*
+	 * 회원가입
+	 */
 	@Override
 	@Transactional
 	public SignUpResponse setMember(MemberDto memberDto, MultipartFile imageFile) {
@@ -60,6 +69,24 @@ public class MemberServiceImpl implements MemberService {
 		memberRepository.save(Member.from(memberDto));
 
 		return new SignUpResponse(true, "회원가입 완료!");
+	}
+
+	/*
+	 * 로그인
+	 */
+	@Override
+	public LoginResponse login(LoginRequest loginRequest) {
+
+		Member member = memberRepository.findByName(loginRequest.getName())
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		if (!pwdEncoder.matches(loginRequest.getPassword(), member.getPassword())) {
+			throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+		}
+
+		String token = tokenProvider.createToken(member);
+
+		return new LoginResponse(token, MemberResponse.from(member));
 	}
 
 }
