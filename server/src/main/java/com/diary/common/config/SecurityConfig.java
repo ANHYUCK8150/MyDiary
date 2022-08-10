@@ -38,9 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		"/v3/api-docs/**",
 		"/swagger-ui/**",
 		/* soket */
-		"/ws-stomp/**",
-		"/sub/**",
-		"/pub/**",
+		"/api/ws-stomp/**",
+		"/api/sub/**",
+		"/api/pub/**",
 	};
 
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
