@@ -47,6 +47,7 @@ public class MemberController {
 	@ApiOperation(value = "로그인")
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponse> getLogin(
+		@RequestBody
 		LoginRequest loginRequest) {
 		return ResponseEntity.ok(memberService.login(loginRequest));
 	}
