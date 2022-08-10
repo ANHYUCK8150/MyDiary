@@ -31,7 +31,7 @@ public class ChatMember extends BaseTimeEntity implements Serializable {
 	private Member member;
 
 	@ManyToOne
-	@JoinColumn(name = "member_id")
+	@JoinColumn(name = "room_id")
 	private ChatRoom room;
 
 	private Integer notReadMessage;
