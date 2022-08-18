@@ -1,5 +1,5 @@
 import utils from './ApiUtil';
-const { apiUtil, apiAuthUtil, accessToken, formUtil } = utils;
+const { apiUtil, apiAuthUtil, accessToken, formUtil, apiFormUtil } = utils;
 
 const login = async (name, password) => {
   try {
@@ -32,5 +32,14 @@ const getCurrentUser = async () => {
   }
 };
 
-const SignApi = { login, getCurrentUser, signUp };
+const updateUser = async formData => {
+  try {
+    const result = await apiFormUtil.put(`api/v1/users`, formData);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const SignApi = { login, getCurrentUser, signUp, updateUser };
 export default SignApi;

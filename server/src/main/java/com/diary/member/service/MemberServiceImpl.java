@@ -21,6 +21,7 @@ import com.diary.member.dto.LoginRequest;
 import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
 import com.diary.member.dto.MemberResponse;
+import com.diary.member.dto.ProfileRequest;
 import com.diary.member.dto.SignUpResponse;
 import com.diary.member.entity.Member;
 import com.diary.member.repository.MemberRepository;
@@ -118,6 +119,39 @@ public class MemberServiceImpl implements MemberService {
 	public MemberResponse findById(Long memberId) {
 		return memberRepository.findById(memberId).map(MemberResponse::from)
 			.orElseThrow(() -> new IllegalArgumentException());
+	}
+
+	/*
+	 * 회원 정보 수정
+	 */
+	@Override
+	@Transactional
+	public MemberResponse updateMember(Long memberId, ProfileRequest profileRequest, MultipartFile imageFile) {
+		//같은 이름 체크
+		if (memberRepository.existsByNameAndIdNot(profileRequest.getName(), memberId)) {
+			throw new IllegalArgumentException();
+		}
+
+		//유저 조회
+		Member member = memberRepository.findById(memberId)
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		profileRequest.setImageUrl(member.getImageUrl());
+		/*
+		 * 파일 업로드 (파일이 없는 경우 업로드 X)
+		 * 업로드시에는 기존파일 삭제
+		 */
+		try {
+			if (imageFile != null) {
+				String currentImg = member.getImageUrl();
+				FileUploadResponse fileUploadResponse = storageUploader.upload(imageFile, "profile");
+				profileRequest.setImageUrl(fileUploadResponse.getUrl());
+				storageUploader.removeOldFile(currentImg);
+			}
+		} catch (Exception e) {}
+		member.update(profileRequest);
+
+		return MemberResponse.from(memberRepository.save(member));
 	}
 
 }

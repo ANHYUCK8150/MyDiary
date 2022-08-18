@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import com.diary.member.dto.LoginRequest;
 import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
 import com.diary.member.dto.MemberResponse;
+import com.diary.member.dto.ProfileRequest;
 import com.diary.member.dto.SignUpRequest;
 import com.diary.member.dto.SignUpResponse;
 import com.diary.member.service.MemberService;
@@ -67,5 +69,18 @@ public class MemberController {
 		@CurrentUser
 		UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(memberService.findById(userPrincipal.getId()));
+	}
+
+	@ApiOperation(value = "프로필 수정")
+	@PutMapping
+	public ResponseEntity<MemberResponse> updateMember(
+		@ApiIgnore
+		@CurrentUser
+		UserPrincipal userPrincipal,
+		ProfileRequest profileRequest,
+		@RequestBody
+		MultipartFile imageFile) {
+
+		return ResponseEntity.ok(memberService.updateMember(userPrincipal.getId(), profileRequest, imageFile));
 	}
 }

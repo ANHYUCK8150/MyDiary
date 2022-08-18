@@ -103,7 +103,7 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public FileUploadResponse sendImage(MultipartFile imageFile) {
 		try {
-			return storageUploader.upload(imageFile, "profile");
+			return storageUploader.upload(imageFile, "chat");
 		} catch (IOException e) {}
 		return null;
 	}

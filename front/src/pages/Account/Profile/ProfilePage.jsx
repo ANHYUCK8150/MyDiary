@@ -11,7 +11,7 @@ import noImg from '../../../assets/img/logo/myb_default.svg';
 const ProfilePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { nickNameCheck, setProfile } = utils;
+  const { updateUser } = utils;
   //setting - header
   useEffect(() => {
     dispatch(setAllFalse());
@@ -75,45 +75,24 @@ const ProfilePage = () => {
       setError('닉네임 입력이 필요합니다.');
       return;
     }
-    nickNameCheck(userInfo.nickName).then(result => {
-      if (result === true) {
-        setError('중복된 닉네임입니다. 다른 닉네임을 입력해주세요.');
-        return;
-      }
-      submit();
-    });
+    submit();
   };
 
   const submit = () => {
-    //base64 to File(위치 선택 후 이전 이미지 파일)
-    let file = '';
-    if (localStorage.getItem('backImgPreview')) {
-      let arr = localStorage.getItem('backImgPreview').split(','),
-        mime = arr[0].match(/:(.*?);/)[1],
-        bstr = atob(arr[1]),
-        n = bstr.length,
-        u8arr = new Uint8Array(n);
-
-      while (n--) {
-        u8arr[n] = bstr.charCodeAt(n);
-      }
-      file = new File([u8arr], 'name.png', { type: mime });
-    }
-
     const formData = new FormData();
-    formData.append('imageFile', file ? file : imgFile);
+    formData.append('imageFile', imgFile);
     formData.append('name', userInfo.name);
     formData.append('introduction', userInfo.introduction);
-    setProfile(formData)
+    updateUser(formData)
       .then(result => {
         dispatch(setId(result.id));
-        dispatch(setName(result.nickname));
+        dispatch(setName(result.name));
         dispatch(setImageUrl(result.imageUrl));
         dispatch(setIntroduction(result.introduction));
         navigate('/account');
       })
       .catch(error => {
-        console.log(error);
+        setError('중복된 닉네임입니다. 다른 닉네임을 입력해주세요.');
       });
   };
 
