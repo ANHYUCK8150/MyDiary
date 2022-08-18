@@ -9,6 +9,9 @@ import LoginPage from '../../pages/Login/LoginPage';
 import SignUpPage from '../../pages/Login/SignUpPage';
 import LoginCheckRouter from '../../pages/Login/LoginCheckRouter';
 import ChatPage from '../../pages/Chat/ChatPage';
+import RoomPage from '../../pages/Chat/Room/RoomPage';
+import AccountPage from '../../pages/Account/AccountPage';
+import ProfilePage from '../../pages/Account/Profile/ProfilePage';
 
 const Layout = () => {
   const navi = useLocation();
@@ -26,6 +29,9 @@ const Layout = () => {
           <Route path="/signup" element={<SignUpPage />} />
           <Route element={<LoginCheckRouter />}>
             <Route path="/chat" element={<ChatPage />} />
+            <Route path="/chat/room" element={<RoomPage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/account/profile" element={<ProfilePage />} />
           </Route>
         </Routes>
       </Section>

@@ -5,12 +5,14 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import style from './Header.style';
 import keyboardArrowLeft from '../../assets/img/arrows/Keyboard_arrow_left.svg';
+import settingsImg from '../../assets/img/userInterFace/Settings.svg';
+
 const Header = () => {
   const url = useLocation();
   const { pathname } = url;
   const navigate = useNavigate();
   const header = useSelector(state => state.header);
-  const { title, back, backHome } = header;
+  const { title, back, backHome, settings } = header;
   const { HeaderWrap, HeaderBox, LeftBox, Title, BackBtn, DownBtn, RightBox, RightBtn, LocationBox } = style;
 
   return (
@@ -25,7 +27,13 @@ const Header = () => {
           )}
           <Title>{title}</Title>
         </LeftBox>
-        <RightBox></RightBox>
+        <RightBox>
+          {settings && (
+            <RightBtn onClick={() => navigate(`/account/setting`)}>
+              <img src={settingsImg} alt={'설정버튼'} />
+            </RightBtn>
+          )}
+        </RightBox>
       </HeaderBox>
     </HeaderWrap>
   );
