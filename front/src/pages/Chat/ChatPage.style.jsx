@@ -62,8 +62,13 @@ const SubBox = styled.div`
   display: flex;
   margin-top: 1rem;
   p {
+    width: 25rem;
     color: ${({ theme }) => theme.colors.$white3};
     font-size: 1.4rem;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   span {

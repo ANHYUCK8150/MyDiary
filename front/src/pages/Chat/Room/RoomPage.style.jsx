@@ -42,6 +42,7 @@ const SendBox = styled.div`
     height: 2.4rem;
     width: 2.4rem;
     margin: 1rem 0.6rem 0;
+    cursor: pointer;
   }
 
   button {
@@ -75,7 +76,6 @@ const MessageBox = styled.div`
 
 const Message = styled.div`
   display: flex;
-  align-items: flex-end;
   color: ${({ theme }) => theme.colors.$white4};
   text-align: left;
   margin-bottom: 0.8rem;
@@ -99,10 +99,22 @@ const Message = styled.div`
     font-size: 1.2rem;
     font-weight: 400;
     margin-left: 0.9rem;
+    display: flex;
+    align-items: flex-end;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
   }
   div > span {
     margin: 0;
     color: ${({ theme }) => theme.colors.$white2};
+  }
+
+  div > img {
+    width: 15rem;
+    height: 15rem;
+    border-radius: 0rem;
   }
 
   &.another {
@@ -120,6 +132,12 @@ const Message = styled.div`
     }
     img {
       display: none;
+    }
+    div > img {
+      display: block;
+      width: 15rem;
+      height: 15rem;
+      border-radius: 0rem;
     }
   }
 `;

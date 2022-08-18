@@ -1,5 +1,5 @@
 import utils from './ApiUtil';
-const { apiAuthUtil } = utils;
+const { apiAuthUtil, apiFormUtil } = utils;
 
 const getRoomList = async () => {
   try {
@@ -19,5 +19,14 @@ const getMessageList = async roomId => {
   }
 };
 
-const ChatApi = { getRoomList, getMessageList };
+const sendImageMessage = async imageFile => {
+  try {
+    const result = await apiFormUtil.post(`api/v1/chat/send-image`, imageFile);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const ChatApi = { getRoomList, getMessageList, sendImageMessage };
 export default ChatApi;

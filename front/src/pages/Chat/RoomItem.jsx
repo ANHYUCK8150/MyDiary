@@ -2,7 +2,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './ChatPage.style';
-import noImg from '../../assets/img/logo/myb_default.svg';
+import noImg from '../../assets/img/logo/no_img.png';
 
 const RoomItem = ({ room, memberId }) => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const RoomItem = ({ room, memberId }) => {
     e.target.src = noImg;
   };
 
-  const lastMessageDate = room.modifiedDate;
+  const lastMessageDate = new Date(room.modifiedDate).toLocaleTimeString('ko-kr', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
   const imageUrl = room.id === 1 ? '' : room.another.imageUrl === null ? '' : room.another.imageUrl;
   const notRead = room.members.filter(member => member.member.id === memberId)[0].notReadMessage;
   const roomName = room.id === 1 ? '전체 대화방' : '';

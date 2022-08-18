@@ -8,7 +8,7 @@ import add from '../../../assets/img/arrows/Add.png';
 import style from './RoomPage.style';
 import ChatApi from '../../../util/ChatApi';
 import socket from '../../../util/ChatSocket';
-import noImg from '../../../assets/img/logo/myb_default.svg';
+import noImg from '../../../assets/img/logo/no_img.png';
 
 const RoomPage = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const RoomPage = () => {
   const members = location.state.members;
   const client = useRef({});
   const { connect, publish, disconnect } = socket;
+  const inputRef = useRef(null);
 
   //변수
   const [messageList, setMessageList] = useState([]);
@@ -26,7 +27,7 @@ const RoomPage = () => {
   let date = '';
 
   //api
-  const { getMessageList } = ChatApi;
+  const { getMessageList, sendImageMessage } = ChatApi;
 
   //event
   const onChangeMessageHandler = e => {
@@ -56,6 +57,26 @@ const RoomPage = () => {
 
   const onErrorImg = e => {
     e.target.src = noImg;
+  };
+
+  const saveImage = e => {
+    e.preventDefault();
+    const fileReader = new FileReader();
+    if (e.target.files[0]) {
+      fileReader.readAsDataURL(e.target.files[0]);
+    }
+    fileReader.onload = () => {
+      const formData = new FormData();
+      formData.append('imageFile', e.target.files[0]);
+      sendImageMessage(formData).then(result => {
+        publish(roomId, memberId, client, result.url, 'IMAGE');
+      });
+    };
+  };
+
+  const onChangeImg = e => {
+    e.preventDefault();
+    inputRef.current.click();
   };
 
   useEffect(scrollToBottom, [messageList]);
@@ -106,7 +127,7 @@ const RoomPage = () => {
                     <img src={result.member.member.imageUrl ? result.member.member.imageUrl : ''} onError={onErrorImg} alt="이미지" />
                     <div>
                       <span>{result.member.member.name}</span>
-                      <p>{result.message}</p>
+                      {result.type === 'TEXT' ? <p>{result.message}</p> : <img src={result.message} onError={onErrorImg} alt="이미지" />}
                     </div>
                     <span>{dateTime}</span>
                   </Message>
@@ -116,7 +137,8 @@ const RoomPage = () => {
           : ''}
       </MessageBox>
       <SendBox>
-        <img src={add} alt="이미지" />
+        <input type="file" accept="image/*" ref={inputRef} onChange={saveImage} style={{ display: 'none' }} />
+        <img src={add} alt="이미지" onClick={onChangeImg} />
         <textarea placeholder="" onChange={onChangeMessageHandler} onKeyUp={handleKeyUp} value={message} />
         <button onClick={() => onClickMessageSend()}>
           <img src={send} alt="이미지" />

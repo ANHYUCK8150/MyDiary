@@ -1,10 +1,12 @@
 package com.diary.chat.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.diary.chat.dto.ChatMessageResponse;
 import com.diary.chat.dto.ChatRoomResponse;
@@ -16,6 +18,8 @@ import com.diary.chat.entity.ChatRoom;
 import com.diary.chat.repository.ChatMemberRepository;
 import com.diary.chat.repository.ChatMessageRepository;
 import com.diary.chat.repository.ChatRoomRepository;
+import com.diary.common.StorageUploader;
+import com.diary.common.dto.FileUploadResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +31,8 @@ public class ChatServiceImpl implements ChatService {
 	private final ChatMessageRepository chatMessageRepository;
 	private final ChatMemberRepository chatMemberRepository;
 
+	private final StorageUploader storageUploader;
+
 	@Override
 	public List<ChatRoomResponse> getRoomList(Long memberId) {
 		return chatRoomRepository.findAll().stream()
@@ -36,8 +42,11 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 	@Override
-	public List<ChatMessageResponse> getMessages(Long roomId) {
-		return chatMessageRepository.findAllByChatRoomId(roomId).stream()
+	public List<ChatMessageResponse> getMessages(Long roomId, Long userId) {
+		ChatMember member = chatMemberRepository.findByChatRoomIdAndMemberId(roomId, userId)
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		return chatMessageRepository.findAllByChatRoomIdAndCreatedDateAfter(roomId, member.getCreatedDate()).stream()
 			.map(ChatMessageResponse::from)
 			.collect(Collectors.toList());
 	}
@@ -89,6 +98,14 @@ public class ChatServiceImpl implements ChatService {
 		member.toRead();
 		chatMemberRepository.save(member);
 
+	}
+
+	@Override
+	public FileUploadResponse sendImage(MultipartFile imageFile) {
+		try {
+			return storageUploader.upload(imageFile, "profile");
+		} catch (IOException e) {}
+		return null;
 	}
 
 }
