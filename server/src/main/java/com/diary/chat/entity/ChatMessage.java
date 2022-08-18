@@ -2,6 +2,7 @@ package com.diary.chat.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-
-import org.hibernate.annotations.ColumnDefault;
 
 import com.diary.common.entity.BaseTimeEntity;
 
@@ -31,13 +30,13 @@ public class ChatMessage extends BaseTimeEntity implements Serializable {
 
 	@ManyToOne
 	@JoinColumn(name = "chat_member_id")
-	private ChatMember member;
+	private ChatMember chatMember;
 
 	@ManyToOne
 	@JoinColumn(name = "chat_room_id")
-	private ChatRoom room;
+	private ChatRoom chatRoom;
 
-	@ColumnDefault("'TEXT'")
+	@Column(columnDefinition = "TEXT")
 	private String message;
 
 	@Enumerated(EnumType.STRING)
@@ -48,11 +47,11 @@ public class ChatMessage extends BaseTimeEntity implements Serializable {
 	}
 
 	@Builder
-	public ChatMessage(Long id, ChatMember member, ChatRoom room, String message,
+	public ChatMessage(Long id, ChatMember chatMember, ChatRoom chatRoom, String message,
 		messageType type) {
 		this.id = id;
-		this.member = member;
-		this.room = room;
+		this.chatMember = chatMember;
+		this.chatRoom = chatRoom;
 		this.message = message;
 		this.type = type;
 	}

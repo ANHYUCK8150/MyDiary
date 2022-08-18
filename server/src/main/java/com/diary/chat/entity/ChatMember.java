@@ -31,17 +31,27 @@ public class ChatMember extends BaseTimeEntity implements Serializable {
 	private Member member;
 
 	@ManyToOne
-	@JoinColumn(name = "room_id")
-	private ChatRoom room;
+	@JoinColumn(name = "chat_room_id")
+	private ChatRoom chatRoom;
 
-	private Integer notReadMessage;
+	private Integer notReadMessage = 0;
 
 	@Builder
-	public ChatMember(Long id, Member member, ChatRoom room, Integer notReadMessage) {
+	public ChatMember(Long id, Member member, ChatRoom chatRoom, Integer notReadMessage) {
 		this.id = id;
 		this.member = member;
-		this.room = room;
+		this.chatRoom = chatRoom;
 		this.notReadMessage = notReadMessage;
+	}
+
+	public ChatMember addReadMessage() {
+		this.notReadMessage++;
+		return this;
+	}
+
+	public ChatMember toRead() {
+		this.notReadMessage = 0;
+		return this;
 	}
 
 }
