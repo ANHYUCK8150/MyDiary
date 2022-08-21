@@ -24,7 +24,7 @@ const Footer = () => {
       </IconBox>
       <IconBox onClick={() => navigate(`/memo`)}>
         <img src={pathname !== '/memo' ? bookOff : book} alt="rent" />
-        메모장
+        메모
       </IconBox>
       <IconBox onClick={() => navigate(`/chat`)}>
         <img src={pathname !== '/chat' ? chatOff : chat} alt="chat" />
