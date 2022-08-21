@@ -10,6 +10,7 @@ import javax.persistence.Id;
 
 import com.diary.common.entity.BaseTimeEntity;
 import com.diary.member.dto.MemberDto;
+import com.diary.member.dto.ProfileRequest;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -39,8 +40,15 @@ public class Member extends BaseTimeEntity implements Serializable {
 	@Column(columnDefinition = "TEXT")
 	private String introduction;
 
+	public Member update(ProfileRequest profileRequest) {
+		this.name = profileRequest.getName();
+		this.introduction = profileRequest.getIntroduction();
+		this.imageUrl = profileRequest.getImageUrl();
+		return this;
+	}
+
 	@Builder
-	public Member(BaseTimeEntityBuilder<?, ?> b, Long id, String name, String password, String imageUrl,
+	public Member(Long id, String name, String password, String imageUrl,
 		String introduction) {
 		this.id = id;
 		this.name = name;

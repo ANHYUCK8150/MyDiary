@@ -8,7 +8,7 @@ const LayoutBox = styled.div`
   height: auto;
   scrollbar-width: none;
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.$black3};
+  background: ${({ theme }) => theme.colors.$black1};
 
   ::-webkit-scrollbar {
     display: none;
@@ -20,7 +20,7 @@ const Section = styled.div`
   font-size: 2rem;
   text-align: center;
   height: auto;
-  background: ${({ theme }) => theme.colors.$black3};
+  background: ${({ theme }) => theme.colors.$black1};
   /* 섹션 내부에 푸터나 헤더가 있는 경우가 있어 클래스로 제어한다. */
   &.marginTB {
     padding: 6.4rem 0 5.6rem 0;

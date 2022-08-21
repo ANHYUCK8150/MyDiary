@@ -1,21 +1,52 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setBack, setTitle, setAllFalse } from '../../app/headerSlice';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setTitle, setAllFalse } from '../../app/headerSlice';
 import style from './ChatPage.style';
+import RoomItem from './RoomItem';
+import ChatApi from '../../util/ChatApi';
+import socket from '../../util/ChatSocket';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const client = useRef({});
+
+  //변수
+  const memberId = useSelector(state => state.user.id);
+  const [roomList, setRoomList] = useState();
+
+  //api
+  const { getRoomList } = ChatApi;
+  const { connect, disconnect } = socket;
 
   //Header
   useEffect(() => {
+    connect(client, '', '', setRoomList, getRoomList);
     dispatch(setAllFalse());
-    dispatch(setBack(true));
     dispatch(setTitle('대화'));
-    return () => {};
-  }, [dispatch]);
-  return <div>ChatPage</div>;
+    getRoomList().then(result => {
+      setRoomList(result);
+    });
+
+    return () => {
+      disconnect(client);
+    };
+  }, [dispatch, connect, disconnect, getRoomList]);
+
+  const { ChatBox, RoomListBox, NoItem } = style;
+
+  return (
+    <ChatBox>
+      {roomList ? (
+        <RoomListBox>
+          {roomList.map((room, index) => {
+            return <RoomItem key={index} room={room} memberId={memberId} />;
+          })}
+        </RoomListBox>
+      ) : (
+        <NoItem>대화내용이 없습니다.</NoItem>
+      )}
+    </ChatBox>
+  );
 };
 
 export default ChatPage;

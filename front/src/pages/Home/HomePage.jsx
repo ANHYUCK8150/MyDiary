@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setBack, setTitle, setAllFalse } from '../../app/headerSlice';
+import { setTitle, setAllFalse } from '../../app/headerSlice';
 import style from './HomePage.style';
 
 const HomePage = () => {
@@ -11,7 +11,6 @@ const HomePage = () => {
   //Header
   useEffect(() => {
     dispatch(setAllFalse());
-    dispatch(setBack(true));
     dispatch(setTitle('홈'));
     return () => {};
   }, [dispatch]);

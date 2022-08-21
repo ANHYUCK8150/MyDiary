@@ -7,6 +7,7 @@ import com.diary.member.dto.LoginRequest;
 import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
 import com.diary.member.dto.MemberResponse;
+import com.diary.member.dto.ProfileRequest;
 import com.diary.member.dto.SignUpResponse;
 
 public interface MemberService {
@@ -18,5 +19,7 @@ public interface MemberService {
 	LoginResponse login(LoginRequest loginRequest);
 
 	MemberResponse findById(Long memberId);
+
+	MemberResponse updateMember(Long memberId, ProfileRequest profileRequest, MultipartFile imageFile);
 
 }

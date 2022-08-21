@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.diary.chat.entity.ChatMember;
+import com.diary.chat.entity.ChatRoom;
+import com.diary.chat.repository.ChatMemberRepository;
+import com.diary.chat.repository.ChatRoomRepository;
 import com.diary.common.StorageUploader;
 import com.diary.common.dto.FileUploadResponse;
 import com.diary.common.entity.UserPrincipal;
@@ -17,6 +21,7 @@ import com.diary.member.dto.LoginRequest;
 import com.diary.member.dto.LoginResponse;
 import com.diary.member.dto.MemberDto;
 import com.diary.member.dto.MemberResponse;
+import com.diary.member.dto.ProfileRequest;
 import com.diary.member.dto.SignUpResponse;
 import com.diary.member.entity.Member;
 import com.diary.member.repository.MemberRepository;
@@ -33,6 +38,9 @@ public class MemberServiceImpl implements MemberService {
 	private final StorageUploader storageUploader;
 
 	private final TokenProvider tokenProvider;
+
+	private final ChatRoomRepository chatRoomRepository;
+	private final ChatMemberRepository chatMemberRepository;
 
 	@Override
 	public UserDetails loadUserById(Long userId) {
@@ -75,6 +83,7 @@ public class MemberServiceImpl implements MemberService {
 	 * 로그인
 	 */
 	@Override
+	@Transactional
 	public LoginResponse login(LoginRequest loginRequest) {
 
 		Member member = memberRepository.findByName(loginRequest.getName())
@@ -86,6 +95,20 @@ public class MemberServiceImpl implements MemberService {
 
 		String token = tokenProvider.createToken(member);
 
+		//전체 채팅방이 없을 경우 전체 채팅방 생성
+		if (!chatRoomRepository.existsById(Long.parseLong("1"))) {
+			chatRoomRepository.save(ChatRoom.builder().id(Long.parseLong("1")).build());
+		}
+
+		//전체 채팅방에 맴버 추가
+		if (!chatMemberRepository.existsByMemberIdAndChatRoomId(member.getId(), Long.parseLong("1"))) {
+			chatMemberRepository.save(ChatMember.builder()
+				.member(Member.builder().id(member.getId()).build())
+				.chatRoom(ChatRoom.builder().id(Long.parseLong("1")).build())
+				.notReadMessage(0)
+				.build());
+		}
+
 		return new LoginResponse(token, MemberResponse.from(member));
 	}
 
@@ -96,6 +119,39 @@ public class MemberServiceImpl implements MemberService {
 	public MemberResponse findById(Long memberId) {
 		return memberRepository.findById(memberId).map(MemberResponse::from)
 			.orElseThrow(() -> new IllegalArgumentException());
+	}
+
+	/*
+	 * 회원 정보 수정
+	 */
+	@Override
+	@Transactional
+	public MemberResponse updateMember(Long memberId, ProfileRequest profileRequest, MultipartFile imageFile) {
+		//같은 이름 체크
+		if (memberRepository.existsByNameAndIdNot(profileRequest.getName(), memberId)) {
+			throw new IllegalArgumentException();
+		}
+
+		//유저 조회
+		Member member = memberRepository.findById(memberId)
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		profileRequest.setImageUrl(member.getImageUrl());
+		/*
+		 * 파일 업로드 (파일이 없는 경우 업로드 X)
+		 * 업로드시에는 기존파일 삭제
+		 */
+		try {
+			if (imageFile != null) {
+				String currentImg = member.getImageUrl();
+				FileUploadResponse fileUploadResponse = storageUploader.upload(imageFile, "profile");
+				profileRequest.setImageUrl(fileUploadResponse.getUrl());
+				storageUploader.removeOldFile(currentImg);
+			}
+		} catch (Exception e) {}
+		member.update(profileRequest);
+
+		return MemberResponse.from(memberRepository.save(member));
 	}
 
 }
