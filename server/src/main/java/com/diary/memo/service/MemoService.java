@@ -19,4 +19,6 @@ public interface MemoService {
 
 	List<MemoCategory> getCategorys();
 
+	PageResponse<MemoResponse> getMyMemos(Long memberId, Pageable pageable);
+
 }

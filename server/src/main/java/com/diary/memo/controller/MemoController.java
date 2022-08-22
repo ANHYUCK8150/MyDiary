@@ -25,21 +25,31 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@Api(value = "/api/v1/memo", description = "메모 API")
-@RequestMapping("/api/v1/memo")
+@Api(value = "/api/v1", description = "메모 API")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class MemoController {
 	private final MemoService memoService;
 
 	@ApiOperation(value = "메모 카테고리 리스트 조회")
-	@GetMapping("/category")
+	@GetMapping("/memo/category")
 	public ResponseEntity<List<MemoCategory>> getCategorys() {
 
 		return ResponseEntity.ok(memoService.getCategorys());
 	}
 
+	@ApiOperation(value = "나의 메모 리스트 조회")
+	@GetMapping("/users/{memberId}/memo")
+	public ResponseEntity<PageResponse<MemoResponse>> getMyMemos(
+		@PathVariable
+		Long memberId,
+		Pageable pageable) {
+
+		return ResponseEntity.ok(memoService.getMyMemos(memberId, pageable));
+	}
+
 	@ApiOperation(value = "메모 리스트 조회")
-	@GetMapping
+	@GetMapping("/memo")
 	public ResponseEntity<PageResponse<MemoResponse>> getMemos(
 		Pageable pageable) {
 
@@ -47,7 +57,7 @@ public class MemoController {
 	}
 
 	@ApiOperation(value = "메모 등록")
-	@PostMapping
+	@PostMapping("/memo")
 	public ResponseEntity<MemoResponse> setMemo(
 		@RequestBody
 		MemoRequest memoRequest) {
@@ -56,7 +66,7 @@ public class MemoController {
 	}
 
 	@ApiOperation(value = "메모 수정")
-	@PutMapping("/{memoId}")
+	@PutMapping("/memo/{memoId}")
 	public ResponseEntity<MemoResponse> updateMemo(
 		@PathVariable
 		Long memoId,
@@ -69,7 +79,7 @@ public class MemoController {
 	}
 
 	@ApiOperation(value = "메모 삭제")
-	@DeleteMapping("/{memoId}")
+	@DeleteMapping("/memo/{memoId}")
 	public ResponseEntity<Boolean> removeMemo(
 		@PathVariable
 		Long memoId) {

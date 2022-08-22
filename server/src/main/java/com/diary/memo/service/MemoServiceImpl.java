@@ -67,4 +67,20 @@ public class MemoServiceImpl implements MemoService {
 	public List<MemoCategory> getCategorys() {
 		return memoCategoryRepository.findAll();
 	}
+
+	/*
+	 * 나의 메모 조회
+	 */
+	@Override
+	public PageResponse<MemoResponse> getMyMemos(Long memberId, Pageable pageable) {
+		Page<MemoResponse> pageInfo = memoRepository.findAllByMemberId(memberId, pageable).map(MemoResponse::from);
+
+		return PageResponse.<MemoResponse>builder()
+			.contents(pageInfo.getContent())
+			.pageNumber(pageInfo.getNumber())
+			.pageSize(pageInfo.getSize())
+			.totalPages(pageInfo.getTotalPages())
+			.totalElements(pageInfo.getTotalElements())
+			.build();
+	}
 }
