@@ -15,7 +15,10 @@ const HomePage = () => {
     return () => {};
   }, [dispatch]);
 
-  return <div>HomePage</div>;
+  //styled
+  const { HomeBox } = style;
+
+  return <HomeBox>홈페이지 입니다.</HomeBox>;
 };
 
 export default HomePage;
