@@ -88,7 +88,7 @@ const MemoPage = () => {
           {memoList.length > 0 ? (
             memoList.map((data, index) => (
               <div key={index}>
-                <li onClick={handleAccordionMemo}>
+                <li onClick={handleAccordionMemo} className={memberId === data.member.id ? 'mymemo' : ''}>
                   <span onClick={() => handleClickModify(data)} className={CategoryBackColor(data.category.name)}>
                     {data.category.name}
                   </span>

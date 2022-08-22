@@ -44,6 +44,9 @@ const MemoWrap = styled.div`
     font-weight: 400;
     color: ${({ theme }) => theme.colors.$white3};
   }
+  .mymemo span {
+    color: yellow;
+  }
   ul div > li {
     text-align: left;
     font-size: 1.6rem;
