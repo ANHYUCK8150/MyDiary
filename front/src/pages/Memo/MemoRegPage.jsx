@@ -22,7 +22,7 @@ const MemoRegPage = () => {
   const [categoryId, setCategoryId] = useState(memoInfo ? memoInfo.category.id : 1);
 
   //API
-  const { setMemo, getCategoryList } = MemoApi;
+  const { setMemo, getCategoryList, removeMemo } = MemoApi;
 
   //EVENT
   const onChangeContent = e => {
@@ -42,6 +42,12 @@ const MemoRegPage = () => {
     }
   };
 
+  const onDeleteHandler = () => {
+    removeMemo(memoId).then(result => {
+      navigate('/memo');
+    });
+  };
+
   const changeRadio = e => {
     setCategoryId(parseInt(e.target.value));
   };
@@ -55,7 +61,7 @@ const MemoRegPage = () => {
     return () => {};
   }, [dispatch, getCategoryList]);
   //styled
-  const { MemoBox, ContentsBox, SaveButton, RadioWrap, RadioBox, FormCheckLeft, FormCheckText } = style;
+  const { MemoBox, ContentsBox, SaveButton, RadioWrap, DeleteButton, RadioBox, FormCheckLeft, FormCheckText, ButtonBox } = style;
   return (
     <MemoBox>
       <RadioBox>
@@ -72,7 +78,18 @@ const MemoRegPage = () => {
         <input placeholder="제목" value={subject} onChange={e => setSubject(e.target.value)} maxLength="20" />
         <textarea placeholder="내용" value={content} onChange={onChangeContent} />
         <span>{textCount}/1000</span>
-        <SaveButton onClick={() => onSaveHandler()}>완료</SaveButton>
+        {memoInfo ? (
+          <ButtonBox>
+            <li>
+              <SaveButton onClick={() => onSaveHandler()}>수정</SaveButton>
+            </li>
+            <li>
+              <DeleteButton onClick={() => onDeleteHandler()}>삭제</DeleteButton>
+            </li>
+          </ButtonBox>
+        ) : (
+          <SaveButton onClick={() => onSaveHandler()}>완료</SaveButton>
+        )}
       </ContentsBox>
     </MemoBox>
   );

@@ -9,6 +9,33 @@ const MemoBox = styled.div`
   text-align: left;
 `;
 
+const TitleBox = styled.div`
+  width: 34rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  height: 4.8rem;
+  line-height: 4.8rem;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.$black3Line};
+  //대여가능, 대여중/예약중 title
+  h2:first-child {
+    margin-right: 1rem;
+  }
+  h2:nth-child(2) {
+    margin-right: auto;
+  }
+  .active {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.$white1};
+  }
+  .hide {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.$white4};
+  }
+`;
+
 const MemoWrap = styled.div`
   li {
     text-align: center;
@@ -173,6 +200,13 @@ const PlusBtn = styled.button`
   bottom: 7.6rem;
   z-index: 1;
 `;
+const ButtonBox = styled.ul`
+  li {
+    display: inline-block;
+    margin: 0 1%;
+    width: 48%;
+  }
+`;
 
 const SaveButton = styled.div`
   height: 5rem;
@@ -186,7 +220,19 @@ const SaveButton = styled.div`
   background: ${({ theme }) => theme.colors.$primaryBlueP};
   color: ${({ theme }) => theme.colors.$whiteLine1};
 `;
+const DeleteButton = styled.div`
+  height: 5rem;
+  text-align: center;
+  width: auto;
+  border-radius: 0.4rem;
+  line-height: 5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  background: ${({ theme }) => theme.colors.$danger};
+  color: ${({ theme }) => theme.colors.$whiteLine1};
+`;
 
-const style = { MemoBox, PlusBtn, MemoWrap, ContentsBox, RadioWrap, SaveButton, RadioBox, FormCheckText, FormCheckLeft };
+const style = { MemoBox, TitleBox, PlusBtn, MemoWrap, ContentsBox, DeleteButton, ButtonBox, RadioWrap, SaveButton, RadioBox, FormCheckText, FormCheckLeft };
 
 export default style;

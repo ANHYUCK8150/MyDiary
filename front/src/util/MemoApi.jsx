@@ -12,6 +12,17 @@ const getMemoList = async (param, setMemoList) => {
   }
 };
 
+const getMyMemoList = async (param, setMemoList) => {
+  try {
+    const result = await apiUtil.get(`api/v1/users/${param.memberId}/memo?page=${param.pageNum}&sort=id,desc`);
+    result.data.contents.map(data => {
+      return setMemoList(_memoList => [..._memoList, data]);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getCategoryList = async setCategoryList => {
   try {
     const { data } = await apiUtil.get(`api/v1/memo/category`);
@@ -42,12 +53,12 @@ const updateMemo = async memoInfo => {
 
 const removeMemo = async memoId => {
   try {
-    const result = await apiFormUtil.delete(`api/v1/memo/${memoId}`);
+    const result = await apiAuthUtil.delete(`api/v1/memo/${memoId}`);
     return result.data;
   } catch (error) {
     console.log(error);
   }
 };
 
-const MemoApi = { getMemoList, setMemo, removeMemo, updateMemo, getCategoryList };
+const MemoApi = { getMemoList, setMemo, removeMemo, updateMemo, getMyMemoList, getCategoryList };
 export default MemoApi;

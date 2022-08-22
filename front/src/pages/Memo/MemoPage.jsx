@@ -15,10 +15,12 @@ const MemoPage = () => {
   const [memoList, setMemoList] = useState([]);
   const [param, setParam] = useState({
     pageNum: 1,
+    memberId: memberId,
   });
+  const [activeIndex, setActiveIndex] = useState(0);
 
   //API
-  const { getMemoList } = MemoApi;
+  const { getMemoList, getMyMemoList } = MemoApi;
 
   //EVENT
   const handleAccordionMemo = e => {
@@ -51,6 +53,17 @@ const MemoPage = () => {
     }
   };
 
+  const tabClickHandler = index => {
+    setActiveIndex(index);
+    setMemoList([]);
+    param.pageNum = 1;
+    if (index === 0) {
+      getMemoList(param, setMemoList);
+    } else {
+      getMyMemoList(param, setMemoList);
+    }
+  };
+
   //--------------header START--------------
   useEffect(() => {
     dispatch(setAllFalse());
@@ -59,9 +72,17 @@ const MemoPage = () => {
     return () => {};
   }, [dispatch, getMemoList, param]);
   //styled
-  const { MemoBox, PlusBtn, MemoWrap } = style;
+  const { MemoBox, PlusBtn, MemoWrap, TitleBox } = style;
   return (
     <MemoBox>
+      <TitleBox>
+        <h2 key={0} className={activeIndex === 0 ? 'active' : 'hide'} onClick={() => tabClickHandler(0)}>
+          전체
+        </h2>
+        <h2 key={1} className={activeIndex === 1 ? 'active' : 'hide'} onClick={() => tabClickHandler(1)}>
+          나의 메모
+        </h2>
+      </TitleBox>
       <MemoWrap>
         <ul>
           {memoList.length > 0 ? (
