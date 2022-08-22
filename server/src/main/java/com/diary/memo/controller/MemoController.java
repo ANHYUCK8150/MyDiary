@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,6 +39,7 @@ public class MemoController {
 	@ApiOperation(value = "메모 등록")
 	@PostMapping
 	public ResponseEntity<MemoResponse> setMemo(
+		@RequestBody
 		MemoRequest memoRequest) {
 
 		return ResponseEntity.ok(memoService.setMemo(memoRequest));
@@ -48,6 +50,7 @@ public class MemoController {
 	public ResponseEntity<MemoResponse> updateMemo(
 		@PathVariable
 		Long memoId,
+		@RequestBody
 		MemoRequest memoRequest) {
 
 		memoRequest.setId(memoId);
