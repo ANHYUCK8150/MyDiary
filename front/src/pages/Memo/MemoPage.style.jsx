@@ -10,7 +10,15 @@ const MemoBox = styled.div`
 `;
 
 const MemoWrap = styled.div`
-  ul li {
+  li {
+    text-align: center;
+    line-height: 41rem;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.$white3};
+  }
+  ul div > li {
+    text-align: left;
     font-size: 1.6rem;
     font-weight: 400;
     color: ${({ theme }) => theme.colors.$white1};
@@ -23,9 +31,32 @@ const MemoWrap = styled.div`
     &.active {
       background: url(${KeyboardArrowUp}) right 0.25rem no-repeat;
     }
+
+    span {
+      padding: 0 0.3rem;
+      margin-right: 0.3rem;
+      font-size: 1.4rem;
+      font-weight: 400;
+
+      &.purple {
+        background: purple;
+      }
+      &.blue {
+        background: blue;
+      }
+      &.green {
+        background: green;
+      }
+      &.steelblue {
+        background: steelblue;
+      }
+      &.darksalmon {
+        background: darksalmon;
+      }
+    }
   }
   //답글
-  li:nth-child(2n) {
+  div > li:nth-child(2n) {
     display: none;
     margin-top: 1.2rem;
     font-size: 1.4rem;
@@ -41,8 +72,19 @@ const MemoWrap = styled.div`
       display: block;
       background: none;
     }
+
+    p {
+      padding: 0 0.3rem;
+      margin-right: 0.5rem;
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-align: right;
+      color: ${({ theme }) => theme.colors.$KaKao};
+    }
   }
 `;
+
+const MemoTitle = styled.div``;
 
 const PlusBtn = styled.button`
   background: url(${posting});
@@ -54,6 +96,6 @@ const PlusBtn = styled.button`
   z-index: 1;
 `;
 
-const style = { MemoBox, PlusBtn, MemoWrap };
+const style = { MemoBox, PlusBtn, MemoWrap, MemoTitle };
 
 export default style;

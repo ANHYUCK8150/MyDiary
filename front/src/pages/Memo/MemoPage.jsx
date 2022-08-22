@@ -1,8 +1,10 @@
+/* eslint-disable max-lines-per-function */
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setTitle, setAllFalse } from '../../app/headerSlice';
 import style from './MemoPage.style';
+import MemoApi from '../../util/MemoApi';
 
 const MemoPage = () => {
   const dispatch = useDispatch();
@@ -10,7 +12,12 @@ const MemoPage = () => {
 
   //변수
   const [memoList, setMemoList] = useState([]);
+  const [param, setParam] = useState({
+    pageNum: 1,
+  });
+
   //API
+  const { getMemoList } = MemoApi;
 
   //EVENT
   const handleAccordionMemo = e => {
@@ -23,23 +30,49 @@ const MemoPage = () => {
     }
   };
 
+  const CategoryBackColor = value => {
+    if (value === '서버') {
+      return 'purple';
+    } else if (value === 'FE') {
+      return 'blue';
+    } else if (value === 'BE') {
+      return 'green';
+    } else if (value === 'GIT') {
+      return 'steelblue';
+    } else {
+      return 'darksalmon';
+    }
+  };
+
   //--------------header START--------------
   useEffect(() => {
     dispatch(setAllFalse());
     dispatch(setTitle('메모'));
+    getMemoList(param, setMemoList);
     return () => {};
-  }, [dispatch]);
+  }, [dispatch, getMemoList, param]);
   //styled
-  const { MemoBox, PlusBtn, MemoWrap } = style;
+  const { MemoBox, PlusBtn, MemoWrap, MemoTitle } = style;
   return (
     <MemoBox>
       <MemoWrap>
         <ul>
-          <li onClick={handleAccordionMemo}>메모 제목</li>
-          <li>메모 내용</li>
-
-          <li onClick={handleAccordionMemo}>메모 제목2 메모 제목2 메모 제목2</li>
-          <li>메모 내용2</li>
+          {memoList.length > 0 ? (
+            memoList.map((data, index) => (
+              <div key={index}>
+                <li onClick={handleAccordionMemo}>
+                  <span className={CategoryBackColor(data.categoryName)}>{data.categoryName}</span>
+                  {data.subject}
+                </li>
+                <li>
+                  {data.content}
+                  <p>{data.member.name}</p>
+                </li>
+              </div>
+            ))
+          ) : (
+            <li className="noItem">등록된 메모가 없습니다!</li>
+          )}
         </ul>
       </MemoWrap>
       <PlusBtn onClick={() => navigate('/memo/created')} />
