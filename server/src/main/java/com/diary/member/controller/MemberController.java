@@ -23,11 +23,13 @@ import com.diary.member.dto.SignUpRequest;
 import com.diary.member.dto.SignUpResponse;
 import com.diary.member.service.MemberService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
+@Api(value = "/api/v1/users", description = "맴버 API")
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class MemberController {
