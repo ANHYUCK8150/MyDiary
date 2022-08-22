@@ -18,12 +18,14 @@ import com.diary.common.dto.FileUploadResponse;
 import com.diary.common.entity.CurrentUser;
 import com.diary.common.entity.UserPrincipal;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
 @RequiredArgsConstructor
+@Api(value = "/api/v1/chat", description = "채팅 API")
 @RequestMapping("/api/v1/chat")
 public class ChatController {
 	private final ChatService chatService;
