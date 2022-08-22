@@ -1,5 +1,7 @@
 package com.diary.memo.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,8 @@ import com.diary.memo.dto.MemoDto;
 import com.diary.memo.dto.MemoRequest;
 import com.diary.memo.dto.MemoResponse;
 import com.diary.memo.entity.Memo;
+import com.diary.memo.entity.MemoCategory;
+import com.diary.memo.repository.MemoCategoryRepository;
 import com.diary.memo.repository.MemoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class MemoServiceImpl implements MemoService {
 	private final MemoRepository memoRepository;
+	private final MemoCategoryRepository memoCategoryRepository;
 
 	/*
 	 * 메모 리스트 페이지네이션
@@ -53,5 +58,13 @@ public class MemoServiceImpl implements MemoService {
 	@Transactional
 	public void removeMemo(Long memoId) {
 		memoRepository.deleteById(memoId);
+	}
+
+	/*
+	 * 카테고리 조회
+	 */
+	@Override
+	public List<MemoCategory> getCategorys() {
+		return memoCategoryRepository.findAll();
 	}
 }

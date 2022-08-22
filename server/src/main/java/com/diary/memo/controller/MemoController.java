@@ -1,5 +1,7 @@
 package com.diary.memo.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.diary.common.dto.PageResponse;
 import com.diary.memo.dto.MemoRequest;
 import com.diary.memo.dto.MemoResponse;
+import com.diary.memo.entity.MemoCategory;
 import com.diary.memo.service.MemoService;
 
 import io.swagger.annotations.Api;
@@ -27,6 +30,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MemoController {
 	private final MemoService memoService;
+
+	@ApiOperation(value = "메모 카테고리 리스트 조회")
+	@GetMapping("/category")
+	public ResponseEntity<List<MemoCategory>> getCategorys() {
+
+		return ResponseEntity.ok(memoService.getCategorys());
+	}
 
 	@ApiOperation(value = "메모 리스트 조회")
 	@GetMapping
