@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.diary.member.dto.MemberResponse;
 import com.diary.memo.entity.Memo;
+import com.diary.memo.entity.MemoCategory;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -18,17 +19,17 @@ public class MemoResponse {
 	private String subject;
 	private String content;
 	private MemberResponse member;
-	private String categoryName;
+	private MemoCategory category;
 	private LocalDateTime createdDate;
 
 	@Builder
-	private MemoResponse(Long id, String subject, String content, MemberResponse member, String categoryName,
+	private MemoResponse(Long id, String subject, String content, MemberResponse member, MemoCategory category,
 		LocalDateTime createdDate) {
 		this.id = id;
 		this.subject = subject;
 		this.content = content;
 		this.member = member;
-		this.categoryName = categoryName;
+		this.category = category;
 		this.createdDate = createdDate;
 	}
 
@@ -38,7 +39,7 @@ public class MemoResponse {
 			.subject(memo.getSubject())
 			.content(memo.getContent())
 			.member(MemberResponse.from(memo.getMember()))
-			.categoryName(memo.getCategory().getName())
+			.category(memo.getCategory())
 			.createdDate(memo.getCreatedDate())
 			.build();
 	}

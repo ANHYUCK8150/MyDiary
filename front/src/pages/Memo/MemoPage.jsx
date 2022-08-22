@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setTitle, setAllFalse } from '../../app/headerSlice';
 import style from './MemoPage.style';
@@ -9,6 +9,7 @@ import MemoApi from '../../util/MemoApi';
 const MemoPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const memberId = useSelector(state => state.user.id);
 
   //변수
   const [memoList, setMemoList] = useState([]);
@@ -27,6 +28,12 @@ const MemoPage = () => {
     } else {
       e.target.classList.add('active');
       e.target.nextElementSibling.classList.add('active');
+    }
+  };
+
+  const handleClickModify = data => {
+    if (memberId === data.member.id) {
+      navigate('/memo/created', { state: { data: data } });
     }
   };
 
@@ -52,7 +59,7 @@ const MemoPage = () => {
     return () => {};
   }, [dispatch, getMemoList, param]);
   //styled
-  const { MemoBox, PlusBtn, MemoWrap, MemoTitle } = style;
+  const { MemoBox, PlusBtn, MemoWrap } = style;
   return (
     <MemoBox>
       <MemoWrap>
@@ -61,7 +68,9 @@ const MemoPage = () => {
             memoList.map((data, index) => (
               <div key={index}>
                 <li onClick={handleAccordionMemo}>
-                  <span className={CategoryBackColor(data.categoryName)}>{data.categoryName}</span>
+                  <span onClick={() => handleClickModify(data)} className={CategoryBackColor(data.category.name)}>
+                    {data.category.name}
+                  </span>
                   {data.subject}
                 </li>
                 <li>

@@ -13,6 +13,7 @@ import RoomPage from '../../pages/Chat/Room/RoomPage';
 import AccountPage from '../../pages/Account/AccountPage';
 import ProfilePage from '../../pages/Account/Profile/ProfilePage';
 import MemoPage from '../../pages/Memo/MemoPage';
+import MemoRegPage from '../../pages/Memo/MemoRegPage';
 
 const Layout = () => {
   const navi = useLocation();
@@ -34,6 +35,7 @@ const Layout = () => {
             <Route path="/chat/room" element={<RoomPage />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/account/profile" element={<ProfilePage />} />
+            <Route path="/memo/created" element={<MemoRegPage />} />
           </Route>
         </Routes>
       </Section>
