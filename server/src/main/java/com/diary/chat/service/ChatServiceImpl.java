@@ -25,7 +25,7 @@ import com.diary.chat.repository.ChatRoomRepository;
 import com.diary.common.StorageUploader;
 import com.diary.common.dto.FileUploadResponse;
 import com.diary.common.dto.PageResponse;
-import com.diary.member.entity.Member;
+import com.diary.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -38,6 +38,8 @@ public class ChatServiceImpl implements ChatService {
 	private final ChatMemberRepository chatMemberRepository;
 
 	private final StorageUploader storageUploader;
+
+	private final MemberRepository memberRepository;
 
 	private static Integer PAGESIZE = 100;
 
@@ -149,9 +151,13 @@ public class ChatServiceImpl implements ChatService {
 		} else {
 			ChatRoom room = ChatRoom.builder().lastMessage("").build();
 			room.addMember(
-				ChatMember.builder().notReadMessage(0).member(Member.builder().id(memberId).build()).build());
+				ChatMember.builder().notReadMessage(0)
+					.member(memberRepository.findById(lenderId).orElseThrow(() -> new IllegalArgumentException()))
+					.build());
 			room.addMember(
-				ChatMember.builder().notReadMessage(0).member(Member.builder().id(lenderId).build()).build());
+				ChatMember.builder().notReadMessage(0)
+					.member(memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException()))
+					.build());
 
 			return ChatRoomResponse.from(chatRoomRepository.save(room), lenderId);
 		}
