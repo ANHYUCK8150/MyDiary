@@ -31,7 +31,7 @@ const RoomPage = () => {
 
   //event
   const onChangeMessageHandler = e => {
-    if (e.target.value.length <= 100) {
+    if (e.target.value.length <= 1000) {
       setMessage(e.target.value);
     }
   };
