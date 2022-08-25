@@ -49,9 +49,11 @@ const RoomPage = () => {
     }
   };
 
-  const handleKeyUp = e => {
-    if (e.key === 'Enter') {
-      onClickMessageSend();
+  const handleKeyDown = e => {
+    if (e.keyCode === 13) {
+      if (!e.shiftKey) {
+        onClickMessageSend();
+      }
     }
   };
 
@@ -139,7 +141,7 @@ const RoomPage = () => {
       <SendBox>
         <input type="file" accept="image/*" ref={inputRef} onChange={saveImage} style={{ display: 'none' }} />
         <img src={add} alt="이미지" onClick={onChangeImg} />
-        <textarea placeholder="" onChange={onChangeMessageHandler} onKeyUp={handleKeyUp} value={message} />
+        <textarea placeholder="" onChange={onChangeMessageHandler} onKeyDown={handleKeyDown} value={message} />
         <button onClick={() => onClickMessageSend()}>
           <img src={send} alt="이미지" />
         </button>

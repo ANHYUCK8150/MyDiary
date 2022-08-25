@@ -94,6 +94,8 @@ const Message = styled.div`
     line-height: 2.2rem;
     padding: 0.7rem;
     border-radius: 0.5rem;
+    white-space: pre-wrap;
+    word-break: break-all;
   }
   span {
     font-size: 1.2rem;
