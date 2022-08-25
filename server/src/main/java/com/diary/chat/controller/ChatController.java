@@ -2,6 +2,7 @@ package com.diary.chat.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import com.diary.chat.dto.ChatMessageResponse;
 import com.diary.chat.dto.ChatRoomResponse;
 import com.diary.chat.service.ChatService;
 import com.diary.common.dto.FileUploadResponse;
+import com.diary.common.dto.PageResponse;
 import com.diary.common.entity.CurrentUser;
 import com.diary.common.entity.UserPrincipal;
 
@@ -42,14 +44,15 @@ public class ChatController {
 
 	@ApiOperation(value = "메시지 리스트")
 	@GetMapping("/rooms/{roomId}/messages")
-	public ResponseEntity<List<ChatMessageResponse>> getRoomMessages(
+	public ResponseEntity<PageResponse<ChatMessageResponse>> getRoomMessages(
 		@PathVariable
 		Long roomId,
 		@ApiIgnore
 		@CurrentUser
-		UserPrincipal userPrincipal) {
+		UserPrincipal userPrincipal,
+		Pageable pageable) {
 
-		return ResponseEntity.ok(chatService.getMessages(roomId, userPrincipal.getId()));
+		return ResponseEntity.ok(chatService.getMessages(roomId, userPrincipal.getId(), pageable));
 	}
 
 	@ApiOperation(value = "채팅 이미지 저장")

@@ -9,6 +9,7 @@ import style from './RoomPage.style';
 import ChatApi from '../../../util/ChatApi';
 import socket from '../../../util/ChatSocket';
 import noImg from '../../../assets/img/logo/no_img.png';
+import Loader from '../../../components/common/Loader';
 
 const RoomPage = () => {
   const dispatch = useDispatch();
@@ -21,10 +22,15 @@ const RoomPage = () => {
   const inputRef = useRef(null);
 
   //변수
+  const [loader, setLoader] = useState(false);
   const [messageList, setMessageList] = useState([]);
   const memberId = useSelector(state => state.user.id);
   const [message, setMessage] = useState('');
   let date = '';
+  const [param, setParam] = useState({
+    pageNum: 1,
+    roomId: roomId,
+  });
 
   //api
   const { getMessageList, sendImageMessage } = ChatApi;
@@ -44,12 +50,10 @@ const RoomPage = () => {
   };
 
   const scrollToBottom = () => {
-    if (messageList) {
-      document.body.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    }
+    document.body.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
 
-  const handleKeyDown = e => {
+  const handleKeyUp = e => {
     if (e.keyCode === 13) {
       if (!e.shiftKey) {
         onClickMessageSend();
@@ -88,13 +92,11 @@ const RoomPage = () => {
     dispatch(setAllFalse());
     dispatch(setBack(true));
     dispatch(setTitle(roomName));
-    getMessageList(roomId).then(result => {
-      setMessageList(result);
-    });
+    getMessageList(param, setMessageList, setLoader);
     return () => {
       disconnect(client);
     };
-  }, [dispatch, roomName, roomId, memberId, connect, disconnect, getMessageList]);
+  }, [dispatch, roomName, roomId, memberId, connect, disconnect, getMessageList, param]);
 
   const { ChatRoomBox, MemberBox, MemberInfo, SendBox, MessageBox, Message, DateMessage } = style;
 
@@ -141,11 +143,12 @@ const RoomPage = () => {
       <SendBox>
         <input type="file" accept="image/*" ref={inputRef} onChange={saveImage} style={{ display: 'none' }} />
         <img src={add} alt="이미지" onClick={onChangeImg} />
-        <textarea placeholder="" onChange={onChangeMessageHandler} onKeyDown={handleKeyDown} value={message} />
+        <textarea placeholder="" onChange={onChangeMessageHandler} onKeyUp={handleKeyUp} value={message} />
         <button onClick={() => onClickMessageSend()}>
           <img src={send} alt="이미지" />
         </button>
       </SendBox>
+      {loader && <Loader />}
     </ChatRoomBox>
   );
 };

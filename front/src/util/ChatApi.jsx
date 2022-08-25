@@ -10,13 +10,26 @@ const getRoomList = async () => {
   }
 };
 
-const getMessageList = async roomId => {
+const getMessageList = async (param, setMessageList, setLoader) => {
   try {
-    const result = await apiAuthUtil.get(`api/v1/chat/rooms/${roomId}/messages`);
-    return result.data;
+    const result = await apiAuthUtil.get(`api/v1/chat/rooms/${param.roomId}/messages?page=${param.pageNum}`);
+    result.data.contents
+      .sort(function (a, b) {
+        if (a.id > b.id) {
+          return 1;
+        }
+        if (a.id < b.id) {
+          return -1;
+        }
+        return 0;
+      })
+      .map(data => {
+        return setMessageList(_messageList => [..._messageList, data]);
+      });
   } catch (error) {
     console.log(error.response.data);
   }
+  setLoader(false);
 };
 
 const sendImageMessage = async imageFile => {

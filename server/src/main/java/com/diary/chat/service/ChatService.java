@@ -2,18 +2,20 @@ package com.diary.chat.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.diary.chat.dto.ChatMessageResponse;
 import com.diary.chat.dto.ChatRoomResponse;
 import com.diary.chat.dto.MessageRequest;
 import com.diary.common.dto.FileUploadResponse;
+import com.diary.common.dto.PageResponse;
 
 public interface ChatService {
 
 	List<ChatRoomResponse> getRoomList(Long id);
 
-	List<ChatMessageResponse> getMessages(Long roomId, Long userId);
+	PageResponse<ChatMessageResponse> getMessages(Long roomId, Long userId, Pageable pageable);
 
 	ChatMessageResponse sendMessage(MessageRequest request, List<Long> memberList);
 
