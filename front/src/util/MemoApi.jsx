@@ -1,7 +1,7 @@
 import utils from './ApiUtil';
 const { apiUtil, apiAuthUtil } = utils;
 
-const getMemoList = async (param, setMemoList) => {
+const getMemoList = async (param, setMemoList, setLoader) => {
   try {
     const result = await apiUtil.get(`api/v1/memo?page=${param.pageNum}&sort=id,desc`);
     result.data.contents.map(data => {
@@ -10,9 +10,10 @@ const getMemoList = async (param, setMemoList) => {
   } catch (error) {
     console.log(error);
   }
+  setLoader(false);
 };
 
-const getMyMemoList = async (param, setMemoList) => {
+const getMyMemoList = async (param, setMemoList, setLoader) => {
   try {
     const result = await apiUtil.get(`api/v1/users/${param.memberId}/memo?page=${param.pageNum}&sort=id,desc`);
     result.data.contents.map(data => {
@@ -21,6 +22,7 @@ const getMyMemoList = async (param, setMemoList) => {
   } catch (error) {
     console.log(error);
   }
+  setLoader(false);
 };
 
 const getCategoryList = async setCategoryList => {

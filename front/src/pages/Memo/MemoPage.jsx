@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { setTitle, setAllFalse } from '../../app/headerSlice';
 import style from './MemoPage.style';
 import MemoApi from '../../util/MemoApi';
+import Loader from '../../components/common/Loader';
 
 const MemoPage = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const MemoPage = () => {
   const memberId = useSelector(state => state.user.id);
 
   //변수
+  const [loader, setLoader] = useState(false);
   const [memoList, setMemoList] = useState([]);
   const [param, setParam] = useState({
     pageNum: 1,
@@ -64,11 +66,35 @@ const MemoPage = () => {
     }
   };
 
+  // infinite Scroll Event
+  const handleScroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setLoader(true);
+      // 페이지 끝에 도달하면 추가 데이터를 받아온다
+      param.pageNum++;
+      if (activeIndex === 0) {
+        getMemoList(param, setMemoList, setLoader);
+      } else {
+        getMyMemoList(param, setMemoList, setLoader);
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
+
   //--------------header START--------------
   useEffect(() => {
     dispatch(setAllFalse());
     dispatch(setTitle('메모'));
-    getMemoList(param, setMemoList);
+    getMemoList(param, setMemoList, setLoader);
     return () => {};
   }, [dispatch, getMemoList, param]);
   //styled
@@ -106,6 +132,7 @@ const MemoPage = () => {
         </ul>
       </MemoWrap>
       <PlusBtn onClick={() => navigate('/memo/created')} />
+      {loader && <Loader />}
     </MemoBox>
   );
 };
