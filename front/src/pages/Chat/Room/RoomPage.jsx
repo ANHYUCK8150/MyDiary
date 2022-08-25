@@ -24,7 +24,7 @@ const RoomPage = () => {
   //변수
   const [loader, setLoader] = useState(false);
   const [messageList, setMessageList] = useState([]);
-  const memberId = useSelector(state => state.user.id);
+  const memberId = useSelector(state => state.AHuser.id);
   const [message, setMessage] = useState('');
   let date = '';
   const [param, setParam] = useState({

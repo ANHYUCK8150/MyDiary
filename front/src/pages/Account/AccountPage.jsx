@@ -10,7 +10,7 @@ const AccountPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //--------------header START--------------
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.AHuser);
   useEffect(() => {
     dispatch(setAllFalse());
     dispatch(setTitle('내정보'));

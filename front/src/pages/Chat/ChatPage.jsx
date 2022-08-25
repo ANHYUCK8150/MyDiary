@@ -11,7 +11,7 @@ const ChatPage = () => {
   const client = useRef({});
 
   //변수
-  const memberId = useSelector(state => state.user.id);
+  const memberId = useSelector(state => state.AHuser.id);
   const [roomList, setRoomList] = useState();
 
   //api

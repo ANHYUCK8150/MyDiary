@@ -23,7 +23,7 @@ const ProfilePage = () => {
     };
   }, [dispatch]);
   //setting - localStorage 값 없으면 user slice data : 있으면 localStorage data
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.AHuser);
   const [userInfo, setUserInfo] = useState({
     name: user.name,
     introduction: user.introduction,

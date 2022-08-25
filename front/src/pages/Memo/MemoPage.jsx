@@ -10,7 +10,7 @@ import Loader from '../../components/common/Loader';
 const MemoPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const memberId = useSelector(state => state.user.id);
+  const memberId = useSelector(state => state.AHuser.id);
 
   //변수
   const [loader, setLoader] = useState(false);

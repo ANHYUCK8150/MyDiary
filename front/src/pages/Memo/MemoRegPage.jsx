@@ -11,7 +11,7 @@ const MemoRegPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const memoInfo = location.state ? location.state.data : '';
-  const memberId = useSelector(state => state.user.id);
+  const memberId = useSelector(state => state.AHuser.id);
 
   //변수
   const [memoId, setMemoId] = useState(memoInfo ? memoInfo.id : '');

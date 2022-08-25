@@ -8,7 +8,7 @@ import userSlice from './userSlice';
 
 const reducers = combineReducers({
   header: headerSlice,
-  user: userSlice,
+  AHuser: userSlice,
 });
 
 const persistConfig = {
@@ -16,7 +16,7 @@ const persistConfig = {
   // localStorage에 저장합니다.
   storage,
   // header, user, 2개의 reducer 중에 user reducer만 localstorage에 저장합니다.
-  whitelist: ['user'],
+  whitelist: ['AHuser'],
   // blacklist -> 그것만 제외합니다
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
