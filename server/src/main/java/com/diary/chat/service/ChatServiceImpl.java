@@ -43,7 +43,7 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	public List<ChatRoomResponse> getRoomList(Long memberId) {
-		return chatRoomRepository.findAll().stream()
+		return chatRoomRepository.findAllByChatMembersMemberIdOrderByModifiedDateDesc(memberId).stream()
 			.map(room -> ChatRoomResponse.from(room, memberId))
 			.collect(Collectors.toList());
 

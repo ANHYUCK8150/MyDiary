@@ -37,11 +37,11 @@ public class ChatRoomResponse {
 			.id(chatRoom.getId())
 			.lastMessage(chatRoom.getLastMessage())
 			.modifiedDate(chatRoom.getModifiedDate())
-			.members(chatRoom.getMember().stream()
+			.members(chatRoom.getChatMembers().stream()
 				.map(ChatMemberResponse::from)
 				.collect(Collectors.toList()))
 			.another(ChatMemberResponse
-				.from(chatRoom.getMember().stream().filter(member -> !member.getMember().getId().equals(memberId))
+				.from(chatRoom.getChatMembers().stream().filter(member -> !member.getMember().getId().equals(memberId))
 					.findFirst().orElse(null)))
 			.build();
 	}
