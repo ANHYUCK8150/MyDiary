@@ -41,5 +41,14 @@ const updateUser = async formData => {
   }
 };
 
-const SignApi = { login, getCurrentUser, signUp, updateUser };
+const getMembers = async () => {
+  try {
+    const result = await apiUtil.get(`api/v1/users`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const SignApi = { login, getCurrentUser, signUp, updateUser, getMembers };
 export default SignApi;

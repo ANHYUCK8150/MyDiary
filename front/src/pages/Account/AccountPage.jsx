@@ -27,7 +27,7 @@ const AccountPage = () => {
     {
       tabTitle: (
         <h2 key={0} className={activeIndex === 0 ? 'on' : ''} onClick={() => tabClickHandler(0)}>
-          도서
+          메모
         </h2>
       ),
       tabCont: '',
@@ -35,7 +35,7 @@ const AccountPage = () => {
     {
       tabTitle: (
         <h2 key={1} className={activeIndex === 1 ? 'on' : ''} onClick={() => tabClickHandler(1)}>
-          메모
+          링크
         </h2>
       ),
       tabCont: '',
