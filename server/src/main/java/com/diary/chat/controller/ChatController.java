@@ -28,12 +28,12 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "/api/v1/chat", description = "채팅 API")
-@RequestMapping("/api/v1/chat")
+@RequestMapping("/api/v1")
 public class ChatController {
 	private final ChatService chatService;
 
 	@ApiOperation(value = "대화방 리스트")
-	@GetMapping("/rooms")
+	@GetMapping("/chat/rooms")
 	public ResponseEntity<List<ChatRoomResponse>> getRoomsList(
 		@ApiIgnore
 		@CurrentUser
@@ -43,7 +43,7 @@ public class ChatController {
 	}
 
 	@ApiOperation(value = "메시지 리스트")
-	@GetMapping("/rooms/{roomId}/messages")
+	@GetMapping("/chat/rooms/{roomId}/messages")
 	public ResponseEntity<PageResponse<ChatMessageResponse>> getRoomMessages(
 		@PathVariable
 		Long roomId,
@@ -56,10 +56,27 @@ public class ChatController {
 	}
 
 	@ApiOperation(value = "채팅 이미지 저장")
-	@PostMapping("/send-image")
+	@PostMapping("/chat/send-image")
 	public ResponseEntity<FileUploadResponse> sendImage(
 		@RequestBody
 		MultipartFile imageFile) {
 		return ResponseEntity.ok(chatService.sendImage(imageFile));
+	}
+
+	@ApiOperation(value = "1대1 대화방 생성")
+	@PostMapping("/users/{memberId}/chat")
+	public ResponseEntity<ChatRoomResponse> setRoom(
+		@PathVariable
+		Long memberId,
+		@ApiIgnore
+		@CurrentUser
+		UserPrincipal userPrincipal) {
+
+		//나한테 메시지 보내기 X
+		if (memberId.equals(userPrincipal.getId())) {
+			throw new IllegalArgumentException();
+		}
+
+		return ResponseEntity.ok(chatService.setRoom(memberId, userPrincipal.getId()));
 	}
 }

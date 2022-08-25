@@ -25,6 +25,7 @@ import com.diary.chat.repository.ChatRoomRepository;
 import com.diary.common.StorageUploader;
 import com.diary.common.dto.FileUploadResponse;
 import com.diary.common.dto.PageResponse;
+import com.diary.member.entity.Member;
 
 import lombok.RequiredArgsConstructor;
 
@@ -124,6 +125,37 @@ public class ChatServiceImpl implements ChatService {
 			return storageUploader.upload(imageFile, "chat");
 		} catch (IOException e) {}
 		return null;
+	}
+
+	/*
+	 * 1대1 대화하기
+	 */
+	@Override
+	@Transactional
+	public ChatRoomResponse setRoom(Long memberId, Long lenderId) {
+		//방이 있는지 확인! [전체 채팅방 제외]
+
+		ChatMember chatMember = chatMemberRepository.findAllByMemberId(memberId).stream()
+			.filter(room -> !room.getChatRoom().getId().equals(Long.parseLong("1")))
+			.filter(
+				r -> chatMemberRepository.findByChatRoomIdAndMemberId(r.getChatRoom().getId(), lenderId)
+					.orElse(null) != null)
+			.findFirst()
+			.orElse(null);
+
+		//기존 대화방 있으면 리턴
+		if (chatMember != null) {
+			return ChatRoomResponse.from(chatMember.getChatRoom(), lenderId);
+		} else {
+			ChatRoom room = ChatRoom.builder().lastMessage("").build();
+			room.addMember(
+				ChatMember.builder().notReadMessage(0).member(Member.builder().id(memberId).build()).build());
+			room.addMember(
+				ChatMember.builder().notReadMessage(0).member(Member.builder().id(lenderId).build()).build());
+
+			return ChatRoomResponse.from(chatRoomRepository.save(room), lenderId);
+		}
+
 	}
 
 }

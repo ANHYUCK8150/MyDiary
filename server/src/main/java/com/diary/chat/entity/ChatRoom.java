@@ -34,8 +34,13 @@ public class ChatRoom extends BaseTimeEntity implements Serializable {
 	private String lastMessage;
 
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "chatRoom", cascade = CascadeType.REFRESH)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "chatRoom", cascade = CascadeType.ALL)
 	private List<ChatMember> member = new ArrayList<>();
+
+	public void addMember(ChatMember chatMember) {
+		member.add(chatMember);
+		chatMember.setChatRoom(this);
+	}
 
 	@Builder
 	public ChatRoom(Long id, String lastMessage) {

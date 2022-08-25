@@ -15,6 +15,7 @@ import com.diary.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
@@ -30,6 +31,7 @@ public class ChatMember extends BaseTimeEntity implements Serializable {
 	@JoinColumn(name = "member_id")
 	private Member member;
 
+	@Setter
 	@ManyToOne
 	@JoinColumn(name = "chat_room_id")
 	private ChatRoom chatRoom;

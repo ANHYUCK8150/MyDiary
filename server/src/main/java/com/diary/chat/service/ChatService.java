@@ -23,4 +23,6 @@ public interface ChatService {
 
 	FileUploadResponse sendImage(MultipartFile imageFile);
 
+	ChatRoomResponse setRoom(Long memberId, Long lenderId);
+
 }
