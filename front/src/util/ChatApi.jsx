@@ -41,5 +41,14 @@ const sendImageMessage = async imageFile => {
   }
 };
 
-const ChatApi = { getRoomList, getMessageList, sendImageMessage };
+const setRoom = async memberId => {
+  try {
+    const result = await apiAuthUtil.post(`api/v1/users/${memberId}/chat`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const ChatApi = { getRoomList, getMessageList, sendImageMessage, setRoom };
 export default ChatApi;

@@ -12,9 +12,10 @@ const RoomItem = ({ room, memberId }) => {
   };
 
   const lastMessageDate = new Date(room.modifiedDate).toLocaleTimeString('ko-kr', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-  const imageUrl = room.id === 1 ? '' : room.another.imageUrl === null ? '' : room.another.imageUrl;
-  const notRead = room.members.filter(member => member.member.id === memberId)[0].notReadMessage;
-  const roomName = room.id === 1 ? '전체 대화방' : '';
+  const imageUrl = room.id === 1 ? '' : room.another.member.imageUrl === null ? '' : room.another.member.imageUrl;
+  const notReadArr = room.members.filter(member => member.member.id === memberId);
+  const notRead = notReadArr.length > 0 ? notReadArr[0].notReadMessage : 0;
+  const roomName = room.id === 1 ? '전체 대화방' : room.another.member.name;
   const { RoomBox, TitleBox, SubBox, InfoBox } = style;
   return (
     <RoomBox onClick={() => navigate('/chat/room', { state: { id: room.id, name: roomName, members: room.members } })}>
