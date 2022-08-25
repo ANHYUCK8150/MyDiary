@@ -1,6 +1,8 @@
 package com.diary.member.service;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -152,6 +154,16 @@ public class MemberServiceImpl implements MemberService {
 		member.update(profileRequest);
 
 		return MemberResponse.from(memberRepository.save(member));
+	}
+
+	/*
+	 * 유저 전체 목록 조회
+	 */
+	@Override
+	public List<MemberResponse> getMemberList() {
+		return memberRepository.findAll().stream()
+			.map(MemberResponse::from)
+			.collect(Collectors.toList());
 	}
 
 }

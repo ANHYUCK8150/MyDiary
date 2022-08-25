@@ -1,5 +1,7 @@
 package com.diary.member.controller;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,12 @@ import springfox.documentation.annotations.ApiIgnore;
 public class MemberController {
 	private final ModelMapper mapper;
 	private final MemberService memberService;
+
+	@ApiOperation(value = "유저 전체 목록")
+	@GetMapping
+	public ResponseEntity<List<MemberResponse>> getMemberList() {
+		return ResponseEntity.ok(memberService.getMemberList());
+	}
 
 	@ApiOperation(value = "회원가입")
 	@PostMapping

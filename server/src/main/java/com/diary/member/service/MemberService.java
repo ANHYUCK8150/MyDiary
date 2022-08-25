@@ -1,5 +1,7 @@
 package com.diary.member.service;
 
+import java.util.List;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,5 +23,7 @@ public interface MemberService {
 	MemberResponse findById(Long memberId);
 
 	MemberResponse updateMember(Long memberId, ProfileRequest profileRequest, MultipartFile imageFile);
+
+	List<MemberResponse> getMemberList();
 
 }
