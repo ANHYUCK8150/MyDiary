@@ -60,7 +60,6 @@ public class MessageController {
 		//읽지 않은 메시지 카운트 조기화
 		chatService.toRead(request.getRoomId(), request.getMemberId());
 
-		System.out.println(roomList);
 	}
 
 }
