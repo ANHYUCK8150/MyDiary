@@ -31,7 +31,7 @@ const MemberItem = ({ member, lenderId }) => {
 
   const { MemberBox, TitleBox, SubBox, InfoBox } = style;
   return (
-    <MemberBox>
+    <MemberBox onClick={() => navigate('/account')}>
       <img src={imageUrl} onError={onErrorImg} alt="이미지" />
       <InfoBox>
         <TitleBox>
