@@ -1,6 +1,6 @@
 package com.diary.chat.controller;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,9 @@ public class WebSocketEventListener {
 		MessageRequest messageRequest = (MessageRequest)headerAccessor.getSessionAttributes().get("MessageRequest");
 
 		if (messageRequest != null) {
-			List<Long> memberList = messageController.roomList.get(messageRequest.getRoomId()).stream()
+			Set<Long> memberList = messageController.roomList.get(messageRequest.getRoomId()).stream()
 				.filter(memberId -> !memberId.equals(messageRequest.getMemberId()))
-				.collect(Collectors.toList());
+				.collect(Collectors.toSet());
 
 			messageController.roomList.put(messageRequest.getRoomId(), memberList);
 

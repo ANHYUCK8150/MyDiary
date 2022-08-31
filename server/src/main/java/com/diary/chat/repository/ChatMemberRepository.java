@@ -2,6 +2,7 @@ package com.diary.chat.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,6 +18,6 @@ public interface ChatMemberRepository extends JpaRepository<ChatMember, Long> {
 
 	Optional<ChatMember> findByChatRoomIdAndMemberId(Long roomId, Long memberId);
 
-	List<ChatMember> findAllByChatRoomIdAndMemberIdNotIn(Long roomId, List<Long> memberList);
+	List<ChatMember> findAllByChatRoomIdAndMemberIdNotIn(Long roomId, Set<Long> memberList);
 
 }

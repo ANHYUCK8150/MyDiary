@@ -1,6 +1,7 @@
 package com.diary.chat.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,7 @@ public interface ChatService {
 
 	PageResponse<ChatMessageResponse> getMessages(Long roomId, Long userId, Pageable pageable);
 
-	ChatMessageResponse sendMessage(MessageRequest request, List<Long> memberList);
+	ChatMessageResponse sendMessage(MessageRequest request, Set<Long> memberList);
 
 	void toRead(Long roomId, Long memberId);
 

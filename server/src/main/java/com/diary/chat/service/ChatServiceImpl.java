@@ -2,6 +2,7 @@ package com.diary.chat.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -74,7 +75,7 @@ public class ChatServiceImpl implements ChatService {
 
 	@Override
 	@Transactional
-	public ChatMessageResponse sendMessage(MessageRequest request, List<Long> memberList) {
+	public ChatMessageResponse sendMessage(MessageRequest request, Set<Long> memberList) {
 		//TEXT, IMAGE 구분
 		String lastMessage = request.getMessage();
 

@@ -1,10 +1,9 @@
 package com.diary.chat.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -21,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class MessageController {
-	public Map<Long, List<Long>> roomList = new HashMap<>();
+	public Map<Long, Set<Long>> roomList = new HashMap<>();
 	private final SimpMessagingTemplate simpMessagingTemplate;
 	private final ChatService chatService;
 
@@ -47,13 +46,12 @@ public class MessageController {
 		SimpMessageHeaderAccessor headerAccessor) {
 
 		if (roomList.get(request.getRoomId()) == null) {
-			List<Long> memberList = new ArrayList<Long>();
+			Set<Long> memberList = new HashSet<Long>();
 			roomList.put(request.getRoomId(), memberList);
 		}
 
 		roomList.get(request.getRoomId()).add(request.getMemberId());
-		roomList.put(request.getRoomId(), roomList.get(request.getRoomId()).stream()
-			.distinct().collect(Collectors.toList()));
+		roomList.put(request.getRoomId(), roomList.get(request.getRoomId()));
 
 		headerAccessor.getSessionAttributes().put("MessageRequest", request);
 
