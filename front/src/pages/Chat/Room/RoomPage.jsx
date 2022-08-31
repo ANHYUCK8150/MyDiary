@@ -24,7 +24,7 @@ const RoomPage = () => {
   //변수
   const [loader, setLoader] = useState(false);
   const [messageList, setMessageList] = useState([]);
-  const memberId = useSelector(state => state.AHuser.id);
+  const member = useSelector(state => state.AHuser);
   const [message, setMessage] = useState('');
   let date = '';
   const [param, setParam] = useState({
@@ -44,7 +44,7 @@ const RoomPage = () => {
 
   const onClickMessageSend = () => {
     if (message.trim().length > 0) {
-      publish(roomId, memberId, client, message, 'TEXT');
+      publish(roomId, member, client, message, 'TEXT');
       setMessage('');
     }
   };
@@ -75,7 +75,7 @@ const RoomPage = () => {
       const formData = new FormData();
       formData.append('imageFile', e.target.files[0]);
       sendImageMessage(formData).then(result => {
-        publish(roomId, memberId, client, result.url, 'IMAGE');
+        publish(roomId, member, client, result.url, 'IMAGE');
       });
     };
   };
@@ -88,7 +88,7 @@ const RoomPage = () => {
   useEffect(scrollToBottom, [messageList]);
 
   useEffect(() => {
-    connect(client, roomId, memberId, setMessageList, '');
+    connect(client, roomId, member, setMessageList, '');
     dispatch(setAllFalse());
     dispatch(setBack(true));
     dispatch(setTitle(roomName));
@@ -96,7 +96,7 @@ const RoomPage = () => {
     return () => {
       disconnect(client);
     };
-  }, [dispatch, roomName, roomId, memberId, connect, disconnect, getMessageList, param]);
+  }, [dispatch, roomName, roomId, member, connect, disconnect, getMessageList, param]);
 
   const { ChatRoomBox, MemberBox, MemberInfo, SendBox, MessageBox, Message, DateMessage } = style;
 
@@ -127,7 +127,7 @@ const RoomPage = () => {
               return (
                 <div key={index} className="messageBox">
                   <DateMessage className={dateMessage ? '' : 'hide'}>{dateMessage}</DateMessage>
-                  <Message className={result.member.member.id === memberId ? 'another' : ''}>
+                  <Message className={result.member.member.id === member.id ? 'another' : ''}>
                     <img src={result.member.member.imageUrl ? result.member.member.imageUrl : ''} onError={onErrorImg} alt="이미지" />
                     <div>
                       <span>{result.member.member.name}</span>

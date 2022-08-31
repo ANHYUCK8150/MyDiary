@@ -29,14 +29,16 @@ public class MessageController {
 		@Payload
 		MessageRequest request) {
 
-		//message send
-		ChatMessageResponse messge = chatService.sendMessage(request, roomList.get(request.getRoomId()));
-
 		//해당 방에 채팅보내기
-		this.simpMessagingTemplate.convertAndSend("/api/sub/chat/room/" + request.getRoomId(), messge);
+		this.simpMessagingTemplate.convertAndSend("/api/sub/chat/room/" + request.getRoomId(),
+			ChatMessageResponse.from(request));
+
+		//message send(DB저장은 후 순위에 두어 속도 개선)
+		chatService.sendMessage(request, roomList.get(request.getRoomId()));
 
 		//목록에 메시지 보내기
 		this.simpMessagingTemplate.convertAndSend("/api/sub/chat/room", "SEND");
+
 	}
 
 	@MessageMapping("/room/join")

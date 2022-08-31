@@ -2,8 +2,10 @@ package com.diary.chat.dto;
 
 import java.time.LocalDateTime;
 
+import com.diary.chat.entity.ChatMember;
 import com.diary.chat.entity.ChatMessage;
 import com.diary.chat.entity.ChatMessage.messageType;
+import com.diary.member.entity.Member;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +37,23 @@ public class ChatMessageResponse {
 			.type(chatMessage.getType())
 			.member(ChatMemberResponse.from(chatMessage.getChatMember()))
 			.sendDate(chatMessage.getCreatedDate())
+			.build();
+	}
+
+	public static ChatMessageResponse from(MessageRequest request) {
+		ChatMember chatMember = ChatMember.builder()
+			.member(
+				Member.builder()
+					.id(request.getMemberId())
+					.name(request.getName())
+					.imageUrl(request.getImageUrl())
+					.build())
+			.build();
+		return ChatMessageResponse.builder()
+			.message(request.getMessage())
+			.type(request.getType())
+			.member(ChatMemberResponse.from(chatMember))
+			.sendDate(LocalDateTime.now())
 			.build();
 	}
 

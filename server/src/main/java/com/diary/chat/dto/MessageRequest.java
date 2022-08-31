@@ -14,6 +14,8 @@ import lombok.ToString;
 public class MessageRequest {
 	private Long roomId;
 	private Long memberId;
+	private String name;
+	private String imageUrl;
 	private String message;
 	private messageType type;
 }
