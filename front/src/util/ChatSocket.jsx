@@ -1,24 +1,23 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import * as StompJs from '@stomp/stompjs';
 import * as SockJs from 'sockjs-client';
 
 const baseUrl = process.env.REACT_APP_SERVER_API_URL;
 
 //1. stomp.client 객체 만들기
-const connect = (client, roomId, member, setChatMessages, event) => {
+const connect = (client, option, roomId, member, setChatMessages, event, fireNotification) => {
   client.current = new StompJs.Client({
     webSocketFactory: () => new SockJs(baseUrl + 'api/ws-stomp'),
-    debug: function (str) {
-      console.log(str);
-    },
     reconnectDelay: 5000,
     heartbeatIncoming: 4000,
     heartbeatOutgoing: 4000,
     onConnect: () => {
-      console.log('connect: onConnect');
-      if (roomId) {
+      if (option === 'chat') {
         subscribe(client, roomId, member, setChatMessages);
-      } else {
+      } else if (option === 'room') {
         subscribeRoom(client, setChatMessages, event);
+      } else {
+        subscribeAll(client, member, fireNotification);
       }
     },
     onStompError: err => {
@@ -51,6 +50,15 @@ const subscribeRoom = (client, setChatMessages, event) => {
     event().then(result => {
       setChatMessages(result);
     });
+  });
+};
+
+const subscribeAll = (client, member, fireNotification) => {
+  client.current.subscribe(`/api/sub/notification`, ({ body }) => {
+    const result = JSON.parse(body);
+    if (member.id !== result.member.member.id) {
+      fireNotification(`${result.member.member.name}`, { body: `${result.message}` });
+    }
   });
 };
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTitle, setAllFalse } from '../../app/headerSlice';
@@ -20,7 +21,7 @@ const ChatPage = () => {
 
   //Header
   useEffect(() => {
-    connect(client, '', '', setRoomList, getRoomList);
+    connect(client, 'room', '', '', setRoomList, getRoomList, '');
     dispatch(setAllFalse());
     dispatch(setTitle('대화'));
     getRoomList().then(result => {

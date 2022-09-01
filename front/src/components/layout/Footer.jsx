@@ -15,6 +15,7 @@ const Footer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
+  const memberInfo = location.state ? location.state.data : '';
   const { FooterBox, IconBox } = style;
 
   return (
@@ -31,7 +32,7 @@ const Footer = () => {
         대화
       </IconBox>
       <IconBox onClick={() => navigate(`/account`)}>
-        <img src={pathname !== '/account' ? accountOff : account} alt="account" />
+        <img src={pathname !== '/account' ? accountOff : memberInfo ? accountOff : account} alt="account" />
         내정보
       </IconBox>
     </FooterBox>

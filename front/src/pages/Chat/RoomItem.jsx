@@ -16,7 +16,7 @@ const RoomItem = ({ room, memberId }) => {
   const displayCreatedAt = createdAt => {
     let startTime = new Date(createdAt);
     let nowTime = Date.now();
-    console.log(parseInt(startTime - nowTime));
+
     if (parseInt(startTime - nowTime) > -60000) {
       return <Moment format="방금 전">{startTime}</Moment>;
     }

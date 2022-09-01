@@ -39,6 +39,9 @@ public class MessageController {
 		//목록에 메시지 보내기
 		this.simpMessagingTemplate.convertAndSend("/api/sub/chat/room", "SEND");
 
+		//푸시 알림
+		this.simpMessagingTemplate.convertAndSend("/api/sub/notification", ChatMessageResponse.from(request));
+
 	}
 
 	@MessageMapping("/room/join")
