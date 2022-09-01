@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
@@ -13,13 +14,23 @@ const App = () => {
   const { connect, disconnect } = socket;
   const user = useSelector(state => state.AHuser);
 
+  //socket params
+  const socket_params = {
+    client: client,
+    option: 'all',
+    roomId: '',
+    member: user,
+    setChatMessages: '',
+    event: '',
+    fireNotification: fireNotification,
+  };
   //Header
   useEffect(() => {
-    connect(client, 'all', '', user, '', '', fireNotification);
+    connect(socket_params);
     return () => {
       disconnect(client);
     };
-  }, [connect, disconnect, user, fireNotification]);
+  }, [connect, disconnect, socket_params]);
 
   return (
     <ThemeProvider theme={theme}>

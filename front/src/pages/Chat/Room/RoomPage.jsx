@@ -18,7 +18,7 @@ const RoomPage = () => {
   const location = useLocation();
   const roomId = location.state.id;
   const roomName = location.state.name;
-  const members = location.state.members;
+  const [members, setMembers] = useState(location.state.members);
   const client = useRef({});
   const { connect, publish, disconnect } = socket;
   const inputRef = useRef(null);
@@ -90,8 +90,21 @@ const RoomPage = () => {
 
   useEffect(scrollToBottom, [messageList]);
 
+  //socket params
+  const socket_params = {
+    client: client,
+    option: 'chat',
+    roomId: roomId,
+    member: member,
+    setChatMessages: setMessageList,
+    setMembers: setMembers,
+    getMembers: location.state.members,
+    event: '',
+    fireNotification: '',
+  };
+
   useEffect(() => {
-    connect(client, 'chat', roomId, member, setMessageList, '', '');
+    connect(socket_params);
     dispatch(setAllFalse());
     dispatch(setBack(true));
     dispatch(setTitle(roomName));
@@ -106,10 +119,11 @@ const RoomPage = () => {
   return (
     <ChatRoomBox>
       <MemberBox>
+        <h2>참여중인 맴버</h2>
         {members.map((member, index) => {
           return (
             <MemberInfo key={index}>
-              <img src={member.member.imageUrl ? member.member.imageUrl : ''} onError={onErrorImg} alt="이미지" />
+              <img className={member.member.introduction === 'ChatRoomOn' ? 'on' : ''} src={member.member.imageUrl ? member.member.imageUrl : ''} onError={onErrorImg} alt="이미지" />
               <p>{member.member.name}</p>
             </MemberInfo>
           );

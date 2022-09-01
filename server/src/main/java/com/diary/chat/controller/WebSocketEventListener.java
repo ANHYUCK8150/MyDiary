@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
@@ -15,6 +16,9 @@ import com.diary.chat.dto.MessageRequest;
 public class WebSocketEventListener {
 	@Autowired
 	private MessageController messageController;
+
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplate;
 
 	@EventListener
 	public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
@@ -28,6 +32,10 @@ public class WebSocketEventListener {
 				.collect(Collectors.toSet());
 
 			messageController.roomList.put(messageRequest.getRoomId(), memberList);
+
+			//해당 유저 퇴장
+			this.simpMessagingTemplate.convertAndSend("/api/sub/chat/room/" + messageRequest.getRoomId() + "/members",
+				memberList);
 
 		}
 

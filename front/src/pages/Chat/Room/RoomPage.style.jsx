@@ -6,12 +6,25 @@ const ChatRoomBox = styled.div`
 `;
 
 const MemberBox = styled.div`
-  background: ${({ theme }) => theme.colors.$black1};
+  width: 34rem;
+  height: 8.5rem;
+  padding-top: 0.5rem;
+  top: 5.4rem;
+  position: fixed;
+  background: ${({ theme }) => theme.colors.$black0};
   margin: 1rem auto;
+  overflow: scroll;
   overflow: auto;
   white-space: nowrap;
   ::-webkit-scrollbar {
     display: none;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: limegreen;
+    margin-bottom: 0.4rem;
   }
 `;
 
@@ -22,6 +35,9 @@ const MemberInfo = styled.div`
     width: 4.8rem;
     height: 4.8rem;
     border-radius: 2.4rem;
+    &.on {
+      border: 3px solid lime;
+    }
   }
   p {
     font-size: 1.4rem;
@@ -69,6 +85,7 @@ const SendBox = styled.div`
 `;
 
 const MessageBox = styled.div`
+  padding-top: 8rem;
   .messageBox {
     margin: 0;
   }

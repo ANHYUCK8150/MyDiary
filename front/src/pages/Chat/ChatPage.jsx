@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,9 +20,20 @@ const ChatPage = () => {
   const { getRoomList } = ChatApi;
   const { connect, disconnect } = socket;
 
+  //socket params
+  const socket_params = {
+    client: client,
+    option: 'room',
+    roomId: '',
+    member: '',
+    setChatMessages: setRoomList,
+    event: getRoomList,
+    fireNotification: '',
+  };
+
   //Header
   useEffect(() => {
-    connect(client, 'room', '', '', setRoomList, getRoomList, '');
+    connect(socket_params);
     dispatch(setAllFalse());
     dispatch(setTitle('대화'));
     getRoomList().then(result => {

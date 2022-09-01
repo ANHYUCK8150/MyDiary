@@ -75,7 +75,7 @@ const AccountPage = () => {
     <AccountBox>
       <UserInfo>
         <Top>
-          <img onError={onErrorImg} src={memberInfo ? memberInfo.imageUrl : user.imageUrl} alt="이미지" />
+          <img onError={onErrorImg} src={memberInfo ? (memberInfo.imageUrl === null ? '' : memberInfo.imageUrl) : user.imageUrl} alt="이미지" />
         </Top>
         <h2>{memberInfo ? memberInfo.name : user.name}</h2>
         <h6>{memberInfo ? memberInfo.introduction : user.introduction}</h6>

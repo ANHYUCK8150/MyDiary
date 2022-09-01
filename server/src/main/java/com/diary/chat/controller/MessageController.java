@@ -60,6 +60,10 @@ public class MessageController {
 
 		headerAccessor.getSessionAttributes().put("MessageRequest", request);
 
+		//해당 유저 입장 표시
+		this.simpMessagingTemplate.convertAndSend("/api/sub/chat/room/" + request.getRoomId() + "/members",
+			roomList.get(request.getRoomId()));
+
 		//읽지 않은 메시지 카운트 조기화
 		chatService.toRead(request.getRoomId(), request.getMemberId());
 
