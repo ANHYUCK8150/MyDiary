@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { setSettings, setAllFalse, setTitle } from '../../app/headerSlice';
 import style from './AccountPage.style';
 import noImg from '../../assets/img/logo/postp_default.svg';
+import MemoItem from './MemoItem';
 const AccountPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const AccountPage = () => {
           메모
         </h2>
       ),
-      tabCont: '',
+      tabCont: <MemoItem memberId={user.id}></MemoItem>,
     },
     {
       tabTitle: (
