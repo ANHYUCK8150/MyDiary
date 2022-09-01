@@ -1,9 +1,9 @@
 import axios from 'axios';
 const baseUrl = process.env.REACT_APP_SERVER_API_URL;
 const baseHost = process.env.REACT_APP_SERVER_IP_URL;
-const accessToken = 'accessToken';
+const accessToken = 'AHaccessToken';
 const token = localStorage.getItem(accessToken);
-export const ACCESS_TOKEN = 'accessToken';
+export const ACCESS_TOKEN = 'AHaccessToken';
 
 const apiUtil = axios.create({
   baseURL: baseUrl,
