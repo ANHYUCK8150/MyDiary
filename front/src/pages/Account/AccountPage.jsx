@@ -2,20 +2,24 @@
 /* eslint-disable max-lines-per-function */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { setSettings, setAllFalse, setTitle } from '../../app/headerSlice';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { setSettings, setBack, setAllFalse, setTitle } from '../../app/headerSlice';
 import style from './AccountPage.style';
 import noImg from '../../assets/img/logo/postp_default.svg';
 import MemoItem from './MemoItem';
 const AccountPage = () => {
+  const location = useLocation();
+  const memberInfo = location.state ? location.state.data : '';
   const dispatch = useDispatch();
   const navigate = useNavigate();
   //--------------header START--------------
   const user = useSelector(state => state.AHuser);
+
   useEffect(() => {
     dispatch(setAllFalse());
-    dispatch(setTitle('내정보'));
-    dispatch(setSettings(true));
+    dispatch(setTitle(memberInfo ? `${memberInfo.name}님의 정보` : '내정보'));
+    dispatch(setSettings(memberInfo ? false : true));
+    dispatch(setBack(memberInfo ? true : false));
     return () => {};
   }, [dispatch]);
 
@@ -31,7 +35,7 @@ const AccountPage = () => {
           메모
         </h2>
       ),
-      tabCont: <MemoItem memberId={user.id}></MemoItem>,
+      tabCont: <MemoItem memberId={memberInfo ? memberInfo.id : user.id}></MemoItem>,
     },
     {
       tabTitle: (
@@ -71,11 +75,11 @@ const AccountPage = () => {
     <AccountBox>
       <UserInfo>
         <Top>
-          <img onError={onErrorImg} src={user.imageUrl} alt="이미지" />
+          <img onError={onErrorImg} src={memberInfo ? memberInfo.imageUrl : user.imageUrl} alt="이미지" />
         </Top>
-        <h2>{user.name}</h2>
-        <h6>{user.introduction}</h6>
-        <button onClick={() => navigate('/account/profile')}>프로필 편집</button>
+        <h2>{memberInfo ? memberInfo.name : user.name}</h2>
+        <h6>{memberInfo ? memberInfo.introduction : user.introduction}</h6>
+        {memberInfo ? '' : <button onClick={() => navigate('/account/profile')}>프로필 편집</button>}
       </UserInfo>
       <TabBox className={scrolled ? 'active' : 'activeN'}>
         {tabContArr.map(section => {

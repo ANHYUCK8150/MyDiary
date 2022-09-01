@@ -1,12 +1,14 @@
 /* eslint-disable max-lines-per-function */
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import style from '../Memo/MemoPage.style';
 import MemoApi from '../../util/MemoApi';
 import Loader from '../../components/common/Loader';
 
 const MemoItem = ({ memberId }) => {
   const navigate = useNavigate();
+  const user = useSelector(state => state.AHuser);
   //변수
   const [loader, setLoader] = useState(false);
   const [memoList, setMemoList] = useState([]);
@@ -30,7 +32,7 @@ const MemoItem = ({ memberId }) => {
   };
 
   const handleClickModify = data => {
-    if (memberId === data.member.id) {
+    if (user.id === data.member.id) {
       navigate('/memo/created', { state: { data: data } });
     }
   };
@@ -82,7 +84,7 @@ const MemoItem = ({ memberId }) => {
         {memoList.length > 0 ? (
           memoList.map((data, index) => (
             <div key={index}>
-              <li onClick={handleAccordionMemo} className={memberId === data.member.id ? 'mymemo' : ''}>
+              <li onClick={handleAccordionMemo} className={user.id === data.member.id ? 'mymemo' : ''}>
                 <span onClick={() => handleClickModify(data)} className={CategoryBackColor(data.category.name)}>
                   {data.category.name}
                 </span>

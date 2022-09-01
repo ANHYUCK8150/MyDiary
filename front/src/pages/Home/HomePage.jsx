@@ -38,7 +38,7 @@ const HomePage = () => {
       </MyProfile>
       <UserProfile>
         <h2>회원 목록</h2>
-        {memberList.length > 0 ? memberList.filter(item => item.id !== member.id).map(item => <MemberItem key={item.id} member={item} lenderId={member.id} />) : ''}
+        {memberList.length > 0 ? memberList.filter(item => item.id !== member.id).map(item => <MemberItem key={item.id} member={item} lender={member} />) : ''}
       </UserProfile>
     </HomeBox>
   );

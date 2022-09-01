@@ -5,7 +5,7 @@ import style from './HomePage.style';
 import noImg from '../../assets/img/logo/no_img.png';
 import chatApi from '../../util/ChatApi';
 
-const MemberItem = ({ member, lenderId }) => {
+const MemberItem = ({ member, lender }) => {
   const navigate = useNavigate();
 
   //api
@@ -27,11 +27,19 @@ const MemberItem = ({ member, lenderId }) => {
     }
   };
 
+  const onClickProfile = (member, lender) => {
+    if (!lender) {
+      navigate('/account');
+    } else {
+      navigate('/account', { state: { data: member } });
+    }
+  };
+
   const imageUrl = member.imageUrl === null ? '' : member.imageUrl;
 
   const { MemberBox, TitleBox, SubBox, InfoBox } = style;
   return (
-    <MemberBox onClick={() => navigate('/account')}>
+    <MemberBox onClick={() => onClickProfile(member, lender)}>
       <img src={imageUrl} onError={onErrorImg} alt="이미지" />
       <InfoBox>
         <TitleBox>
@@ -39,7 +47,7 @@ const MemberItem = ({ member, lenderId }) => {
         </TitleBox>
         <SubBox>
           <p>{member.introduction}</p>
-          <span onClick={() => onClickChat(member.id, lenderId)}>대화하기</span>
+          <span onClick={() => onClickChat(member.id, lender.id)}>대화하기</span>
         </SubBox>
       </InfoBox>
     </MemberBox>
