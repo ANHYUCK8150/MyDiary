@@ -89,10 +89,10 @@ const Message = styled.div`
     max-width: 23.4rem;
     font-size: 1.4rem;
     font-weight: 400;
-    background: ${({ theme }) => theme.colors.$primaryBlueP};
+    background: #ef8585;
     color: ${({ theme }) => theme.colors.$white1};
     line-height: 2.2rem;
-    padding: 0.7rem;
+    padding: 0.5rem;
     border-radius: 0.5rem;
     white-space: pre-wrap;
     word-break: break-all;
@@ -109,7 +109,7 @@ const Message = styled.div`
     flex-direction: column;
   }
   div > span {
-    margin: 0;
+    margin: 0 0 0.2rem 0;
     color: ${({ theme }) => theme.colors.$white2};
   }
 
@@ -129,7 +129,7 @@ const Message = styled.div`
       display: none;
     }
     p {
-      background: ${({ theme }) => theme.colors.$black4};
+      background: #545562;
       color: ${({ theme }) => theme.colors.$white1};
     }
     img {

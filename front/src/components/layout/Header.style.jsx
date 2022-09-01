@@ -7,7 +7,7 @@ const HeaderWrap = styled.div`
   z-index: 2;
   width: 100%;
   height: 6.4rem;
-  background: ${({ theme }) => theme.colors.$black1};
+  background: ${({ theme }) => theme.colors.$black0};
   border-bottom: 1px solid ${({ theme }) => theme.colors.$black3Line};
   &.hide {
     display: none;

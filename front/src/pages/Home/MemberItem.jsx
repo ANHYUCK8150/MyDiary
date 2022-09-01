@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable array-callback-return */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,11 +28,14 @@ const MemberItem = ({ member, lender }) => {
     }
   };
 
-  const onClickProfile = (member, lender) => {
-    if (!lender) {
-      navigate('/account');
-    } else {
-      navigate('/account', { state: { data: member } });
+  const onClickProfile = (member, lender, e) => {
+    console.log(e.target.localName);
+    if (e.target.localName !== 'span') {
+      if (!lender) {
+        navigate('/account');
+      } else {
+        navigate('/account', { state: { data: member } });
+      }
     }
   };
 
@@ -39,7 +43,7 @@ const MemberItem = ({ member, lender }) => {
 
   const { MemberBox, TitleBox, SubBox, InfoBox } = style;
   return (
-    <MemberBox onClick={() => onClickProfile(member, lender)}>
+    <MemberBox onClick={e => onClickProfile(member, lender, e)}>
       <img src={imageUrl} onError={onErrorImg} alt="이미지" />
       <InfoBox>
         <TitleBox>

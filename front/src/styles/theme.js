@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable prettier/prettier */
 const colors = {
+  $black0: '#000',
   $black1: '#171717',
   $black2: '#1C1C1C',
   $black3: '#212121',
