@@ -29,6 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		"/api/v1/users/*/memo",
 		"/api/v1/memo",
 		"/api/v1/memo/category",
+		"/api/v1/books/**",
 		/* swagger v2 */
 		"/v2/api-docs",
 		"/swagger-resources",
