@@ -15,6 +15,7 @@ import ProfilePage from '../../pages/Account/Profile/ProfilePage';
 import MemoPage from '../../pages/Memo/MemoPage';
 import MemoRegPage from '../../pages/Memo/MemoRegPage';
 import SettingPage from '../../pages/Account/Setting/SettingPage';
+import BookPage from '../../pages/Book/BookPage';
 
 const Layout = () => {
   const navi = useLocation();
@@ -31,6 +32,7 @@ const Layout = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/memo" element={<MemoPage />} />
+          <Route path="/book" element={<BookPage />} />
           <Route element={<LoginCheckRouter />}>
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/chat/room" element={<RoomPage />} />

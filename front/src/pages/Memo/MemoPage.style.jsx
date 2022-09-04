@@ -17,7 +17,7 @@ const TitleBox = styled.div`
   height: 4.8rem;
   line-height: 4.8rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.$black3Line};
-  //대여가능, 대여중/예약중 title
+
   h2:first-child {
     margin-right: 1rem;
   }

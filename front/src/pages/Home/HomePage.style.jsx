@@ -50,7 +50,6 @@ const MemberBox = styled.li`
 `;
 
 const InfoBox = styled.div`
-  width: 100%;
   margin-left: 0.8rem;
 
   display: flex;
@@ -70,7 +69,7 @@ const SubBox = styled.div`
   display: flex;
   margin-top: 1rem;
   p {
-    width: 25rem;
+    width: 22rem;
     color: ${({ theme }) => theme.colors.$white3};
     font-size: 1.4rem;
     text-align: left;
