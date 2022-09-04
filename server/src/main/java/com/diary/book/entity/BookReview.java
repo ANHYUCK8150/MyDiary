@@ -2,6 +2,7 @@ package com.diary.book.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,5 +22,10 @@ public class BookReview extends BaseTimeEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	private double rating;
+
+	@Column(columnDefinition = "TEXT")
+	private String content;
 
 }
