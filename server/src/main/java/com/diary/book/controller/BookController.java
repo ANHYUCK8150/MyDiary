@@ -1,13 +1,13 @@
 package com.diary.book.controller;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.diary.book.dto.ApiBookResponse;
+import com.diary.book.dto.BookInfoDto;
+import com.diary.book.service.BookApiService;
 import com.diary.book.service.BookService;
 import com.diary.common.dto.PageResponse;
 
@@ -17,17 +17,19 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@Api(value = "/api/v1/book", description = "도서 API")
+@Api(value = "/api/v1/books", description = "도서 API")
 @RequestMapping("/api/v1")
 public class BookController {
 	private final BookService bookService;
+	private final BookApiService bookApiService;
 
 	@ApiOperation(value = "도서 API 조회")
-	@GetMapping("/books/api/{query}")
-	public ResponseEntity<PageResponse<ApiBookResponse>> getApiBookInfo(
-		@PathVariable
+	@GetMapping("/books/api")
+	public ResponseEntity<PageResponse<BookInfoDto>> getApiBookInfo(
+		@RequestParam
 		String query,
-		Pageable pageable) {
-		return ResponseEntity.ok(null);
+		@RequestParam
+		int page) {
+		return ResponseEntity.ok(bookApiService.search(query, page));
 	}
 }
