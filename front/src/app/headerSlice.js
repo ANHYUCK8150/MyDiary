@@ -6,6 +6,7 @@ export const headerSlice = createSlice({
   initialState: {
     title: '',
     back: false, //뒤로가기
+    backX: false, //x버튼
     backHome: false, //홈으로 복귀(로그인 페이지에서 뒤로가기 시에 사용)
     settings: false, //세팅
     searchBox: false, //검색 박스
@@ -17,6 +18,9 @@ export const headerSlice = createSlice({
     },
     setBack: (state, action) => {
       state.back = action.payload;
+    },
+    setBackX: (state, action) => {
+      state.backX = action.payload;
     },
     setBackHome: (state, action) => {
       state.backHome = action.payload;
@@ -40,6 +44,6 @@ export const headerSlice = createSlice({
   },
 });
 
-export const { setTitle, setBack, setBackHome, setAllFalse, setSettings, setSearchBox, setPlaceholder } = headerSlice.actions;
+export const { setTitle, setBack, setBackX, setBackHome, setAllFalse, setSettings, setSearchBox, setPlaceholder } = headerSlice.actions;
 
 export default headerSlice.reducer;

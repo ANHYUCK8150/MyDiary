@@ -17,6 +17,7 @@ import MemoRegPage from '../../pages/Memo/MemoRegPage';
 import SettingPage from '../../pages/Account/Setting/SettingPage';
 import BookPage from '../../pages/Book/BookPage';
 import BookSearchPage from '../../pages/Book/Upload/BookSearchPage';
+import BookUploadPage from '../../pages/Book/Upload/BookUploadPage';
 
 const Layout = () => {
   const navi = useLocation();
@@ -42,6 +43,7 @@ const Layout = () => {
             <Route path="/account/setting" element={<SettingPage />} />
             <Route path="/memo/created" element={<MemoRegPage />} />
             <Route path="/book/upload/search" element={<BookSearchPage />} />
+            <Route path="/book/upload" element={<BookUploadPage />} />
           </Route>
         </Routes>
       </Section>

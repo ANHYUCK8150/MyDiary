@@ -21,7 +21,19 @@ const Footer = () => {
   const { FooterBox, IconBox } = style;
 
   return (
-    <FooterBox className={pathname === '/login' || pathname === '/setting' || pathname === '/signup' || pathname === '/memo/created' || pathname === '/chat/room' ? 'hide' : 'show'}>
+    <FooterBox
+      className={
+        pathname === '/login' ||
+        pathname === '/setting' ||
+        pathname === '/signup' ||
+        pathname === '/memo/created' ||
+        pathname === '/chat/room' ||
+        pathname === '/book/upload' ||
+        pathname === '/book/upload/search'
+          ? 'hide'
+          : 'show'
+      }
+    >
       <IconBox onClick={() => navigate(`/`)}>
         <img src={pathname !== '/' ? homeOff : home} alt="home" />홈
       </IconBox>

@@ -8,13 +8,14 @@ import keyboardArrowLeft from '../../assets/img/arrows/Keyboard_arrow_left.svg';
 import settingsImg from '../../assets/img/userInterFace/Settings.svg';
 import clearGray from '../../assets/img/userInterFace/Clear_gray.svg';
 import searchImg from '../../assets/img/userInterFace/Search.svg';
+import x from '../../assets/img/userInterFace/X.svg';
 
 const Header = () => {
   const url = useLocation();
   const { pathname } = url;
   const navigate = useNavigate();
   const header = useSelector(state => state.header);
-  const { title, back, backHome, settings, searchBox, placeholder } = header;
+  const { title, back, backHome, settings, searchBox, placeholder, backX } = header;
   const { HeaderWrap, HeaderBox, LeftBox, Title, BackBtn, DownBtn, RightBox, RightBtn, SearchBox } = style;
 
   const [visible, setVisible] = useState(false);
@@ -35,10 +36,19 @@ const Header = () => {
     <HeaderWrap>
       <HeaderBox>
         <LeftBox>
-          {back && <BackBtn onClick={() => navigate(-1)}>{pathname === '/rent/state' ? <img src={x} alt={'x'} /> : <img src={keyboardArrowLeft} alt={'뒤로가기'} />}</BackBtn>}
+          {back && (
+            <BackBtn onClick={() => navigate(-1)}>
+              <img src={keyboardArrowLeft} alt={'뒤로가기'} />
+            </BackBtn>
+          )}
           {backHome && (
             <BackBtn onClick={() => navigate(`/`)}>
               <img src={keyboardArrowLeft} alt={'홈'} />
+            </BackBtn>
+          )}
+          {backX && (
+            <BackBtn onClick={() => navigate(-2)}>
+              <img src={x} alt={'x'} />
             </BackBtn>
           )}
           <Title>{title}</Title>
