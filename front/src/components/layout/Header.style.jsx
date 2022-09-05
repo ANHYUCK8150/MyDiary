@@ -92,7 +92,7 @@ const RightText = styled.a`
   color: #ffffff;
 `;
 
-const LocationBox = styled.div`
+const SearchBox = styled.div`
   position: relative;
   width: 31.2rem;
   height: 6.4rem;
@@ -126,6 +126,6 @@ const LocationBox = styled.div`
   }
 `;
 
-const headerStyle = { HeaderWrap, HeaderBox, LeftBox, Title, BackBtn, DownBtn, RightBox, RightBtn, RightText, LocationBox };
+const headerStyle = { HeaderWrap, HeaderBox, LeftBox, Title, BackBtn, DownBtn, RightBox, RightBtn, RightText, SearchBox };
 
 export default headerStyle;

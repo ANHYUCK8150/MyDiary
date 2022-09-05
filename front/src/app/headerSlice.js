@@ -8,6 +8,8 @@ export const headerSlice = createSlice({
     back: false, //뒤로가기
     backHome: false, //홈으로 복귀(로그인 페이지에서 뒤로가기 시에 사용)
     settings: false, //세팅
+    searchBox: false, //검색 박스
+    placeholder: '', //검색 placeholder
   },
   reducers: {
     setTitle: (state, action) => {
@@ -22,6 +24,12 @@ export const headerSlice = createSlice({
     setSettings: (state, action) => {
       state.settings = action.payload;
     },
+    setSearchBox: (state, action) => {
+      state.searchBox = action.payload;
+    },
+    setPlaceholder: (state, action) => {
+      state.placeholder = action.payload;
+    },
     setAllFalse: (state, action) => {
       Object.keys(state).forEach(key => {
         if (state[key]) {
@@ -32,6 +40,6 @@ export const headerSlice = createSlice({
   },
 });
 
-export const { setTitle, setBack, setBackHome, setAllFalse, setSettings } = headerSlice.actions;
+export const { setTitle, setBack, setBackHome, setAllFalse, setSettings, setSearchBox, setPlaceholder } = headerSlice.actions;
 
 export default headerSlice.reducer;

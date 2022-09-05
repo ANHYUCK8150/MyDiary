@@ -50,7 +50,7 @@ const BookPage = () => {
         })}
       </TitleBox>
       {tabContArr[activeIndex].tabCont}
-      <PlusBtn onClick={() => navigate('/book/created')} />
+      <PlusBtn onClick={() => navigate('/book/upload/search')} />
     </BookBox>
   );
 };
