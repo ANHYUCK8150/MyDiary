@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.diary.book.dto.BookUploadRequest;
 import com.diary.common.entity.BaseTimeEntity;
 
 import lombok.Builder;
@@ -50,6 +51,18 @@ public class BookInfo extends BaseTimeEntity implements Serializable {
 		this.price = price;
 		this.publisher = publisher;
 		this.isbn = isbn;
+	}
+
+	public static BookInfo from(BookUploadRequest request) {
+		return BookInfo.builder()
+			.author(request.getAuthor())
+			.description(request.getDescription())
+			.imageUrl(request.getImageUrl())
+			.isbn(request.getIsbn())
+			.price(request.getPrice())
+			.publisher(request.getPublisher())
+			.title(request.getTitle())
+			.build();
 	}
 
 }
