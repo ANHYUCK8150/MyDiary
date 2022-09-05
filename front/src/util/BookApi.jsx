@@ -12,5 +12,15 @@ const ApiSearch = async (pageNum, query) => {
   }
 };
 
-const BookApi = { ApiSearch };
+const setBook = async bookInfo => {
+  try {
+    const result = await apiAuthUtil.post(`api/v1/books`, bookInfo);
+    const data = result.data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const BookApi = { ApiSearch, setBook };
 export default BookApi;
