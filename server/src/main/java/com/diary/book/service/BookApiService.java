@@ -35,6 +35,12 @@ public class BookApiService {
 	 * 네이버 book
 	 */
 	private PageResponse<BookInfoDto> naverBook(String query, int pageNum) {
+
+		int start = (PAGE_SIZE * (pageNum - 1)) + 1;
+		if (pageNum < 1) {
+			start = 1;
+		}
+
 		WebClient webClient = WebClient.builder()
 			.baseUrl("https://openapi.naver.com/v1/search/")
 			.defaultHeader("X-Naver-Client-Id", naverBookId)
@@ -43,7 +49,7 @@ public class BookApiService {
 
 		String url = "book.json?query=" + query
 			+ "&display=" + PAGE_SIZE
-			+ "&start=" + pageNum;
+			+ "&start=" + start;
 
 		String result = webClient.get().uri(url).accept(MediaType.APPLICATION_JSON).retrieve()
 			.bodyToMono(String.class).block();
@@ -54,7 +60,7 @@ public class BookApiService {
 			//도서 조회 반환값 DTO 변환
 			ApiNaverBookResponse response = mapper.readValue(result, ApiNaverBookResponse.class);
 
-			pageResponse.setPageNumber(response.getPageNumber());
+			pageResponse.setPageNumber(pageNum);
 			pageResponse.setPageSize(PAGE_SIZE);
 			pageResponse.setTotalElements(response.getTotalElements());
 			pageResponse.setTotalPages(response.getTotalPages());
