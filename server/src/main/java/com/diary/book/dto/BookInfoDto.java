@@ -1,5 +1,7 @@
 package com.diary.book.dto;
 
+import com.diary.book.entity.BookInfo;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +42,18 @@ public class BookInfoDto {
 			.price(response.getPrice())
 			.publisher(response.getPublisher())
 			.isbn(response.getIsbn())
+			.build();
+	}
+
+	public static BookInfoDto from(BookInfo bookInfo) {
+		return BookInfoDto.builder()
+			.title(bookInfo.getTitle())
+			.description(bookInfo.getDescription())
+			.imageUrl(bookInfo.getImageUrl())
+			.author(bookInfo.getAuthor())
+			.price(bookInfo.getPrice())
+			.publisher(bookInfo.getPublisher())
+			.isbn(bookInfo.getIsbn())
 			.build();
 	}
 

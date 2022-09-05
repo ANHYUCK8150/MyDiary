@@ -1,13 +1,16 @@
 package com.diary.book.controller;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diary.book.dto.BookInfoDto;
+import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.service.BookApiService;
 import com.diary.book.service.BookService;
@@ -41,10 +44,20 @@ public class BookController {
 	@ApiOperation(value = "도서 등록")
 	@PostMapping("/books")
 	public ResponseEntity<Long> setBook(
+		@RequestBody
 		BookUploadRequest request,
 		@ApiIgnore
 		@CurrentUser
 		UserPrincipal userPrincipal) {
 		return ResponseEntity.ok(bookService.setBook(request, userPrincipal.getId()));
+	}
+
+	@ApiOperation(value = "도서 조회")
+	@GetMapping("/books")
+	public ResponseEntity<PageResponse<BookResponse>> getBooks(
+		@RequestParam
+		Boolean status,
+		Pageable pageable) {
+		return ResponseEntity.ok(bookService.getBooks(status, pageable));
 	}
 }

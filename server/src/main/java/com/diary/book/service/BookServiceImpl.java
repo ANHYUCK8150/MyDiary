@@ -1,14 +1,18 @@
 package com.diary.book.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.entity.Book;
 import com.diary.book.entity.Book.bookStatus;
 import com.diary.book.entity.BookInfo;
 import com.diary.book.repository.BookInfoRepository;
 import com.diary.book.repository.BookRepository;
+import com.diary.common.dto.PageResponse;
 import com.diary.member.entity.Member;
 
 import lombok.RequiredArgsConstructor;
@@ -36,6 +40,26 @@ public class BookServiceImpl implements BookService {
 			.page(request.getPage())
 			.status(bookStatus.ING)
 			.build()).getId();
+	}
+
+	/*
+	 * 도서 조회
+	 */
+	@Override
+	public PageResponse<BookResponse> getBooks(Boolean status, Pageable pageable) {
+		Page<BookResponse> pageInfo;
+		if (status) {
+			pageInfo = bookRepository.findAllByBookReviewIsNotNull(pageable).map(BookResponse::from);
+		} else {
+			pageInfo = bookRepository.findAllByBookReviewIsNull(pageable).map(BookResponse::from);
+		}
+		return PageResponse.<BookResponse>builder()
+			.contents(pageInfo.getContent())
+			.pageNumber(pageInfo.getNumber())
+			.pageSize(pageInfo.getSize())
+			.totalPages(pageInfo.getTotalPages())
+			.totalElements(pageInfo.getTotalElements())
+			.build();
 	}
 
 }
