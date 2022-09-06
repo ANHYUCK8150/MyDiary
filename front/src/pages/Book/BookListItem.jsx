@@ -22,7 +22,12 @@ const BookListItem = ({ item }) => {
           <h4>{item.name}</h4>
           <span>{item.bookInfo.author}</span>
         </BookTitle>
-        <BookStatus>{item.bookReview === null ? <span className="orange">독서중</span> : <span className="blue">독서완료</span>}</BookStatus>
+        <BookStatus>
+          {item.bookReview === null ? <span className="orange">독서중</span> : <span className="blue">독서완료</span>}
+          <p>
+            {item.page}/{item.endPage}
+          </p>
+        </BookStatus>
         <BookPage>
           <p>진행률</p>
           <ProgressBar variant="success" animated now={item.progress} label={`${item.progress}`} />

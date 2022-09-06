@@ -104,6 +104,16 @@ const BookStatus = styled.div`
   height: auto;
   margin: 1.6rem 0 0.8rem 0;
 
+  p {
+    display: inline-block;
+    height: 2rem;
+    line-height: 2rem;
+    vertical-align: middle;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.$white2};
+  }
+
   span {
     display: inline-block;
     width: 3.8rem;
