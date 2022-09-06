@@ -94,9 +94,13 @@ const BookTitle = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  span {
+  h6 {
     font-size: 1.2rem;
     color: ${({ theme }) => theme.colors.$white3};
+    width: 22.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 `;
 

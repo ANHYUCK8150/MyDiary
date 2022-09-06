@@ -20,7 +20,7 @@ const BookListItem = ({ item }) => {
       <BookInfo>
         <BookTitle>
           <h4>{item.name}</h4>
-          <span>{item.bookInfo.author}</span>
+          <h6>{item.bookInfo.author}</h6>
         </BookTitle>
         <BookStatus>
           {item.bookReview === null ? <span className="orange">독서중</span> : <span className="blue">독서완료</span>}
