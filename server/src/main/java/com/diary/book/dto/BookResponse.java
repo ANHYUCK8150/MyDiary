@@ -43,7 +43,7 @@ public class BookResponse {
 	public static BookResponse from(Book book) {
 		Integer progress = 0;
 		try {
-			progress = (int)Math.ceil(book.getPage() / book.getEndPage() * 100);
+			progress = (int)Math.ceil((double)book.getPage() / (double)book.getEndPage() * 100);
 		} catch (Exception e) {
 			progress = 0;
 		}
