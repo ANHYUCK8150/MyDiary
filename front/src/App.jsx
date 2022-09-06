@@ -9,28 +9,28 @@ import usePushNotification from './components/common/usePushNotification';
 import socket from './util/ChatSocket';
 
 const App = () => {
-  const { fireNotification } = usePushNotification();
-  const client = useRef({});
-  const { connect, disconnect } = socket;
-  const user = useSelector(state => state.AHuser);
+  // const { fireNotification } = usePushNotification();
+  // const client = useRef({});
+  // const { connect, disconnect } = socket;
+  // const user = useSelector(state => state.AHuser);
 
-  //socket params
-  const socket_params = {
-    client: client,
-    option: 'all',
-    roomId: '',
-    member: user,
-    setChatMessages: '',
-    event: '',
-    fireNotification: fireNotification,
-  };
-  //Header
-  useEffect(() => {
-    connect(socket_params);
-    return () => {
-      disconnect(client);
-    };
-  }, [connect, disconnect, socket_params]);
+  // //socket params
+  // const socket_params = {
+  //   client: client,
+  //   option: 'all',
+  //   roomId: '',
+  //   member: user,
+  //   setChatMessages: '',
+  //   event: '',
+  //   fireNotification: fireNotification,
+  // };
+  // //Header
+  // useEffect(() => {
+  //   connect(socket_params);
+  //   return () => {
+  //     disconnect(client);
+  //   };
+  // }, [connect, disconnect, socket_params]);
 
   return (
     <ThemeProvider theme={theme}>

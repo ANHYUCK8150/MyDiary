@@ -11,7 +11,7 @@ import ChatApi from '../../../util/ChatApi';
 import socket from '../../../util/ChatSocket';
 import noImg from '../../../assets/img/logo/no_img.png';
 import Loader from '../../../components/common/Loader';
-import usePushNotification from '../../../components/common/usePushNotification';
+//import usePushNotification from '../../../components/common/usePushNotification';
 
 const RoomPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const RoomPage = () => {
   const client = useRef({});
   const { connect, publish, disconnect } = socket;
   const inputRef = useRef(null);
-  const { fireNotification } = usePushNotification();
+  //const { fireNotification } = usePushNotification();
 
   //변수
   const [loader, setLoader] = useState(false);

@@ -53,11 +53,12 @@ const Top = styled.div`
 const TabBox = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
   height: 4.4rem;
-  line-height: 4.4rem;
   //빌려줄 책 / 빌린 책
   h2 {
     width: 50%;
+    line-height: 4.4rem;
     font-size: 1.6rem;
     font-weight: 700;
     color: #bdc1c6;
@@ -73,7 +74,7 @@ const TabBox = styled.div`
     position: fixed;
     top: 6.4rem;
     width: 34rem;
-    background: #212121;
+    background: ${({ theme }) => theme.colors.$black0};
     z-index: 2;
   }
 `;

@@ -14,6 +14,7 @@ const TitleBox = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: row;
+  align-items: center;
   height: 4.8rem;
   line-height: 4.8rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.$black3Line};

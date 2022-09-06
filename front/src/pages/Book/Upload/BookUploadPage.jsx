@@ -15,6 +15,7 @@ const BookUploadPage = () => {
   //변수
   const { author, description, imageUrl, isbn, price, publisher, title } = bookInfo;
   const [page, setPage] = useState(0);
+  const [endPage, setEndPage] = useState(0);
 
   //API
   const { setBook } = BookApi;
@@ -30,6 +31,7 @@ const BookUploadPage = () => {
       price: price,
       publisher: publisher,
       page: page ? page : 0,
+      endPage: endPage ? endPage : 0,
     };
 
     const bookId = setBook(bookInfo);
@@ -45,7 +47,7 @@ const BookUploadPage = () => {
   }, [dispatch]);
 
   //Styled
-  const { UploadBox, ContentsBox, SaveButton, ImgBox } = style;
+  const { UploadBox, ContentsBox, SaveButton, ImgBox, PageBox } = style;
   return (
     <UploadBox>
       <ImgBox>
@@ -55,7 +57,10 @@ const BookUploadPage = () => {
         <input value={title} disabled />
         <input placeholder="저자명" value={author} disabled />
         <input placeholder="출판사" value={publisher} disabled />
-        <input type="number" onChange={e => setPage(e.target.value)} placeholder="읽은 페이지" min="0" max="99999" />
+        <PageBox>
+          <input type="number" onChange={e => setPage(e.target.value)} placeholder="읽은 페이지" min="0" max="99999" />
+          <input type="number" onChange={e => setEndPage(e.target.value)} placeholder="마지막 페이지" min="0" max="99999" />
+        </PageBox>
         <textarea placeholder="" value={description} disabled />
       </ContentsBox>
       <SaveButton onClick={() => saveBookInfo()}>완료</SaveButton>

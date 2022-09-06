@@ -22,5 +22,17 @@ const setBook = async bookInfo => {
   }
 };
 
-const BookApi = { ApiSearch, setBook };
+const getBookList = async (param, setBookList, setLoader) => {
+  try {
+    const result = await apiUtil.get(`api/v1/books?page=${param.page}&sort=id,desc&status=${param.status}`);
+    result.data.contents.map(data => {
+      return setBookList(_bookList => [..._bookList, data]);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  setLoader(false);
+};
+
+const BookApi = { ApiSearch, setBook, getBookList };
 export default BookApi;

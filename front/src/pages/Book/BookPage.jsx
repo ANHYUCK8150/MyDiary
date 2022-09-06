@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setTitle, setAllFalse } from '../../app/headerSlice';
 import style from './BookPage.style';
+import BookIngList from './BookIngList';
+import BookOnList from './BookOnList';
 
 const BookPage = () => {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ const BookPage = () => {
           독서중
         </h2>
       ),
-      tabCont: <p>독서중</p>,
+      tabCont: <BookIngList />,
     },
     {
       tabTitle: (
@@ -30,7 +32,7 @@ const BookPage = () => {
           독서완료
         </h2>
       ),
-      tabCont: <p>독서완료</p>,
+      tabCont: <BookOnList />,
     },
   ];
   //Header

@@ -109,6 +109,15 @@ const ContentsBox = styled.div`
   }
 `;
 
+const PageBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  input {
+    display: inline-block;
+    width: 16.7rem;
+  }
+`;
+
 const SaveButton = styled.div`
   margin-top: 1rem;
   height: 5rem;
@@ -123,6 +132,6 @@ const SaveButton = styled.div`
   color: ${({ theme }) => theme.colors.$whiteLine1};
 `;
 
-const style = { SearchBox, BookList, NoResult, ImgBox, UploadBox, ContentsBox, SaveButton };
+const style = { SearchBox, BookList, NoResult, ImgBox, UploadBox, ContentsBox, SaveButton, PageBox };
 
 export default style;
