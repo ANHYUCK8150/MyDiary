@@ -38,6 +38,7 @@ public class BookServiceImpl implements BookService {
 			.bookInfo(bookInfo)
 			.name(bookInfo.getTitle())
 			.page(request.getPage())
+			.endPage(request.getEndPage())
 			.status(bookStatus.ING)
 			.build()).getId();
 	}

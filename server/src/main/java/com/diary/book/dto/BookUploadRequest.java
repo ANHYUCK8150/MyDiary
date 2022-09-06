@@ -16,4 +16,5 @@ public class BookUploadRequest {
 	private String publisher;
 	private String isbn;
 	private int page;
+	private int endPage;
 }

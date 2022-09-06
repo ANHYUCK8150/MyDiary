@@ -40,6 +40,9 @@ public class Book extends BaseTimeEntity implements Serializable {
 	@ColumnDefault("1")
 	private int page = 1;
 
+	@ColumnDefault("1")
+	private int endPage = 1;
+
 	@ManyToOne
 	@JoinColumn(name = "book_info_id", nullable = true)
 	private BookInfo bookInfo;
@@ -53,12 +56,13 @@ public class Book extends BaseTimeEntity implements Serializable {
 	private BookReview bookReview;
 
 	@Builder
-	private Book(Long id, String name, bookStatus status, int page, BookInfo bookInfo, Member member,
+	private Book(Long id, String name, bookStatus status, int page, int endPage, BookInfo bookInfo, Member member,
 		BookReview bookReview) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
 		this.page = page;
+		this.endPage = endPage;
 		this.bookInfo = bookInfo;
 		this.member = member;
 		this.bookReview = bookReview;
