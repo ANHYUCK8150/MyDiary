@@ -63,4 +63,14 @@ public class BookServiceImpl implements BookService {
 			.build();
 	}
 
+	/*
+	 * 도서 상세 조회
+	 */
+	@Override
+	public BookResponse getBook(Long bookId) {
+		return bookRepository.findById(bookId)
+			.map(BookResponse::from)
+			.orElseThrow(() -> new IllegalArgumentException());
+	}
+
 }
