@@ -29,7 +29,6 @@ const MemberItem = ({ member, lender }) => {
   };
 
   const onClickProfile = (member, lender, e) => {
-    console.log(e.target.localName);
     if (e.target.localName !== 'span') {
       if (!lender) {
         navigate('/account');

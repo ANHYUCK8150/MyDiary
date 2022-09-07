@@ -18,6 +18,7 @@ import SettingPage from '../../pages/Account/Setting/SettingPage';
 import BookPage from '../../pages/Book/BookPage';
 import BookSearchPage from '../../pages/Book/Upload/BookSearchPage';
 import BookUploadPage from '../../pages/Book/Upload/BookUploadPage';
+import BookDetailPage from '../../pages/Book/Detail/BookDetailPage';
 
 const Layout = () => {
   const navi = useLocation();
@@ -35,6 +36,7 @@ const Layout = () => {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/memo" element={<MemoPage />} />
           <Route path="/book" element={<BookPage />} />
+          <Route path="/book/detail" element={<BookDetailPage />} />
           <Route element={<LoginCheckRouter />}>
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/chat/room" element={<RoomPage />} />

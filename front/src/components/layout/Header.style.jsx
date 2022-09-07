@@ -35,9 +35,10 @@ const Title = styled.h2`
   line-height: 6.4rem;
   color: ${({ theme }) => theme.colors.$white1};
 
-  &.titleLocation {
-    cursor: pointer;
-  }
+  width: 27rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const BackBtn = styled.a`

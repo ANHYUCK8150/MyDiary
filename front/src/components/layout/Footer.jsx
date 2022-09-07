@@ -29,6 +29,7 @@ const Footer = () => {
         pathname === '/memo/created' ||
         pathname === '/chat/room' ||
         pathname === '/book/upload' ||
+        pathname === '/book/detail' ||
         pathname === '/book/upload/search'
           ? 'hide'
           : 'show'

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import gradation from '../../assets/img/userInterFace/myBookGradation.png';
+import posting from '../../assets/img/btn/posting.svg';
 
 const AccountBox = styled.div`
   width: 34rem;
@@ -133,5 +134,15 @@ const BookBox = styled.ul`
   }
 `;
 
-const style = { AccountBox, UserInfo, Top, TabBox, BookBox, BookWrap, NoItem };
+const PlusBtn = styled.button`
+  background: url(${posting});
+  width: 4.4rem;
+  height: 4.4rem;
+  position: fixed;
+  right: 2.5rem;
+  bottom: 7.6rem;
+  z-index: 1;
+`;
+
+const style = { AccountBox, UserInfo, Top, TabBox, BookBox, BookWrap, NoItem, PlusBtn };
 export default style;

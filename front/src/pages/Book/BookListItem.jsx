@@ -9,7 +9,7 @@ const BookListItem = ({ item }) => {
 
   //EVENT
   const onDetailBookPage = () => {
-    //navigate(`/book/detail`, { state: { id: item.id } });
+    navigate(`/book/detail`, { state: { id: item.id } });
   };
 
   const { BookItem, BookTitle, BookStatus, BookInfo, BookPage, BookState } = style;

@@ -1,5 +1,5 @@
 import utils from './ApiUtil';
-const { apiUtil, apiAuthUtil, apiFormUtil } = utils;
+const { apiUtil, apiAuthUtil } = utils;
 
 const ApiSearch = async (pageNum, query) => {
   const encodingQuery = encodeURIComponent(query.trim());
@@ -22,6 +22,16 @@ const setBook = async bookInfo => {
   }
 };
 
+const getBook = async bookId => {
+  try {
+    const result = await apiUtil.get(`api/v1/books/${bookId}`);
+    const data = result.data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getBookList = async (param, setBookList, setLoader) => {
   try {
     const result = await apiUtil.get(`api/v1/books?page=${param.page}&sort=id,desc&status=${param.status}`);
@@ -34,5 +44,17 @@ const getBookList = async (param, setBookList, setLoader) => {
   setLoader(false);
 };
 
-const BookApi = { ApiSearch, setBook, getBookList };
+const getMemberBookList = async (param, setBookList, setLoader) => {
+  try {
+    const result = await apiUtil.get(`api/v1/users/${param.memberId}/books?page=${param.page}&sort=id,desc`);
+    result.data.contents.map(data => {
+      return setBookList(_bookList => [..._bookList, data]);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  setLoader(false);
+};
+
+const BookApi = { ApiSearch, setBook, getBook, getBookList, getMemberBookList };
 export default BookApi;

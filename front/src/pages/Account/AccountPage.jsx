@@ -7,6 +7,8 @@ import { setSettings, setBack, setAllFalse, setTitle } from '../../app/headerSli
 import style from './AccountPage.style';
 import noImg from '../../assets/img/logo/postp_default.svg';
 import MemoItem from './MemoItem';
+import BookItem from './BookItem';
+
 const AccountPage = () => {
   const location = useLocation();
   const memberInfo = location.state ? location.state.data : '';
@@ -40,10 +42,10 @@ const AccountPage = () => {
     {
       tabTitle: (
         <h2 key={1} className={activeIndex === 1 ? 'on' : ''} onClick={() => tabClickHandler(1)}>
-          링크
+          독서
         </h2>
       ),
-      tabCont: '',
+      tabCont: <BookItem memberId={memberInfo ? memberInfo.id : user.id}></BookItem>,
     },
   ];
 
