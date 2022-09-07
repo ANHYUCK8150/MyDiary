@@ -14,6 +14,7 @@ import com.diary.book.repository.BookInfoRepository;
 import com.diary.book.repository.BookRepository;
 import com.diary.common.dto.PageResponse;
 import com.diary.member.entity.Member;
+import com.diary.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class BookServiceImpl implements BookService {
 	private final BookRepository bookRepository;
 	private final BookInfoRepository bookInfoRepository;
+
+	private final MemberRepository memberRepository;
 
 	/*
 	 * 도서 등록
@@ -71,6 +74,25 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findById(bookId)
 			.map(BookResponse::from)
 			.orElseThrow(() -> new IllegalArgumentException());
+	}
+
+	/*
+	 * 맴버 도서 조회
+	 */
+	@Override
+	public PageResponse<BookResponse> getMemberBooks(Long memberId, Pageable pageable) {
+		Member member = memberRepository.findById(memberId)
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		Page<BookResponse> pageInfo = bookRepository.findAllByMember(member, pageable).map(BookResponse::from);
+
+		return PageResponse.<BookResponse>builder()
+			.contents(pageInfo.getContent())
+			.pageNumber(pageInfo.getNumber())
+			.pageSize(pageInfo.getSize())
+			.totalPages(pageInfo.getTotalPages())
+			.totalElements(pageInfo.getTotalElements())
+			.build();
 	}
 
 }

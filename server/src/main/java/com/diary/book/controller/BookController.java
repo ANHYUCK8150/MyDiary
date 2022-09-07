@@ -62,6 +62,15 @@ public class BookController {
 		return ResponseEntity.ok(bookService.getBooks(status, pageable));
 	}
 
+	@ApiOperation(value = "유저 도서 조회")
+	@GetMapping("/users/{memberId}/books")
+	public ResponseEntity<PageResponse<BookResponse>> getMemberBooks(
+		@PathVariable
+		Long memberId,
+		Pageable pageable) {
+		return ResponseEntity.ok(bookService.getMemberBooks(memberId, pageable));
+	}
+
 	@ApiOperation(value = "도서 상세 조회")
 	@GetMapping("/books/{bookId}")
 	public ResponseEntity<BookResponse> getBook(

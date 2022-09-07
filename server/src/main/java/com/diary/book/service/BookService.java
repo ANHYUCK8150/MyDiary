@@ -14,4 +14,6 @@ public interface BookService {
 
 	BookResponse getBook(Long bookId);
 
+	PageResponse<BookResponse> getMemberBooks(Long memberId, Pageable pageable);
+
 }
