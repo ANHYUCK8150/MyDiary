@@ -2,6 +2,7 @@ package com.diary.book.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -51,7 +52,7 @@ public class Book extends BaseTimeEntity implements Serializable {
 	@JoinColumn(name = "member_id")
 	private Member member;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_review_id", nullable = true)
 	private BookReview bookReview;
 
@@ -68,7 +69,15 @@ public class Book extends BaseTimeEntity implements Serializable {
 		this.bookReview = bookReview;
 	}
 
+	public Book updatePage(Integer page, Integer endPage) {
+		this.page = page;
+		this.endPage = endPage;
+
+		return this;
+	}
+
 	public enum bookStatus {
 		ING, ON
 	}
+
 }

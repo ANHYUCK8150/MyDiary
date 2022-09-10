@@ -1,16 +1,20 @@
 package com.diary.book.controller;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diary.book.dto.BookInfoDto;
+import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.service.BookApiService;
@@ -77,5 +81,33 @@ public class BookController {
 		@PathVariable
 		Long bookId) {
 		return ResponseEntity.ok(bookService.getBook(bookId));
+	}
+
+	@ApiOperation(value = "도서 페이지 수정")
+	@PutMapping("/books/{bookId}")
+	public ResponseEntity<BookResponse> setBookPage(
+		@PathVariable
+		Long bookId,
+		@RequestBody
+		BookPageRequest request) {
+
+		bookService.setBookPage(bookId, request);
+
+		return ResponseEntity
+			.status(HttpStatus.NO_CONTENT)
+			.build();
+	}
+
+	@ApiOperation(value = "도서 삭제")
+	@DeleteMapping("/books/{bookId}")
+	public ResponseEntity<BookResponse> removeBook(
+		@PathVariable
+		Long bookId) {
+
+		bookService.removeBook(bookId);
+
+		return ResponseEntity
+			.status(HttpStatus.NO_CONTENT)
+			.build();
 	}
 }

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.entity.Book;
@@ -93,6 +94,27 @@ public class BookServiceImpl implements BookService {
 			.totalPages(pageInfo.getTotalPages())
 			.totalElements(pageInfo.getTotalElements())
 			.build();
+	}
+
+	/*
+	 * 도서 읽은 페이지 마지막 페이지 수정
+	 */
+	@Override
+	@Transactional
+	public void setBookPage(Long bookId, BookPageRequest request) {
+
+		bookRepository.save(bookRepository.findById(bookId)
+			.orElseThrow(() -> new IllegalArgumentException()).updatePage(request.getPage(), request.getEndPage()));
+
+	}
+
+	/*
+	 * 도서 삭제
+	 */
+	@Override
+	@Transactional
+	public void removeBook(Long bookId) {
+		bookRepository.deleteById(bookId);
 	}
 
 }
