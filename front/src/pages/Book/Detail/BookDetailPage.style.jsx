@@ -120,7 +120,7 @@ const FooterBox = styled.div`
 `;
 
 const SettingBox = styled.div`
-  margin: 2rem auto;
+  margin: 2rem auto 3rem auto;
   display: flex;
   flex-direction: row;
   align-items: center;

@@ -21,9 +21,24 @@ const BookDetailPage = () => {
   const [endPage, setEndPage] = useState(0);
 
   //API
-  const { getBook } = BookApi;
+  const { getBook, setBookPage, deleteBook } = BookApi;
 
   //EVENT
+  const pageUpdateClick = () => {
+    const param = {
+      page: parseInt(page),
+      endPage: parseInt(endPage),
+    };
+
+    setBookPage(bookId, param).then(alert('수정완료'));
+  };
+
+  const bookDeleteClick = () => {
+    deleteBook(bookId).then(() => {
+      alert('삭제 완료');
+      navigate('/book', { replace: true });
+    });
+  };
 
   //--------------header START--------------
   useEffect(() => {
@@ -65,12 +80,14 @@ const BookDetailPage = () => {
               <SettingBox>
                 <input type="number" onChange={e => setPage(e.target.value)} placeholder="읽은 페이지" min="0" max="99999" value={page} />
                 <input type="number" onChange={e => setEndPage(e.target.value)} placeholder="마지막 페이지" min="0" max="99999" value={endPage} />
-                <button>수정</button>
+                <button onClick={pageUpdateClick}>수정</button>
               </SettingBox>
               <BookFooter>
                 <FooterBox>
                   <button className="blue">리뷰 작성</button>
-                  <button className="red">삭제</button>
+                  <button className="red" onClick={bookDeleteClick}>
+                    삭제
+                  </button>
                 </FooterBox>
               </BookFooter>
             </>

@@ -56,5 +56,23 @@ const getMemberBookList = async (param, setBookList, setLoader) => {
   setLoader(false);
 };
 
-const BookApi = { ApiSearch, setBook, getBook, getBookList, getMemberBookList };
+const setBookPage = async (bookId, bookPage) => {
+  try {
+    const result = await apiAuthUtil.put(`api/v1/books/${bookId}`, bookPage);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteBook = async bookId => {
+  try {
+    const result = await apiAuthUtil.delete(`api/v1/books/${bookId}`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const BookApi = { ApiSearch, setBook, getBook, getBookList, getMemberBookList, setBookPage, deleteBook };
 export default BookApi;
