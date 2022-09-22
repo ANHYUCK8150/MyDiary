@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.diary.book.dto.BookUploadRequest;
-import com.diary.common.entity.BaseTimeEntity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class BookInfo extends BaseTimeEntity implements Serializable {
+public class BookInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
