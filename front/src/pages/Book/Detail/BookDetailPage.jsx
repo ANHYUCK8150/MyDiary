@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { setAllFalse, setBack, setTitle } from '../../../app/headerSlice';
@@ -38,6 +38,10 @@ const BookDetailPage = () => {
       alert('삭제 완료');
       navigate('/book', { replace: true });
     });
+  };
+
+  const bookReviewClick = () => {
+    navigate(`/book/review`, { state: { data: book } });
   };
 
   //--------------header START--------------
@@ -84,7 +88,9 @@ const BookDetailPage = () => {
               </SettingBox>
               <BookFooter>
                 <FooterBox>
-                  <button className="blue">리뷰 작성</button>
+                  <button className="blue" onClick={bookReviewClick}>
+                    리뷰 작성
+                  </button>
                   <button className="red" onClick={bookDeleteClick}>
                     삭제
                   </button>

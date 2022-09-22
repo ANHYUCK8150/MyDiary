@@ -33,6 +33,14 @@ const IconBox = styled.a`
     height: 2.4rem;
     margin-bottom: 0.4rem;
   }
+
+  :hover {
+    color: ${({ theme }) => theme.colors.$white3};
+  }
+
+  ::after {
+    color: ${({ theme }) => theme.colors.$white1};
+  }
 `;
 
 const footerStyle = { FooterBox, IconBox };

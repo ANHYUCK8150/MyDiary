@@ -51,8 +51,8 @@ const Header = () => {
               <img src={x} alt={'x'} />
             </BackBtn>
           )}
-          <Title>{title}</Title>
-          {searchBox && (
+
+          {searchBox ? (
             <SearchBox>
               <input type="input" id="searchInput" placeholder={placeholder} onChange={handleChangeInputText} />
               <button id="clearBtn" className={visible ? 'active' : 'hide'} onClick={handleClickClearBtn}>
@@ -62,6 +62,8 @@ const Header = () => {
                 <img src={searchImg} alt={'검색버튼'} />
               </button>
             </SearchBox>
+          ) : (
+            <Title>{title}</Title>
           )}
         </LeftBox>
         <RightBox>
