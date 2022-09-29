@@ -19,7 +19,7 @@ import BookPage from '../../pages/Book/BookPage';
 import BookSearchPage from '../../pages/Book/Upload/BookSearchPage';
 import BookUploadPage from '../../pages/Book/Upload/BookUploadPage';
 import BookDetailPage from '../../pages/Book/Detail/BookDetailPage';
-import BookReviewPage from '../../pages/Book/Detail/BookReviewPage';
+import BookReviewPage from '../../pages/Book/Review/BookReviewPage';
 
 const Layout = () => {
   const navi = useLocation();
