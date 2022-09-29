@@ -8,12 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import com.diary.book.dto.BookUploadRequest;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Document(indexName = "book_info")
 @Entity
 @Getter
 @NoArgsConstructor

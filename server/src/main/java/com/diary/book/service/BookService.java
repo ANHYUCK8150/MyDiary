@@ -2,6 +2,7 @@ package com.diary.book.service;
 
 import org.springframework.data.domain.Pageable;
 
+import com.diary.book.dto.BookInfoDto;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookUploadRequest;
@@ -20,5 +21,7 @@ public interface BookService {
 	void setBookPage(Long bookId, BookPageRequest request);
 
 	void removeBook(Long bookId);
+
+	PageResponse<BookInfoDto> getBookInfo(String query, Pageable pageable);
 
 }

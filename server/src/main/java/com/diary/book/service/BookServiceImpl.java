@@ -5,12 +5,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.diary.book.dto.BookInfoDto;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.entity.Book;
 import com.diary.book.entity.Book.bookStatus;
 import com.diary.book.entity.BookInfo;
+import com.diary.book.repository.BookInfoESRepository;
 import com.diary.book.repository.BookInfoRepository;
 import com.diary.book.repository.BookRepository;
 import com.diary.common.dto.PageResponse;
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class BookServiceImpl implements BookService {
 	private final BookRepository bookRepository;
 	private final BookInfoRepository bookInfoRepository;
+	private final BookInfoESRepository bookInfoESRepository;
 
 	private final MemberRepository memberRepository;
 
@@ -115,6 +118,22 @@ public class BookServiceImpl implements BookService {
 	@Transactional
 	public void removeBook(Long bookId) {
 		bookRepository.deleteById(bookId);
+	}
+
+	/*
+	 * 도서 내부 조회(Elasticsearch)
+	 */
+	@Override
+	public PageResponse<BookInfoDto> getBookInfo(String query, Pageable pageable) {
+		Page<BookInfoDto> pageInfo = bookInfoESRepository.searchByTitle(query, pageable).map(BookInfoDto::from);
+
+		return PageResponse.<BookInfoDto>builder()
+			.contents(pageInfo.getContent())
+			.pageNumber(pageInfo.getNumber())
+			.pageSize(pageInfo.getSize())
+			.totalPages(pageInfo.getTotalPages())
+			.totalElements(pageInfo.getTotalElements())
+			.build();
 	}
 
 }

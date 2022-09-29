@@ -46,6 +46,15 @@ public class BookController {
 		return ResponseEntity.ok(bookApiService.search(query, page));
 	}
 
+	@ApiOperation(value = "도서 내부 조회")
+	@GetMapping("/books/search")
+	public ResponseEntity<PageResponse<BookInfoDto>> getBookInfo(
+		@RequestParam
+		String query,
+		Pageable pageable) {
+		return ResponseEntity.ok(bookService.getBookInfo(query, pageable));
+	}
+
 	@ApiOperation(value = "도서 등록")
 	@PostMapping("/books")
 	public ResponseEntity<Long> setBook(
