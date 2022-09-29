@@ -12,7 +12,7 @@ Design by 개인책방(https://github.com/ttukttak3/ttukttak)
    - MariaDB
 
 ##Elasticsearch 성능비교
- - DB 데이터 65만건 
+ - DB 데이터 459,416 
  - 전 : http://blackah.site/api/v1/books/search?query=달러&page=1
    - time : 4.13s / 2.37s
  - 후 : http://blackah.site/api/v1/books/elasticsearch?query=달러&page=1
