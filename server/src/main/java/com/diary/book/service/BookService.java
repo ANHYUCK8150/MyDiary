@@ -22,6 +22,8 @@ public interface BookService {
 
 	void removeBook(Long bookId);
 
+	PageResponse<BookInfoDto> getESBookInfo(String query, Pageable pageable);
+
 	PageResponse<BookInfoDto> getBookInfo(String query, Pageable pageable);
 
 }

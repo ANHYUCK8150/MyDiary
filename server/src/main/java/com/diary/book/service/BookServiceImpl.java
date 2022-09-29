@@ -124,8 +124,24 @@ public class BookServiceImpl implements BookService {
 	 * 도서 내부 조회(Elasticsearch)
 	 */
 	@Override
+	public PageResponse<BookInfoDto> getESBookInfo(String query, Pageable pageable) {
+		Page<BookInfoDto> pageInfo = bookInfoESRepository.searchByTitleContains(query, pageable).map(BookInfoDto::from);
+
+		return PageResponse.<BookInfoDto>builder()
+			.contents(pageInfo.getContent())
+			.pageNumber(pageInfo.getNumber())
+			.pageSize(pageInfo.getSize())
+			.totalPages(pageInfo.getTotalPages())
+			.totalElements(pageInfo.getTotalElements())
+			.build();
+	}
+
+	/*
+	 * 도서 내부 조회
+	 */
+	@Override
 	public PageResponse<BookInfoDto> getBookInfo(String query, Pageable pageable) {
-		Page<BookInfoDto> pageInfo = bookInfoESRepository.searchByTitle(query, pageable).map(BookInfoDto::from);
+		Page<BookInfoDto> pageInfo = bookInfoRepository.findByTitleContains(query, pageable).map(BookInfoDto::from);
 
 		return PageResponse.<BookInfoDto>builder()
 			.contents(pageInfo.getContent())

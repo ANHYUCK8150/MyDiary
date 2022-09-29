@@ -9,4 +9,6 @@ import com.diary.book.entity.BookInfo;
 public interface BookInfoESRepository extends ElasticsearchRepository<BookInfo, Long> {
 
 	Page<BookInfo> searchByTitle(String query, Pageable pageable);
+
+	Page<BookInfo> searchByTitleContains(String query, Pageable pageable);
 }
