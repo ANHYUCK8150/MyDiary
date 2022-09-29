@@ -11,5 +11,9 @@ Design by 개인책방(https://github.com/ttukttak3/ttukttak)
    - AWS EC2, Jenkins, Nginx
    - MariaDB
 
-##Elasticsearch 성능비교
-
+## Elasticsearch 성능비교
+ - DB 데이터 약 16만개
+   - 일반 쿼리 조회 : http://blackah.site/api/v1/books/search?query=달러&page=1
+     - times : 7.45s
+   - elasticsearch : http://blackah.site/api/v1/books/elasticsearch?query=달러&page=1
+     - times : 888ms
