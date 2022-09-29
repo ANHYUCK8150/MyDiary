@@ -29,9 +29,6 @@ public class BookInfo implements Serializable {
 
 	private String title;
 
-	@Column(columnDefinition = "TEXT")
-	private String description;
-
 	private String imageUrl;
 
 	private String author;
@@ -41,6 +38,9 @@ public class BookInfo implements Serializable {
 	private String publisher;
 
 	private String isbn;
+
+	@Column(columnDefinition = "TEXT")
+	private String description;
 
 	@Builder
 	private BookInfo(Long id, String title, String description, String imageUrl,
