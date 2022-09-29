@@ -5,6 +5,7 @@ import { setTitle, setAllFalse } from '../../app/headerSlice';
 import MemberItem from './MemberItem';
 import style from './HomePage.style';
 import SignApi from '../../util/SignApi';
+import Loader from '../../components/common/Loader';
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const HomePage = () => {
 
   //변수
   const [memberList, setMemberList] = useState([]);
+  const [loader, setLoader] = useState(true);
 
   //api
   const { getMembers } = SignApi;
@@ -23,6 +25,7 @@ const HomePage = () => {
     dispatch(setTitle('홈'));
     getMembers().then(result => {
       setMemberList(result);
+      setLoader(false);
     });
     return () => {};
   }, [dispatch, getMembers]);
@@ -40,6 +43,7 @@ const HomePage = () => {
         <h2>회원 목록</h2>
         {memberList.length > 0 ? memberList.filter(item => item.id !== member.id).map(item => <MemberItem key={item.id} member={item} lender={member} />) : ''}
       </UserProfile>
+      {loader && <Loader />}
     </HomeBox>
   );
 };
