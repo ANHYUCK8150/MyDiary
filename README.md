@@ -1,4 +1,4 @@
-# MyDiary
+# MyDiary (http://blackah.site)
 연구 개발 blog  
 Design by 개인책방(https://github.com/ttukttak3/ttukttak)
 
@@ -17,3 +17,6 @@ Design by 개인책방(https://github.com/ttukttak3/ttukttak)
      - times : 7.45s
    - elasticsearch : http://blackah.site/api/v1/books/elasticsearch?query=달러&page=1
      - times : 888ms
+
+## Websocket을 통한 실시간 채팅
+ - 
