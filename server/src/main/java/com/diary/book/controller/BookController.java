@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.diary.book.dto.BookInfoDto;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
+import com.diary.book.dto.BookReviewUploadRequest;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.service.BookApiService;
 import com.diary.book.service.BookService;
@@ -127,5 +128,21 @@ public class BookController {
 		return ResponseEntity
 			.status(HttpStatus.NO_CONTENT)
 			.build();
+	}
+
+	@ApiOperation(value = "도서 리뷰 등록")
+	@PostMapping("/books/{bookId}/reviews")
+	public ResponseEntity<Long> setBookReview(
+		@RequestBody
+		BookReviewUploadRequest request,
+		@PathVariable
+		Long bookId,
+		@ApiIgnore
+		@CurrentUser
+		UserPrincipal userPrincipal) {
+
+		request.setBookId(bookId);
+
+		return ResponseEntity.ok(bookService.setBookReview(request, userPrincipal.getId()));
 	}
 }

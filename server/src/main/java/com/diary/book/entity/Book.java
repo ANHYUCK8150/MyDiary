@@ -76,6 +76,10 @@ public class Book extends BaseTimeEntity implements Serializable {
 		return this;
 	}
 
+	public void addReview(BookReview bookReview) {
+		this.bookReview = bookReview;
+	}
+
 	public enum bookStatus {
 		ING, ON
 	}

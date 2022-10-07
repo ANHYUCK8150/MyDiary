@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import com.diary.book.dto.BookInfoDto;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
+import com.diary.book.dto.BookReviewUploadRequest;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.common.dto.PageResponse;
 
@@ -25,5 +26,7 @@ public interface BookService {
 	PageResponse<BookInfoDto> getESBookInfo(String query, Pageable pageable);
 
 	PageResponse<BookInfoDto> getBookInfo(String query, Pageable pageable);
+
+	Long setBookReview(BookReviewUploadRequest request, Long id);
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 
 import com.diary.common.entity.BaseTimeEntity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -27,5 +28,12 @@ public class BookReview extends BaseTimeEntity implements Serializable {
 
 	@Column(columnDefinition = "TEXT")
 	private String content;
+
+	@Builder
+	public BookReview(Long id, double rating, String content) {
+		this.id = id;
+		this.rating = rating;
+		this.content = content;
+	}
 
 }

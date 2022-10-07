@@ -2,7 +2,6 @@ package com.diary.book.dto;
 
 import com.diary.book.entity.Book;
 import com.diary.book.entity.Book.bookStatus;
-import com.diary.book.entity.BookReview;
 import com.diary.member.dto.MemberResponse;
 
 import lombok.Builder;
@@ -22,13 +21,13 @@ public class BookResponse {
 	private Integer progress;
 	private BookInfoDto bookInfo;
 	private MemberResponse member;
-	private BookReview bookReview;
+	private BookReviewResponse bookReview;
 
 	@Builder
 	private BookResponse(Long id, String name, bookStatus status, int page, int endPage, Integer progress,
 		BookInfoDto bookInfo,
 		MemberResponse member,
-		BookReview bookReview) {
+		BookReviewResponse bookReview) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
@@ -56,6 +55,7 @@ public class BookResponse {
 			.progress(progress)
 			.bookInfo(BookInfoDto.from(book.getBookInfo()))
 			.member(MemberResponse.from(book.getMember()))
+			.bookReview(BookReviewResponse.from(book.getBookReview()))
 			.build();
 	}
 

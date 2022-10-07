@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.diary.book.dto.BookInfoDto;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
+import com.diary.book.dto.BookReviewUploadRequest;
 import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.entity.Book;
 import com.diary.book.entity.Book.bookStatus;
 import com.diary.book.entity.BookInfo;
+import com.diary.book.entity.BookReview;
 import com.diary.book.repository.BookInfoESRepository;
 import com.diary.book.repository.BookInfoRepository;
 import com.diary.book.repository.BookRepository;
@@ -150,6 +152,25 @@ public class BookServiceImpl implements BookService {
 			.totalPages(pageInfo.getTotalPages())
 			.totalElements(pageInfo.getTotalElements())
 			.build();
+	}
+
+	/*
+	 * 도서 리뷰 등록
+	 */
+	@Override
+	@Transactional
+	public Long setBookReview(BookReviewUploadRequest request, Long id) {
+		Book book = bookRepository.findById(request.getBookId())
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		BookReview bookReview = BookReview.builder()
+			.content(request.getContent())
+			.rating(request.getRating())
+			.build();
+
+		book.addReview(bookReview);
+
+		return bookRepository.save(book).getId();
 	}
 
 }
