@@ -9,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class BookReviewUploadRequest {
 	private Long bookId;
+	private Long reviewId;
 	private Double rating;
 	private String content;
 }

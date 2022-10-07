@@ -23,6 +23,10 @@ public class BookReviewResponse {
 	}
 
 	public static BookReviewResponse from(BookReview bookReview) {
+		if (bookReview == null) {
+			return null;
+		}
+
 		return BookReviewResponse.builder()
 			.id(bookReview.getId())
 			.content(bookReview.getContent())

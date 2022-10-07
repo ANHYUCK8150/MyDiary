@@ -164,6 +164,7 @@ public class BookServiceImpl implements BookService {
 			.orElseThrow(() -> new IllegalArgumentException());
 
 		BookReview bookReview = BookReview.builder()
+			.id(request.getReviewId())
 			.content(request.getContent())
 			.rating(request.getRating())
 			.build();
