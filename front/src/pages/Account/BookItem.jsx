@@ -52,6 +52,7 @@ const BookItem = ({ memberId }) => {
   });
 
   useEffect(() => {
+    setLoader(true);
     getMemberBookList(param, setBookList, setLoader);
     return () => {};
   }, [getMemberBookList, param]);

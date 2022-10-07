@@ -73,6 +73,7 @@ const MemoItem = ({ memberId }) => {
   });
 
   useEffect(() => {
+    setLoader(true);
     getMyMemoList(param, setMemoList, setLoader);
     return () => {};
   }, [getMyMemoList, param]);
