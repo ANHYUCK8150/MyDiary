@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { setSettings, setBack, setAllFalse, setTitle } from '../../app/headerSlice';
 import style from './AccountPage.style';
-import noImg from '../../assets/img/logo/postp_default.svg';
+import noImg from '../../assets/img/logo/no_img.png';
 import MemoItem from './MemoItem';
 import BookItem from './BookItem';
 
@@ -77,7 +77,7 @@ const AccountPage = () => {
     <AccountBox>
       <UserInfo>
         <Top>
-          <img onError={onErrorImg} src={memberInfo ? (memberInfo.imageUrl === null ? '' : memberInfo.imageUrl) : user.imageUrl} alt="이미지" />
+          <img onError={onErrorImg} src={memberInfo ? (memberInfo.imageUrl === null ? '' : memberInfo.imageUrl) : user.imageUrl === null ? '' : user.imageUrl} alt="이미지" />
         </Top>
         <h2>{memberInfo ? memberInfo.name : user.name}</h2>
         <h6>{memberInfo ? memberInfo.introduction : user.introduction}</h6>

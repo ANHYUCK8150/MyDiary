@@ -7,12 +7,14 @@ import style from './ChatPage.style';
 import RoomItem from './RoomItem';
 import ChatApi from '../../util/ChatApi';
 import socket from '../../util/ChatSocket';
+import Loader from '../../components/common/Loader';
 
 const ChatPage = () => {
   const dispatch = useDispatch();
   const client = useRef({});
 
   //변수
+  const [loader, setLoader] = useState(false);
   const memberId = useSelector(state => state.AHuser.id);
   const [roomList, setRoomList] = useState();
 
@@ -36,8 +38,10 @@ const ChatPage = () => {
     connect(socket_params);
     dispatch(setAllFalse());
     dispatch(setTitle('대화'));
+    setLoader(true);
     getRoomList().then(result => {
       setRoomList(result);
+      setLoader(false);
     });
 
     return () => {
@@ -58,6 +62,7 @@ const ChatPage = () => {
       ) : (
         <NoItem>대화내용이 없습니다.</NoItem>
       )}
+      {loader && <Loader />}
     </ChatBox>
   );
 };

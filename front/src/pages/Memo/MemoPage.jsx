@@ -94,6 +94,7 @@ const MemoPage = () => {
   useEffect(() => {
     dispatch(setAllFalse());
     dispatch(setTitle('메모'));
+    setLoader(true);
     getMemoList(param, setMemoList, setLoader);
     return () => {};
   }, [dispatch, getMemoList, param]);
