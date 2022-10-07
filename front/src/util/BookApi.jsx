@@ -74,5 +74,15 @@ const deleteBook = async bookId => {
   }
 };
 
-const BookApi = { ApiSearch, setBook, getBook, getBookList, getMemberBookList, setBookPage, deleteBook };
+const setBookReview = async params => {
+  try {
+    const result = await apiAuthUtil.post(`api/v1/books/${params.bookId}/reviews`, params);
+    const data = result.data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const BookApi = { ApiSearch, setBook, getBook, getBookList, getMemberBookList, setBookPage, deleteBook, setBookReview };
 export default BookApi;

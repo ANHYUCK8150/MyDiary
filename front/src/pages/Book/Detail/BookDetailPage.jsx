@@ -1,5 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import React, { useEffect, useState } from 'react';
+import { ImStarFull } from 'react-icons/im';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { setAllFalse, setBack, setTitle } from '../../../app/headerSlice';
@@ -19,6 +20,8 @@ const BookDetailPage = () => {
   const [book, setBook] = useState();
   const [page, setPage] = useState(0);
   const [endPage, setEndPage] = useState(0);
+  const [clicked, setClicked] = useState([false, false, false, false, false]);
+  const array = [0, 1, 2, 3, 4];
 
   //API
   const { getBook, setBookPage, deleteBook } = BookApi;
@@ -41,7 +44,7 @@ const BookDetailPage = () => {
   };
 
   const bookReviewClick = () => {
-    navigate(`/book/review`, { state: { data: book } });
+    navigate(`/book/review`, { state: { data: book }, replace: true });
   };
 
   //--------------header START--------------
@@ -53,11 +56,17 @@ const BookDetailPage = () => {
       setPage(result.page);
       setEndPage(result.endPage);
       dispatch(setTitle(result.name));
+
+      if (result.bookReview !== null) {
+        for (let i = 0; i < 5; i++) {
+          clicked[i] = i <= result.bookReview.rating - 1 ? true : false;
+        }
+      }
     });
     return () => {};
-  }, [dispatch, getBook, bookId]);
+  }, [dispatch, getBook, clicked, bookId]);
 
-  const { BookWrap, BookInfo, TitleBox, BookCont, BookImageBox, BookFooter, FooterBox, SettingBox, NoItem } = style;
+  const { BookWrap, BookInfo, TitleBox, BookCont, BookImageBox, BookFooter, FooterBox, BookReviewBox, SettingBox, NoItem } = style;
   return (
     <BookWrap>
       {book && (
@@ -75,7 +84,16 @@ const BookDetailPage = () => {
               <h4>도서 설명</h4>
               <p>{book.bookInfo.description}</p>
               <h4>도서 리뷰</h4>
-              {book.bookReview !== null ? <div></div> : <NoItem>등록된 리뷰가 없습니다.</NoItem>}
+              {book.bookReview !== null ? (
+                <BookReviewBox>
+                  {array.map(el => (
+                    <ImStarFull key={el} className={clicked[el] && 'black'} size="20" />
+                  ))}
+                  <textarea value={book.bookReview.content}></textarea>
+                </BookReviewBox>
+              ) : (
+                <NoItem>등록된 리뷰가 없습니다.</NoItem>
+              )}
             </BookCont>
           </BookInfo>
           <MemberInfoPage member={book.member} user={user} />

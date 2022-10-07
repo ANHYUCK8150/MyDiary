@@ -30,6 +30,7 @@ const Footer = () => {
         pathname === '/chat/room' ||
         pathname === '/book/upload' ||
         pathname === '/book/detail' ||
+        pathname === '/book/review' ||
         pathname === '/book/upload/search'
           ? 'hide'
           : 'show'

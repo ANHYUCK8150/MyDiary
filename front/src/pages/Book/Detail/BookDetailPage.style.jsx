@@ -152,6 +152,105 @@ const NoItem = styled.div`
   color: ${({ theme }) => theme.colors.$white3};
 `;
 
-const style = { BookWrap, BookInfo, TitleBox, BookImageBox, BookCont, MemberWrap, MemberInfo, BookFooter, FooterBox, NoItem, SettingBox };
+const RatingBox = styled.div`
+  margin-top: 2rem;
+  text-align: center;
+
+  & svg {
+    color: ${({ theme }) => theme.colors.$white3};
+    cursor: pointer;
+  }
+  :hover svg {
+    color: ${({ theme }) => theme.colors.$primaryBlueP};
+  }
+  & svg:hover ~ svg {
+    color: ${({ theme }) => theme.colors.$white3};
+  }
+  .black {
+    color: ${({ theme }) => theme.colors.$primaryBlueP};
+  }
+`;
+
+const ReviewBox = styled.div`
+  textarea {
+    padding: 1rem;
+    margin-top: 2rem;
+    resize: none;
+    width: 34rem;
+    height: 20rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.$white1};
+    background-color: ${({ theme }) => theme.colors.$black3};
+  }
+  span {
+    display: block;
+    height: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.$white3};
+    text-align: right;
+    margin: 0.8rem 0 1.7rem 0;
+  }
+`;
+
+const SaveButton = styled.div`
+  margin-top: 1rem;
+  height: 5rem;
+  text-align: center;
+  width: auto;
+  border-radius: 0.4rem;
+  line-height: 5rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  background: ${({ theme }) => theme.colors.$primaryBlueP};
+  color: ${({ theme }) => theme.colors.$whiteLine1};
+`;
+
+const BookReviewBox = styled.div`
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.$black3Line};
+  border-radius: 2rem;
+  & svg {
+    color: ${({ theme }) => theme.colors.$white3};
+  }
+  .black {
+    color: ${({ theme }) => theme.colors.$primaryBlueP};
+  }
+
+  textarea {
+    margin-top: 1rem;
+    resize: none;
+    width: 32rem;
+    height: 8rem;
+    font-size: 1.18rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.$white1};
+    background-color: ${({ theme }) => theme.colors.$black0};
+
+    :hover {
+      cursor: default;
+    }
+    :focus {
+      outline: none;
+    }
+    ::-webkit-scrollbar {
+      width: 0.2rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.colors.$black4};
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: ${({ theme }) => theme.colors.$white1};
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
+  }
+`;
+
+const style = { BookWrap, BookInfo, TitleBox, RatingBox, BookReviewBox, SaveButton, ReviewBox, BookImageBox, BookCont, MemberWrap, MemberInfo, BookFooter, FooterBox, NoItem, SettingBox };
 
 export default style;
