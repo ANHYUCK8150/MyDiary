@@ -63,7 +63,7 @@ const LoginPage = () => {
         <button onClick={() => onClickLoginHandler()}>로그인</button>
       </ContentBox>
       <SignBox>
-        <li onClick={() => navigate('/signup', { replace: true })}>회원가입</li>
+        <li onClick={() => navigate('/signup')}>회원가입</li>
         <li onClick={() => alert('너... 납치 된거야')}>비밀번호 찾기</li>
       </SignBox>
     </LoginBox>

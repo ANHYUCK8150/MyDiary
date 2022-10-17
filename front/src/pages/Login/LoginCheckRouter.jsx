@@ -15,10 +15,12 @@ const LoginCheckRouter = () => {
       if (returnVal) {
         setAuthenticated(true);
       } else {
+        alert('로그인이 필요한 서비스입니다.\n *로그인 페이지로 이동합니다.');
         dispatch(setClear());
         navigate('/login');
       }
     } catch (error) {
+      alert('로그인이 필요한 서비스입니다.\n *로그인 페이지로 이동합니다.');
       dispatch(setClear());
       navigate('/login');
     }

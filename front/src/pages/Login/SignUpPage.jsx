@@ -77,6 +77,11 @@ const SignUpPage = () => {
       return;
     }
 
+    if (name.length < 2) {
+      setNError('최소 2자 이상 입력해주세요');
+      return;
+    }
+
     if (!password) {
       setPError('비밀번호를 입력하세요.');
       return;
@@ -129,7 +134,7 @@ const SignUpPage = () => {
       <InfoBox>
         <InputBox>
           <h4>이름</h4>
-          <input type="text" value={name} placeholder="이름을 입력하세요." onChange={onChangeNN} className={Nerror && 'errorInput'} />
+          <input type="text" value={name} placeholder="이름을 입력하세요." maxLength="10" onChange={onChangeNN} className={Nerror && 'errorInput'} />
           <span>{Nerror !== '' ? Nerror : ''}</span>
         </InputBox>
         <InputBox>
