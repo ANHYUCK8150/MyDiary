@@ -6,6 +6,7 @@ import { setBack, setTitle, setAllFalse } from '../../app/headerSlice';
 import SignApi from '../../util/SignApi';
 import style from './LoginPage.style';
 import noImg from '../../assets/img/logo/myb_default.svg';
+import Loader from '../../components/common/Loader';
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const SignUpPage = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [chkpassword, setChkPassword] = useState('');
+  const [loader, setLoader] = useState(false);
 
   //api
   const { signUp } = SignApi;
@@ -97,12 +99,13 @@ const SignUpPage = () => {
     formData.append('imageFile', imgFile);
     formData.append('name', name);
     formData.append('password', password);
-    signUp(formData)
+    setLoader(true);
+    signUp(formData, setLoader)
       .then(result => {
         if (result.result) {
           navigate(`/login`);
         } else {
-          alert(result.message);
+          setNError(result.message);
         }
       })
       .catch(error => {
@@ -140,7 +143,10 @@ const SignUpPage = () => {
           <span>{PCerror !== '' ? PCerror : ''}</span>
         </InputBox>
       </InfoBox>
-      <SubmitBtn onClick={onCheckHandler}>회원가입 완료</SubmitBtn>
+      <SubmitBtn onClick={onCheckHandler} disabled={loader ? true : false}>
+        회원가입 완료
+      </SubmitBtn>
+      {loader && <Loader />}
     </SignUpBox>
   );
 };

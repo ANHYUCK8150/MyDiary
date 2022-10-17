@@ -10,12 +10,14 @@ const login = async (name, password) => {
   }
 };
 
-const signUp = async formData => {
+const signUp = async (formData, setLoader) => {
   try {
     const result = await formUtil.post(`api/v1/users`, formData);
+    setLoader(false);
     return result.data;
   } catch (error) {
     console.log(error);
+    setLoader(false);
   }
 };
 
