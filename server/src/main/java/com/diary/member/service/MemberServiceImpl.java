@@ -54,10 +54,18 @@ public class MemberServiceImpl implements MemberService {
 
 	/*
 	 * 회원가입
+	 * 예외사항 : 특수문자 검증.
 	 */
 	@Override
 	@Transactional
 	public SignUpResponse setMember(MemberDto memberDto, MultipartFile imageFile) {
+
+		//특수문자 제거
+		String replaceName = memberDto.getName().replaceAll("[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]", "");
+
+		if (!replaceName.equals(memberDto.getName())) {
+			return new SignUpResponse(false, "이름의 숫자 및 특수문자를 제거해주세요.");
+		}
 
 		if (memberRepository.existsByName(memberDto.getName())) {
 			//같은 네임이 있을 경우 조회 실패.
