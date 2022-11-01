@@ -20,6 +20,7 @@ import BookSearchPage from '../../pages/Book/Upload/BookSearchPage';
 import BookUploadPage from '../../pages/Book/Upload/BookUploadPage';
 import BookDetailPage from '../../pages/Book/Detail/BookDetailPage';
 import BookReviewPage from '../../pages/Book/Detail/BookReviewPage';
+import BookMarkPage from '../../pages/Book/Detail/BookMarkPage';
 
 const Layout = () => {
   const navi = useLocation();
@@ -48,6 +49,7 @@ const Layout = () => {
             <Route path="/book/upload/search" element={<BookSearchPage />} />
             <Route path="/book/upload" element={<BookUploadPage />} />
             <Route path="/book/review" element={<BookReviewPage />} />
+            <Route path="/book/mark" element={<BookMarkPage />} />
           </Route>
         </Routes>
       </Section>

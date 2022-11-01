@@ -47,6 +47,10 @@ const BookDetailPage = () => {
     navigate(`/book/review`, { state: { data: book }, replace: true });
   };
 
+  const bookMarkClick = () => {
+    navigate(`/book/mark`, { state: { data: book }, replace: true });
+  };
+
   //--------------header START--------------
   useEffect(() => {
     dispatch(setAllFalse());
@@ -107,7 +111,7 @@ const BookDetailPage = () => {
               </SettingBox>
               <BookFooter>
                 <FooterBox>
-                  <button className="orange" onClick={bookReviewClick}>
+                  <button className="orange" onClick={bookMarkClick}>
                     책갈피 등록
                   </button>
                   <button className="blue" onClick={bookReviewClick}>

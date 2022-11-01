@@ -76,7 +76,7 @@ const BookReviewPage = () => {
       <BookInfo>
         <TitleBox>
           <h6>
-            {book.bookInfo.author}(지은이) / {book.bookInfo.publisher}
+            {book.bookInfo.author} / {book.bookInfo.publisher}
           </h6>
         </TitleBox>
         <BookImageBox>

@@ -31,6 +31,7 @@ const Footer = () => {
         pathname === '/book/upload' ||
         pathname === '/book/detail' ||
         pathname === '/book/review' ||
+        pathname === '/book/mark' ||
         pathname === '/book/upload/search'
           ? 'hide'
           : 'show'
