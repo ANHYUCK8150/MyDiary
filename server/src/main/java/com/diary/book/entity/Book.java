@@ -1,22 +1,27 @@
 package com.diary.book.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.ColumnDefault;
 
 import com.diary.common.entity.BaseTimeEntity;
 import com.diary.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -55,6 +60,10 @@ public class Book extends BaseTimeEntity implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "book_review_id", nullable = true)
 	private BookReview bookReview;
+
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "book", cascade = CascadeType.ALL)
+	private List<BookMark> bookMark = new ArrayList<>();
 
 	@Builder
 	private Book(Long id, String name, bookStatus status, int page, int endPage, BookInfo bookInfo, Member member,

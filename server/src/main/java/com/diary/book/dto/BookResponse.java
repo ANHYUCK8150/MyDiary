@@ -22,12 +22,14 @@ public class BookResponse {
 	private BookInfoDto bookInfo;
 	private MemberResponse member;
 	private BookReviewResponse bookReview;
+	private BookMarkResponse bookMark;
 
 	@Builder
 	private BookResponse(Long id, String name, bookStatus status, int page, int endPage, Integer progress,
 		BookInfoDto bookInfo,
 		MemberResponse member,
-		BookReviewResponse bookReview) {
+		BookReviewResponse bookReview,
+		BookMarkResponse bookMark) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
@@ -37,6 +39,7 @@ public class BookResponse {
 		this.bookInfo = bookInfo;
 		this.member = member;
 		this.bookReview = bookReview;
+		this.bookMark = bookMark;
 	}
 
 	public static BookResponse from(Book book) {
@@ -56,6 +59,7 @@ public class BookResponse {
 			.bookInfo(BookInfoDto.from(book.getBookInfo()))
 			.member(MemberResponse.from(book.getMember()))
 			.bookReview(BookReviewResponse.from(book.getBookReview()))
+			.bookMark(BookMarkResponse.from(book.getBookMark()))
 			.build();
 	}
 
