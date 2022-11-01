@@ -1,5 +1,8 @@
 package com.diary.book.dto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.diary.book.entity.Book;
 import com.diary.book.entity.Book.bookStatus;
 import com.diary.member.dto.MemberResponse;
@@ -22,14 +25,14 @@ public class BookResponse {
 	private BookInfoDto bookInfo;
 	private MemberResponse member;
 	private BookReviewResponse bookReview;
-	private BookMarkResponse bookMark;
+	private List<BookMarkResponse> bookMark;
 
 	@Builder
 	private BookResponse(Long id, String name, bookStatus status, int page, int endPage, Integer progress,
 		BookInfoDto bookInfo,
 		MemberResponse member,
 		BookReviewResponse bookReview,
-		BookMarkResponse bookMark) {
+		List<BookMarkResponse> bookMark) {
 		this.id = id;
 		this.name = name;
 		this.status = status;
@@ -59,7 +62,7 @@ public class BookResponse {
 			.bookInfo(BookInfoDto.from(book.getBookInfo()))
 			.member(MemberResponse.from(book.getMember()))
 			.bookReview(BookReviewResponse.from(book.getBookReview()))
-			.bookMark(BookMarkResponse.from(book.getBookMark()))
+			.bookMark(book.getBookMark().stream().map(BookMarkResponse::from).collect(Collectors.toList()))
 			.build();
 	}
 

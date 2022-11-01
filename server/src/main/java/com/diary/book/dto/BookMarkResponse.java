@@ -23,9 +23,6 @@ public class BookMarkResponse {
 	}
 
 	public static BookMarkResponse from(BookMark bookMark) {
-		if (bookMark == null) {
-			return null;
-		}
 		return BookMarkResponse.builder()
 			.id(bookMark.getId())
 			.title(bookMark.getTitle())
