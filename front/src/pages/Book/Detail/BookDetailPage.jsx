@@ -74,7 +74,7 @@ const BookDetailPage = () => {
           <BookInfo>
             <TitleBox>
               <h6>
-                {book.bookInfo.author}(지은이) / {book.bookInfo.publisher}
+                {book.bookInfo.author} / {book.bookInfo.publisher}
               </h6>
             </TitleBox>
             <BookImageBox>
@@ -99,6 +99,7 @@ const BookDetailPage = () => {
           <MemberInfoPage member={book.member} user={user} />
           {book.member.id === user.id && (
             <>
+              <h4 className="head">읽은 페이지 관리</h4>
               <SettingBox>
                 <input type="number" onChange={e => setPage(e.target.value)} placeholder="읽은 페이지" min="0" max="99999" value={page} />
                 <input type="number" onChange={e => setEndPage(e.target.value)} placeholder="마지막 페이지" min="0" max="99999" value={endPage} />
@@ -106,6 +107,9 @@ const BookDetailPage = () => {
               </SettingBox>
               <BookFooter>
                 <FooterBox>
+                  <button className="orange" onClick={bookReviewClick}>
+                    책갈피 등록
+                  </button>
                   <button className="blue" onClick={bookReviewClick}>
                     리뷰 작성
                   </button>

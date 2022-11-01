@@ -5,6 +5,13 @@ const BookWrap = styled.div`
   width: 34rem;
   margin: 0 auto 2rem auto; //footer height:72
   text-align: left;
+
+  .head {
+    margin-top: 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.$white1};
+  }
 `;
 
 const BookInfo = styled.div`
@@ -115,6 +122,9 @@ const FooterBox = styled.div`
     }
     &.blue {
       background: ${({ theme }) => theme.colors.$primaryBlueP};
+    }
+    &.orange {
+      background: ${({ theme }) => theme.colors.$secondaryDeepOrangeS};
     }
   }
 `;

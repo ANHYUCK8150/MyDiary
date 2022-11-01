@@ -12,11 +12,11 @@ const MemberInfoPage = ({ member, user }) => {
   };
 
   const onClickProfile = () => {
-    if (member.id === user.id) {
-      navigate('/account');
-    } else {
-      navigate('/account', { state: { data: member } });
-    }
+    // if (member.id === user.id) {
+    //   navigate('/account');
+    // } else {
+    //   navigate('/account', { state: { data: member } });
+    // }
   };
 
   const { MemberWrap, MemberInfo } = style;
