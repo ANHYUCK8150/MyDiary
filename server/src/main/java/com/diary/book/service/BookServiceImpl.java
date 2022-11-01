@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.diary.book.dto.BookInfoDto;
+import com.diary.book.dto.BookMarkRequest;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookReviewUploadRequest;
@@ -13,9 +14,11 @@ import com.diary.book.dto.BookUploadRequest;
 import com.diary.book.entity.Book;
 import com.diary.book.entity.Book.bookStatus;
 import com.diary.book.entity.BookInfo;
+import com.diary.book.entity.BookMark;
 import com.diary.book.entity.BookReview;
 import com.diary.book.repository.BookInfoESRepository;
 import com.diary.book.repository.BookInfoRepository;
+import com.diary.book.repository.BookMarkRepository;
 import com.diary.book.repository.BookRepository;
 import com.diary.common.dto.PageResponse;
 import com.diary.member.entity.Member;
@@ -30,6 +33,7 @@ public class BookServiceImpl implements BookService {
 	private final BookRepository bookRepository;
 	private final BookInfoRepository bookInfoRepository;
 	private final BookInfoESRepository bookInfoESRepository;
+	private final BookMarkRepository bookMarkRepository;
 
 	private final MemberRepository memberRepository;
 
@@ -172,6 +176,41 @@ public class BookServiceImpl implements BookService {
 		book.addReview(bookReview);
 
 		return bookRepository.save(book).getId();
+	}
+
+	/*
+	 * 책갈피 등록
+	 */
+	@Override
+	@Transactional
+	public Long setBookMarks(BookMarkRequest request, Long bookId, Long id) {
+		Book book = bookRepository.findById(bookId)
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		BookMark bookMark = BookMark.builder()
+			.id(request.getId())
+			.title(request.getTitle())
+			.content(request.getContent())
+			.book(book)
+			.build();
+
+		return bookMarkRepository.save(bookMark).getId();
+	}
+
+	/*
+	 * 책갈피 삭제
+	 */
+	@Override
+	@Transactional
+	public void removeBookMark(Long bookId, Long bookMarkId, Long id) {
+		Book book = bookRepository.findById(bookId)
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		BookMark bookMark = bookMarkRepository.findById(bookMarkId)
+			.orElseThrow(() -> new IllegalArgumentException());
+
+		bookMarkRepository.delete(bookMark);
+
 	}
 
 }

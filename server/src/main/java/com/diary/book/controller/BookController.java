@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.diary.book.dto.BookInfoDto;
+import com.diary.book.dto.BookMarkRequest;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookReviewUploadRequest;
@@ -144,5 +145,51 @@ public class BookController {
 		request.setBookId(bookId);
 
 		return ResponseEntity.ok(bookService.setBookReview(request, userPrincipal.getId()));
+	}
+
+	@ApiOperation(value = "책갈피 등록")
+	@PostMapping("/books/{bookId}/bookmarks")
+	public ResponseEntity<Long> setBookMarks(
+		@RequestBody
+		BookMarkRequest request,
+		@PathVariable
+		Long bookId,
+		@ApiIgnore
+		@CurrentUser
+		UserPrincipal userPrincipal) {
+
+		return ResponseEntity.ok(bookService.setBookMarks(request, bookId, userPrincipal.getId()));
+	}
+
+	@ApiOperation(value = "책갈피 수정")
+	@PutMapping("/books/{bookId}/bookmarks")
+	public ResponseEntity<Long> updateBookMarks(
+		@RequestBody
+		BookMarkRequest request,
+		@PathVariable
+		Long bookId,
+		@ApiIgnore
+		@CurrentUser
+		UserPrincipal userPrincipal) {
+
+		return ResponseEntity.ok(bookService.setBookMarks(request, bookId, userPrincipal.getId()));
+	}
+
+	@ApiOperation(value = "책갈피 삭제")
+	@PutMapping("/books/{bookId}/bookmarks/{bookMarkId}")
+	public ResponseEntity<Long> deleteBookMarks(
+		@PathVariable("bookId")
+		Long bookId,
+		@PathVariable("bookMarkId")
+		Long bookMarkId,
+		@ApiIgnore
+		@CurrentUser
+		UserPrincipal userPrincipal) {
+
+		bookService.removeBookMark(bookId, bookMarkId, userPrincipal.getId());
+
+		return ResponseEntity
+			.status(HttpStatus.NO_CONTENT)
+			.build();
 	}
 }

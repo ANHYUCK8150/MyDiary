@@ -3,6 +3,7 @@ package com.diary.book.service;
 import org.springframework.data.domain.Pageable;
 
 import com.diary.book.dto.BookInfoDto;
+import com.diary.book.dto.BookMarkRequest;
 import com.diary.book.dto.BookPageRequest;
 import com.diary.book.dto.BookResponse;
 import com.diary.book.dto.BookReviewUploadRequest;
@@ -28,5 +29,9 @@ public interface BookService {
 	PageResponse<BookInfoDto> getBookInfo(String query, Pageable pageable);
 
 	Long setBookReview(BookReviewUploadRequest request, Long id);
+
+	Long setBookMarks(BookMarkRequest request, Long bookId, Long id);
+
+	void removeBookMark(Long bookId, Long bookMarkId, Long id);
 
 }
