@@ -148,7 +148,7 @@ public class BookController {
 	}
 
 	@ApiOperation(value = "책갈피 등록")
-	@PostMapping("/books/{bookId}/bookmarks")
+	@PostMapping("/books/{bookId}/marks")
 	public ResponseEntity<Long> setBookMarks(
 		@RequestBody
 		BookMarkRequest request,
@@ -162,7 +162,7 @@ public class BookController {
 	}
 
 	@ApiOperation(value = "책갈피 수정")
-	@PutMapping("/books/{bookId}/bookmarks")
+	@PutMapping("/books/{bookId}/marks")
 	public ResponseEntity<Long> updateBookMarks(
 		@RequestBody
 		BookMarkRequest request,
@@ -176,7 +176,7 @@ public class BookController {
 	}
 
 	@ApiOperation(value = "책갈피 삭제")
-	@PutMapping("/books/{bookId}/bookmarks/{bookMarkId}")
+	@PutMapping("/books/{bookId}/marks/{bookMarkId}")
 	public ResponseEntity<Long> deleteBookMarks(
 		@PathVariable("bookId")
 		Long bookId,
