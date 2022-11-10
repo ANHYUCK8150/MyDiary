@@ -48,7 +48,7 @@ const BookDetailPage = () => {
   };
 
   const bookMarkClick = () => {
-    navigate(`/book/mark`, { state: { data: book }, replace: true });
+    navigate(`/book/mark`, { state: { data: book, id: null }, replace: true });
   };
 
   //--------------header START--------------

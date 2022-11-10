@@ -202,6 +202,16 @@ const ReviewBox = styled.div`
     text-align: right;
     margin: 0.8rem 0 1.7rem 0;
   }
+
+  input {
+    width: 34rem;
+    padding: 1rem;
+    margin-right: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: ${({ theme }) => theme.colors.$white1};
+    background: ${({ theme }) => theme.colors.$black4};
+  }
 `;
 
 const SaveButton = styled.div`
