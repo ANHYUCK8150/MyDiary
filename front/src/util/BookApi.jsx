@@ -86,7 +86,7 @@ const setBookReview = async params => {
 
 const setBookMark = async params => {
   try {
-    const result = await apiAuthUtil.post(`api/v1/books/${params.bookId}/reviews`, params);
+    const result = await apiAuthUtil.post(`api/v1/books/${params.bookId}/marks`, params);
     const data = result.data;
     return data;
   } catch (error) {

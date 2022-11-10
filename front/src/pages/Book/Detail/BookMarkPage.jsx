@@ -42,11 +42,16 @@ const BookMarkPage = () => {
       bookId: book.id,
       title: title,
       content: content,
+      id: null,
     };
 
-    setBookMark(params).then(result => {
-      navigate(`/book/detail`, { state: { id: result }, replace: true });
-    });
+    setBookMark(params)
+      .then(result => {
+        navigate(`/book/detail`, { state: { id: book.id }, replace: true });
+      })
+      .catch(error => {
+        alert(error);
+      });
   };
 
   const { BookWrap, BookInfo, TitleBox, BookImageBox, ReviewBox, SaveButton } = style;
