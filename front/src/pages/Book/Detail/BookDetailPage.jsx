@@ -8,6 +8,11 @@ import noImg from '../../../assets/img/logo/postb_default.svg';
 import style from './BookDetailPage.style';
 import BookApi from '../../../util/BookApi';
 import MemberInfoPage from './MemberInfoPage';
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import './slide.css';
 
 const BookDetailPage = () => {
   const location = useLocation();
@@ -87,13 +92,30 @@ const BookDetailPage = () => {
             <BookCont>
               <h4>도서 설명</h4>
               <p>{book.bookInfo.description}</p>
+              <h4>도서 책갈피</h4>
+              {book.bookMark.length !== 0 ? (
+                <Swiper modules={[Pagination]} slidesPerView={1.1} pagination={{ clickable: true }}>
+                  {book.bookMark.map((item, idx) => {
+                    return (
+                      <SwiperSlide key={idx}>
+                        <BookReviewBox>
+                          <h2>{item.title}</h2>
+                          <textarea value={item.content} readOnly="readonly"></textarea>
+                        </BookReviewBox>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              ) : (
+                <NoItem>등록된 책갈피가 없습니다.</NoItem>
+              )}
               <h4>도서 리뷰</h4>
               {book.bookReview !== null ? (
                 <BookReviewBox>
                   {array.map(el => (
                     <ImStarFull key={el} className={clicked[el] && 'black'} size="20" />
                   ))}
-                  <textarea value={book.bookReview.content}></textarea>
+                  <textarea value={book.bookReview.content} readOnly="readonly"></textarea>
                 </BookReviewBox>
               ) : (
                 <NoItem>등록된 리뷰가 없습니다.</NoItem>

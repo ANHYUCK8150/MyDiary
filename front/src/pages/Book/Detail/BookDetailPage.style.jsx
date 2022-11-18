@@ -240,6 +240,12 @@ const BookReviewBox = styled.div`
     color: ${({ theme }) => theme.colors.$primaryBlueP};
   }
 
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.$white1};
+  }
+
   textarea {
     margin-top: 1rem;
     resize: none;
@@ -249,6 +255,7 @@ const BookReviewBox = styled.div`
     font-weight: 400;
     color: ${({ theme }) => theme.colors.$white1};
     background-color: ${({ theme }) => theme.colors.$black0};
+    white-space: pre;
 
     :hover {
       cursor: default;
