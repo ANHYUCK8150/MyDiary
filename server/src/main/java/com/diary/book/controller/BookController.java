@@ -176,7 +176,7 @@ public class BookController {
 	}
 
 	@ApiOperation(value = "책갈피 삭제")
-	@PutMapping("/books/{bookId}/marks/{bookMarkId}")
+	@DeleteMapping("/books/{bookId}/marks/{bookMarkId}")
 	public ResponseEntity<Long> deleteBookMarks(
 		@PathVariable("bookId")
 		Long bookId,
