@@ -94,5 +94,14 @@ const setBookMark = async params => {
   }
 };
 
-const BookApi = { ApiSearch, setBook, getBook, getBookList, getMemberBookList, setBookPage, deleteBook, setBookReview, setBookMark };
+const deleteBookMark = async (bookId, bookMarkId) => {
+  try {
+    const result = await apiAuthUtil.delete(`api/v1/books/${bookId}/marks/${bookMarkId}`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const BookApi = { ApiSearch, setBook, getBook, getBookList, getMemberBookList, setBookPage, deleteBook, deleteBookMark, setBookReview, setBookMark };
 export default BookApi;

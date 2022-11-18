@@ -29,7 +29,7 @@ const BookDetailPage = () => {
   const array = [0, 1, 2, 3, 4];
 
   //API
-  const { getBook, setBookPage, deleteBook } = BookApi;
+  const { getBook, setBookPage, deleteBook, deleteBookMark } = BookApi;
 
   //EVENT
   const pageUpdateClick = () => {
@@ -56,6 +56,17 @@ const BookDetailPage = () => {
     navigate(`/book/mark`, { state: { data: book, id: null }, replace: true });
   };
 
+  const bookMarkUpdateClick = id => {
+    navigate(`/book/mark`, { state: { data: book, id: id }, replace: true });
+  };
+
+  const bookMarkDeleteClick = id => {
+    deleteBookMark(bookId, id).then(() => {
+      alert('책갈피 삭제 완료!');
+      window.location.reload();
+    });
+  };
+
   //--------------header START--------------
   useEffect(() => {
     dispatch(setAllFalse());
@@ -75,7 +86,7 @@ const BookDetailPage = () => {
     return () => {};
   }, [dispatch, getBook, clicked, bookId]);
 
-  const { BookWrap, BookInfo, TitleBox, BookCont, BookImageBox, BookFooter, FooterBox, BookReviewBox, SettingBox, NoItem } = style;
+  const { BookWrap, BookInfo, TitleBox, BookCont, BookImageBox, BookFooter, FooterBox, BookMarkSettingBox, BookMarkBox, BookReviewBox, SettingBox, NoItem } = style;
   return (
     <BookWrap>
       {book && (
@@ -98,10 +109,20 @@ const BookDetailPage = () => {
                   {book.bookMark.map((item, idx) => {
                     return (
                       <SwiperSlide key={idx}>
-                        <BookReviewBox>
+                        <BookMarkBox key={idx}>
+                          {book.member.id === user.id && (
+                            <BookMarkSettingBox>
+                              <button className="blue" onClick={() => bookMarkUpdateClick(item.id)}>
+                                수정
+                              </button>
+                              <button className="red" onClick={() => bookMarkDeleteClick(item.id)}>
+                                삭제
+                              </button>
+                            </BookMarkSettingBox>
+                          )}
                           <h2>{item.title}</h2>
                           <textarea value={item.content} readOnly="readonly"></textarea>
-                        </BookReviewBox>
+                        </BookMarkBox>
                       </SwiperSlide>
                     );
                   })}

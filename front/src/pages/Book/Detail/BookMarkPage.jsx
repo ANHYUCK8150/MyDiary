@@ -9,15 +9,14 @@ const BookMarkPage = () => {
   const location = useLocation();
   const book = location.state.data;
   const id = location.state.id;
+  const bookMarkInfo = id && book.bookMark.length > 0 ? book.bookMark.filter(item => item.id === id)[0] : null;
   const navigate = useNavigate();
 
   //API
   const { setBookMark } = BookApi;
-
-  const reviewId = book.bookReview !== null ? book.bookReview.id : null;
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState(book.bookReview !== null ? book.bookReview.content : '');
-  const [textCount, setTextCount] = useState(book.bookReview !== null ? book.bookReview.content.length : 0);
+  const [title, setTitle] = useState(bookMarkInfo !== null ? bookMarkInfo.title : '');
+  const [content, setContent] = useState(bookMarkInfo !== null ? bookMarkInfo.content : '');
+  const [textCount, setTextCount] = useState(bookMarkInfo !== null ? bookMarkInfo.content.length : 0);
 
   //EVENT
   const onChangeContent = e => {
@@ -42,7 +41,7 @@ const BookMarkPage = () => {
       bookId: book.id,
       title: title,
       content: content,
-      id: null,
+      id: id,
     };
 
     setBookMark(params)

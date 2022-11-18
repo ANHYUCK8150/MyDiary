@@ -228,7 +228,31 @@ const SaveButton = styled.div`
   color: ${({ theme }) => theme.colors.$whiteLine1};
 `;
 
-const BookReviewBox = styled.div`
+const BookMarkSettingBox = styled.div`
+  position: absolute;
+  right: 1rem;
+  button {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.$white1};
+    padding: 0.4rem;
+    margin-left: 0.5rem;
+
+    &.red {
+      background: ${({ theme }) => theme.colors.$primaryDeepOrageP};
+    }
+    &.blue {
+      background: ${({ theme }) => theme.colors.$primaryBlueP};
+    }
+  }
+`;
+
+const BookMarkBox = styled.div`
+  h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: ${({ theme }) => theme.colors.$white1};
+  }
   margin-top: 1rem;
   padding: 1rem;
   border: 1px solid ${({ theme }) => theme.colors.$black3Line};
@@ -240,22 +264,16 @@ const BookReviewBox = styled.div`
     color: ${({ theme }) => theme.colors.$primaryBlueP};
   }
 
-  h2 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: ${({ theme }) => theme.colors.$white1};
-  }
-
   textarea {
     margin-top: 1rem;
     resize: none;
-    width: 32rem;
+    width: 29rem;
     height: 8rem;
     font-size: 1.18rem;
     font-weight: 400;
     color: ${({ theme }) => theme.colors.$white1};
     background-color: ${({ theme }) => theme.colors.$black0};
-    white-space: pre;
+    white-space: pre-line;
 
     :hover {
       cursor: default;
@@ -278,6 +296,68 @@ const BookReviewBox = styled.div`
   }
 `;
 
-const style = { BookWrap, BookInfo, TitleBox, RatingBox, BookReviewBox, SaveButton, ReviewBox, BookImageBox, BookCont, MemberWrap, MemberInfo, BookFooter, FooterBox, NoItem, SettingBox };
+const BookReviewBox = styled.div`
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.$black3Line};
+  border-radius: 2rem;
+  & svg {
+    color: ${({ theme }) => theme.colors.$white3};
+  }
+  .black {
+    color: ${({ theme }) => theme.colors.$primaryBlueP};
+  }
+
+  textarea {
+    margin-top: 1rem;
+    resize: none;
+    width: 32rem;
+    height: 8rem;
+    font-size: 1.18rem;
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.$white1};
+    background-color: ${({ theme }) => theme.colors.$black0};
+    white-space: pre-line;
+
+    :hover {
+      cursor: default;
+    }
+    :focus {
+      outline: none;
+    }
+    ::-webkit-scrollbar {
+      width: 0.2rem;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: ${({ theme }) => theme.colors.$black4};
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background-color: ${({ theme }) => theme.colors.$white1};
+      border-radius: 10px;
+      box-shadow: inset 0px 0px 5px white;
+    }
+  }
+`;
+
+const style = {
+  BookWrap,
+  BookInfo,
+  TitleBox,
+  RatingBox,
+  BookReviewBox,
+  BookMarkSettingBox,
+  BookMarkBox,
+  SaveButton,
+  ReviewBox,
+  BookImageBox,
+  BookCont,
+  MemberWrap,
+  MemberInfo,
+  BookFooter,
+  FooterBox,
+  NoItem,
+  SettingBox,
+};
 
 export default style;
