@@ -13,6 +13,7 @@ build/
 .settings
 .springBeans
 .sts4-cache
+*.yml
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
@@ -35,3 +36,20 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### macOS template
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Compliled files
+/target/
+**/target
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Querydsl
+/src/main/generated/
