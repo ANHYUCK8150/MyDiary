@@ -1,0 +1,30 @@
+#SERVER
+server:
+  port: 8099
+  error:
+    include-exception: true
+    include-stacktrace: ALWAYS
+    whitelabel:
+      enabled: FALSE
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/diary?useSSL=false&serverTimezone=Asia/Seoul&useLegacyDatetimeCode=false&allowPublicKeyRetrieval=true
+    username: root
+    password: QKRzktm12@
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+#Mybatis
+mybatis:
+  mapper-locations:
+  - sqlMap/**.xml
+  configuration:
+    map-underscore-to-camel-case: true
